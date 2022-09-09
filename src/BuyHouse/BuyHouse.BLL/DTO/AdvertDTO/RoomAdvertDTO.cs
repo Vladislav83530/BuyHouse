@@ -1,14 +1,17 @@
-﻿using BuyHouse.DAL.Entities.ApplicationUserEntities;
-using BuyHouse.DAL.Entities.HelperEnum;
-using System.ComponentModel.DataAnnotations;
+﻿using BuyHouse.DAL.Entities.HelperEnum;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace BuyHouse.DAL.Entities.AdvertEntities
+namespace BuyHouse.BLL.DTO.AdvertDTO
 {
-    public class RoomAdvert
+    public class RoomAdvertDTO
     {
         public int Id { get; set; }
-        public RealtyMainInfo? MainInfo { get; set; }
-        public ICollection<RealtyPhoto>? Photos { get; set; }
+        public RealtyMainInfoDTO? MainInfo { get; set; }
+        public ICollection<RealtyPhotoDTO>? Photos { get; set; }
 
         /*Main room parameters*/
         public string? Type { get; set; }
@@ -17,7 +20,7 @@ namespace BuyHouse.DAL.Entities.AdvertEntities
         public double? LivingArea { get; set; }
         public int? Floor { get; set; }
         public Heating? Heating { get; set; }
-        [RegularExpression(@"[1-9]\d{1}[0-9]\d{10-12}")]
+        //[RegularExpression(@"[1-9]\d{1}[0-9]\d{10-12}")]
         public string? RegistrationNumber { get; set; }
 
         /*Advert properties*/
@@ -30,6 +33,5 @@ namespace BuyHouse.DAL.Entities.AdvertEntities
         public int? LikeCount { get; set; }
 
         public string UserID { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
     }
 }

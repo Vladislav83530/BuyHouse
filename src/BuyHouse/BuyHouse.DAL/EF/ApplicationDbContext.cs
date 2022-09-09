@@ -53,6 +53,25 @@ namespace BuyHouse.DAL.EF
                     y.Property<int>("Id");
                     y.HasKey("Id");
                 });
+
+            builder.Entity<ApplicationUser>()
+               .HasMany<FlatAdvert>(c => c.FlatAdverts)
+               .WithOne(e => e.ApplicationUser)
+               .HasForeignKey(c => c.UserID);
+
+            builder.Entity<ApplicationUser>()
+                .HasMany<HouseAdvert>(c => c.HouseAdverts)
+                .WithOne(e => e.ApplicationUser)
+                .HasForeignKey(c => c.UserID);
+
+            builder.Entity<ApplicationUser>()
+                .HasMany<RoomAdvert>(c => c.RoomAdverts)
+                .WithOne(e => e.ApplicationUser)
+                .HasForeignKey(c => c.UserID);
+
+            builder.Entity<ApplicationUser>().HasData(
+                new ApplicationUser { Id = "0f8fad5b-d9cb-469f-a165-70867728950e", UserName="Tom",UserSurname="Petrenko", 
+                    Region="Lviv region", City="Lviv", Email="tom.petrenko@gmail.com" });
         }
     }
 }

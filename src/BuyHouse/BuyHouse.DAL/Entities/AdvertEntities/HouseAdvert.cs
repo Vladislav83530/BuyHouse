@@ -1,4 +1,5 @@
 ﻿using BuyHouse.DAL.Entities.ApplicationUserEntities;
+using BuyHouse.DAL.Entities.HelperEnum;
 using System.ComponentModel.DataAnnotations;
 
 namespace BuyHouse.DAL.Entities.AdvertEntities

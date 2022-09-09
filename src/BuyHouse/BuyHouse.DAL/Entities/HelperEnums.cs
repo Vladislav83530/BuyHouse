@@ -1,7 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 
-namespace BuyHouse.DAL.Entities
+namespace BuyHouse.DAL.Entities.HelperEnum
 {
     public enum Currency
     {
