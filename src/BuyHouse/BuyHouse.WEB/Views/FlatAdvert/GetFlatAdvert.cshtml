@@ -1,6 +1,8 @@
 ﻿@model BuyHouse.BLL.DTO.AdvertDTO.FlatAdvertDTO
 @*Test View*@
 	<p>ID: @Model.Id</p>
+	
+	<p>ID: @Model.UserID</p>
 	<p>Total area: @Model.TotalArea</p>
 	<p>Description: @Model.Description</p>
 	<a asp-action="DeleteFlatAdvert" asp-controller="FlatAdvert" asp-route-flatAdvertId="@Model.Id">Delete from db</a>

@@ -1,0 +1,50 @@
+﻿@model BuyHouse.WEB.Models.AdvertModel.FlatAdvertModel
+@using BuyHouse.DAL.Entities.HelperEnum
+<form method="post" asp-action="CreateAdvertPost" asp-controller="FlatAdvert" >
+	@Html.LabelFor(m => m.MainInfo.Region)
+	@Html.TextBoxFor(m => m.MainInfo.Region, new { @class = "form-control" })
+	@Html.LabelFor(m => m.MainInfo.City)
+	@Html.TextBoxFor(m => m.MainInfo.City, new { @class = "form-control" })
+	@Html.LabelFor(m => m.MainInfo.Street)
+	@Html.TextBoxFor(m => m.MainInfo.Street, new { @class = "form-control" }) 
+	@Html.LabelFor(m => m.MainInfo.HouseNumber)
+	@Html.TextBoxFor(m => m.MainInfo.HouseNumber, new { @class = "form-control" }) 
+	@Html.LabelFor(m => m.MainInfo.FlatNumber)
+	@Html.TextBoxFor(m => m.MainInfo.FlatNumber, new { @class = "form-control", @type="number" })
+	@Html.LabelFor(m => m.MainInfo.RegistrationDate)
+	@Html.TextBoxFor(m => m.MainInfo.RegistrationDate, new { @class = "form-control", @type="date" })
+	@Html.LabelFor(m => m.Description)
+	@Html.TextAreaFor(m => m.Description, new { @class = "form-control" }) 
+	@Html.LabelFor(m => m.Type)
+	@Html.RadioButtonFor(m => m.Type,"Первинне житло")
+	@Html.RadioButtonFor(m => m.Type,"Вторинне житло")
+	@Html.LabelFor(m => m.Rooms)
+	@Html.TextBoxFor(m => m.Rooms, new { @class = "form-control", @type="number" }) 
+	@Html.DropDownListFor(m => m.TypeOfWalls, 
+            new SelectList(Enum.GetValues(typeof(TypeOfWalls))), 
+            "Тип стін")
+	@Html.LabelFor(m => m.TotalArea)
+	@Html.TextBoxFor(m => m.TotalArea, new { @class = "form-control" })
+	@Html.LabelFor(m => m.LivingArea)
+	@Html.TextBoxFor(m => m.LivingArea, new { @class = "form-control" })
+	@Html.LabelFor(m => m.Floor)
+	@Html.TextBoxFor(m => m.Floor, new { @class = "form-control", @type="number" }) 
+	@Html.LabelFor(m => m.Heating)
+	@Html.RadioButtonFor(m => m.Heating,"Централізоване")
+	@Html.RadioButtonFor(m => m.Heating,"Індивідуальне")
+	@Html.RadioButtonFor(m => m.Heating,"Комбіноване")
+	@Html.RadioButtonFor(m => m.Heating,"Без опалення")
+	@Html.LabelFor(m => m.YearBuilt)
+	@Html.TextBoxFor(m => m.YearBuilt, new { @class = "form-control", @type="date" }) 
+	@Html.LabelFor(m => m.RegistrationNumber)
+	@Html.TextBoxFor(m => m.RegistrationNumber, new { @class = "form-control" }) 
+	@Html.LabelFor(m => m.Price)
+	@Html.TextBoxFor(m => m.Price, new { @class = "form-control", @type="number" })
+	@Html.DropDownListFor(m => m.TypeOfWalls, 
+            new SelectList(Enum.GetValues(typeof(Currency))), 
+            "Валюта")
+	@Html.LabelFor(m => m.TypePrice)
+	@Html.RadioButtonFor(m => m.TypePrice,"за кв. метр")
+	@Html.RadioButtonFor(m => m.TypePrice,"за об'єкт")
+	<button type="submit" class="btn btn-primary">Створити оголошення</button>
+</form>

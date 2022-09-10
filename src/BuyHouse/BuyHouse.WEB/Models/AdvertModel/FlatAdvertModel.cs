@@ -1,14 +1,12 @@
-﻿using BuyHouse.DAL.Entities.ApplicationUserEntities;
-using BuyHouse.DAL.Entities.HelperEnum;
-using System.ComponentModel.DataAnnotations;
+﻿using BuyHouse.DAL.Entities.HelperEnum;
 
-namespace BuyHouse.DAL.Entities.AdvertEntities
+namespace BuyHouse.WEB.Models.AdvertModel
 {
-    public class FlatAdvert
+    public class FlatAdvertModel
     {
         public int Id { get; set; }
-        public RealtyMainInfo? MainInfo { get; set; }
-        public ICollection<RealtyPhoto>? Photos { get; set; }
+        public RealtyMainInfoModel? MainInfo { get; set; }
+        public ICollection<RealtyPhotoModel>? Photos { get; set; }
 
         /*Main flat parameters*/
         public string? Description { get; set; }
@@ -19,21 +17,18 @@ namespace BuyHouse.DAL.Entities.AdvertEntities
         public double? LivingArea { get; set; }
         public int? Floor { get; set; }
         public string? Heating { get; set; }
-        [Range(1900, 2026)]
         public int? YearBuilt { get; set; }
-        [RegularExpression(@"[1-9]\d{1}[0-9]\d{10-12}")]
         public string? RegistrationNumber { get; set; }
 
         /*Advert properties*/
         public double? Price { get; set; }
-        public Currency Currency { get; set; }
+        public Currency? Currency { get; set; }
         public string? TypePrice { get; set; }
         public DateTime? CreationDate { get; set; }
 
         /*Info for statistic*/
         public int? LikeCount { get; set; }
 
-        public string UserID { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+        public string? UserID { get; set; }
     }
 }
