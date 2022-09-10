@@ -1,0 +1,27 @@
+﻿@model IEnumerable<BuyHouse.WEB.Models.AdvertModel.FlatAdvertModel>
+@*Test View*@
+<div class="container">
+@foreach(var item in Model){
+	<div class="row mt-5" style="border: 3px solid blue; padding: 10px;">
+		<div class="col-md-7">
+			<p>Регіон: @item.MainInfo.Region</p>
+			<p>Місто: @item.MainInfo.City</p>
+			<p>Житлова площа: @item.LivingArea</p><hr>
+			<p>Ціна: @item.Price @item.Currency</p>
+			<p>@item.TypePrice</p>
+			<hr>
+			<p>User Name: some name</p>
+			<p>User email: some email</p>
+			<p>User phone: some phone</p>
+			<a asp-action="GetFlatAdvert" asp-controller="FlatAdvert" asp-route-flatAdvertId="@item.Id">Details</a>
+		</div>
+		<div class="col-md-5">
+				@foreach(var photo in item.Photos)
+				{
+					<img src="@photo.Path" width="100" height="100">
+				}			
+		</div>
+	</div>
+	<br /><hr />
+}
+</div>

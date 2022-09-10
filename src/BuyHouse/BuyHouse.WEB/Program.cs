@@ -23,9 +23,13 @@ builder.Services.AddScoped<IRepository<RoomAdvert>, RoomAdvertRepository>();
 
 builder.Services.AddScoped<IAdvertService<FlatAdvertDTO, FlatAdvert>, FlatAdvertService>();
 builder.Services.AddScoped<IAdvertService<HouseAdvertDTO, HouseAdvert>, HouseAdvertService>();
+builder.Services.AddScoped<IAdvertService<RoomAdvertDTO, RoomAdvert>, RoomAdvertService>();
 
 builder.Services.AddScoped<IGeneralAdvertService<FlatAdvertDTO, FlatAdvert>, FlatAdvertService>();
 builder.Services.AddScoped<IGeneralAdvertService<HouseAdvertDTO, HouseAdvert>, HouseAdvertService>();
+builder.Services.AddScoped<IGeneralAdvertService<RoomAdvertDTO, RoomAdvert>, RoomAdvertService>();
+
+builder.Services.AddScoped<IPhotosService, PhotosService>();
 
 var app = builder.Build();
 

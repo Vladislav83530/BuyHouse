@@ -1,7 +1,8 @@
-﻿using BuyHouse.BLL.DTO;
+﻿using AutoMapper;
 using BuyHouse.BLL.DTO.AdvertDTO;
 using BuyHouse.BLL.Services.Abstract;
 using BuyHouse.DAL.Entities.AdvertEntities;
+using BuyHouse.WEB.Models.AdvertModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuyHouse.WEB.Controllers
@@ -9,58 +10,61 @@ namespace BuyHouse.WEB.Controllers
     public class FlatAdvertController : Controller
     {
         private readonly IAdvertService<FlatAdvertDTO, FlatAdvert> _flatAdvertService;
+        private readonly IMapper _mapper;
 
         public FlatAdvertController(IAdvertService<FlatAdvertDTO, FlatAdvert> flatAdvertService)
         {
             _flatAdvertService = flatAdvertService;
+            _mapper = new Mapper(AutoMapper_WEB.GetMapperConfiguration());
         }
 
-        //TODO: HttpPos | delete region | currentUserId change | Redirect to action
         [HttpGet]
-        public async Task<IActionResult> CreateAdvert(/*FlatAdvertDTO flatAdvert*/)
+        public IActionResult CreateAdvert() => View();
+
+        //TODO: currentUserId change | Redirect to action
+        [HttpPost]
+        public async Task<IActionResult> CreateAdvertPost(FlatAdvertModel flatAdvertModel, IFormFileCollection uploads)
         {
             #region Test Data
-            RealtyPhotoDTO photoDTO1 = new RealtyPhotoDTO() { Name = "room1", Path = "a/b/c/" };
-            RealtyPhotoDTO photoDTO2 = new RealtyPhotoDTO() { Name = "room2", Path = "a/b/d/" };
-            List<RealtyPhotoDTO> photos = new List<RealtyPhotoDTO>();
-            photos.Add(photoDTO1);
-            photos.Add(photoDTO2);
-            FlatAdvertDTO flatAdvert = new FlatAdvertDTO()
-            {
-                MainInfo = new RealtyMainInfoDTO()
-                {
-                    City = "Lviv",
-                    Region = "Lviv region",
-                    Street = "Some street",
-                    FlatNumber = 23,
-                    HouseNumber = "21/1",
-                    RegistrationDate = DateTime.Today
-                },
-                Photos = photos,
-                Description = "Some main description",
-                Type = DAL.Entities.HelperEnum.TypeOfRealty.Secondary,
-                Rooms = 4,
-                TypeOfWalls = "Some type of walls",
-                TotalArea = 200,
-                LivingArea = 180,
-                Floor = 7,
-                FeatureOfLayout = "Some features of layout",
-                Heating = DAL.Entities.HelperEnum.Heating.Centralized,
-                YearBuilt = 2021,
-                RegistrationNumber = "123476489312",
-                Price = 32121312,
-                Currency = DAL.Entities.HelperEnum.Currency.UAH,
-                TypePrice = DAL.Entities.HelperEnum.TypePrice.AllPrice,
-                LikeCount = 56
-            };
+            //RealtyPhotoDTO photoDTO1 = new RealtyPhotoDTO() { Name = "room1", Path = "a/b/c/" };
+            //RealtyPhotoDTO photoDTO2 = new RealtyPhotoDTO() { Name = "room2", Path = "a/b/d/" };
+            //List<RealtyPhotoDTO> photos = new List<RealtyPhotoDTO>();
+            //photos.Add(photoDTO1);
+            //photos.Add(photoDTO2);
+            //FlatAdvertDTO flatAdvert = new FlatAdvertDTO()
+            //{
+            //    MainInfo = new RealtyMainInfoDTO()
+            //    {
+            //        City = "Lviv",
+            //        Region = "Lviv region",
+            //        Street = "Some street",
+            //        FlatNumber = 23,
+            //        HouseNumber = "21/1",
+            //        RegistrationDate = DateTime.Today
+            //    },
+            //    Description = "Some main description",
+            //    Type = "Secondary",
+            //    Rooms = 4,
+            //    TypeOfWalls = DAL.Entities.HelperEnum.TypeOfWalls.Brick,
+            //    TotalArea = 200,
+            //    LivingArea = 180,
+            //    Floor = 7,
+            //    Heating = "централізоване",
+            //    YearBuilt = 2021,
+            //    RegistrationNumber = "123476489312",
+            //    Price = 32121312,
+            //    Currency = DAL.Entities.HelperEnum.Currency.UAH,
+            //    TypePrice = "за об'єкт",
+            //    LikeCount = 56
+            //};
             #endregion
 
             if (ModelState.IsValid)
             {
                 string? currentUserId = "0f8fad5b-d9cb-469f-a165-70867728950e";
                 try
-                {
-                    await _flatAdvertService.Create(flatAdvert, currentUserId);
+                {   FlatAdvertDTO flatAdvertDTO = _mapper.Map<FlatAdvertModel, FlatAdvertDTO>(flatAdvertModel);
+                    await _flatAdvertService.Create(flatAdvertDTO, uploads, currentUserId);
                     return RedirectToAction("Index", "Home");
                 }
                 catch (Exception ex)
@@ -71,12 +75,14 @@ namespace BuyHouse.WEB.Controllers
             return RedirectToAction("Error", "Home", new { exception = "Invalid flat advertising" });
         }
 
-        //TODO: add FlatAdvertModel and ViewModel
+        //TODO: add FlatAdvertModel and ViewModel      
         [HttpGet]
-        public async Task<IActionResult> GetFlatAdverts()
+        public async Task<IActionResult> Index()
         {
-            var flatAdverts = await _flatAdvertService.GetAll ();
-            return View(flatAdverts);
+            var flatAdvertDTOs = await _flatAdvertService.GetAll ();
+            List<FlatAdvertModel> flatAdvertModels = new List<FlatAdvertModel>();
+            flatAdvertModels = _mapper.Map<IEnumerable<FlatAdvertDTO>, List<FlatAdvertModel>>(flatAdvertDTOs);
+            return View(flatAdvertModels);
         }
 
         //TODO: change RedirectToAction
@@ -95,8 +101,18 @@ namespace BuyHouse.WEB.Controllers
         {
             if (flatAdvertId == null)
                 return RedirectToAction("Error", "Home");
-            var flatAdvertDTO = await _flatAdvertService.GetById(flatAdvertId);
-            return View(flatAdvertDTO);
+
+            try 
+            {
+                FlatAdvertModel flatAdvertModel = new FlatAdvertModel();
+                var flatAdvertDTO = await _flatAdvertService.GetById(flatAdvertId);
+                flatAdvertModel = _mapper.Map<FlatAdvertDTO, FlatAdvertModel>(flatAdvertDTO);
+                return View(flatAdvertModel);
+            }
+            catch(Exception ex)
+            {
+                return RedirectToAction("Error", "Home", new { exception = ex.Message });
+            }
         }
     }
 }

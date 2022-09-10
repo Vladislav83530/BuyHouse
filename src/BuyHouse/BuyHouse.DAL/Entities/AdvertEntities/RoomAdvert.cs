@@ -16,14 +16,14 @@ namespace BuyHouse.DAL.Entities.AdvertEntities
         public double? TotalArea { get; set; }
         public double? LivingArea { get; set; }
         public int? Floor { get; set; }
-        public Heating? Heating { get; set; }
-        [RegularExpression(@"[1-9]\d{1}[0-9]\d{10-12}")]
+        public string? Heating { get; set; }
+        //[RegularExpression(@"[1-9]\d{1}[0-9]\d{10-12}")]
         public string? RegistrationNumber { get; set; }
 
         /*Advert properties*/
         public double? Price { get; set; }
         public Currency Currency { get; set; }
-        public TypePrice TypePrice { get; set; }
+        public string TypePrice { get; set; }
         public DateTime? CreationDate { get; set; }
 
         /*Info for statistic*/

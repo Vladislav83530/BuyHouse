@@ -15,14 +15,14 @@ namespace BuyHouse.BLL.DTO.AdvertDTO
 
         /*Main flat parameters*/
         public string? Description { get; set; }
-        public TypeOfRealty? Type { get; set; }
+        public string? Type { get; set; }
         public int? Rooms { get; set; }
         public string? TypeOfWalls { get; set; }
         public double? TotalArea { get; set; }
         public double? LandArea { get; set; }
         public double? LivingArea { get; set; }
         public int? Floor { get; set; }
-        public Heating? Heating { get; set; }
+        public string? Heating { get; set; }
         //[Range(1900, 2026)]
         public int? YearBuilt { get; set; }
         //[RegularExpression(@"[1-9]\d{1}[0-9]\d{10-12}")]

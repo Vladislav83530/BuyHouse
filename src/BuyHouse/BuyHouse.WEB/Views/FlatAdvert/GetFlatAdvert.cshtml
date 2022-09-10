@@ -1,7 +1,36 @@
-﻿@model BuyHouse.BLL.DTO.AdvertDTO.FlatAdvertDTO
+﻿@model BuyHouse.WEB.Models.AdvertModel.FlatAdvertModel
 @*Test View*@
-	<p>ID: @Model.Id</p>
-	<p>Total area: @Model.TotalArea</p>
-	<p>Description: @Model.Description</p>
-	<a asp-action="DeleteFlatAdvert" asp-controller="FlatAdvert" asp-route-flatAdvertId="@Model.Id">Delete from db</a>
-	<br />
+<div class="container mt-3">
+	<div class="row">
+		<div class="col-md-7">
+			<p>Регіон: @Model.MainInfo.City</p>
+			<p>Місто: @Model.MainInfo.City</p>
+			<p>Вулиця: @Model.MainInfo.Street</p>
+			<p>Номер будинку: @Model.MainInfo.HouseNumber</p>
+			<p>Номер квартири: @Model.MainInfo.FlatNumber</p>
+			<p>Дата реєстрації: @Model.MainInfo.RegistrationDate</p>
+			<hr />
+			<br />
+			<p>Опис: @Model.Description</p>
+			<p>Тип нерухомості: @Model.Type</p>
+			<p>Кінати: @Model.Rooms</p>
+			<p>Тип стін: @Model.TypeOfWalls</p>
+			<p>Загальна площа: @Model.TotalArea</p>
+			<p>Житлова площа: @Model.LivingArea</p>
+			<p>Поверх: @Model.Floor</p>
+			<p>Опалення: @Model.Heating</p>
+			<p>Рік побудови: @Model.YearBuilt</p>
+			<hr />
+			<br />
+			<p>Ціна: @Model.Price @Model.Currency</p>
+			<p>За: @Model.TypePrice</p>
+			<p>Дата створення оголошення: @Model.CreationDate</p>
+		</div>
+		<div class="col-md-5">
+			@foreach (var photo in Model.Photos)
+			{
+				<img src="@photo.Path" width="250" height="250">
+			}
+		</div>
+	</div>
+</div>

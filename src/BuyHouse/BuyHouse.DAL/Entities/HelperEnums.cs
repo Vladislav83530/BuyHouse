@@ -13,28 +13,13 @@ namespace BuyHouse.DAL.Entities.HelperEnum
         UAH
     }
 
-    public enum TypePrice
+    public enum TypeOfWalls
     {
-        [Display(Name = "Price of an object")]
-        AllPrice,
-        [Display(Name = "Price per square meter")]
-        PricePerSquareMeter
-    }
-
-    public enum TypeOfRealty
-    {
-        [Display(Name = "Secondary housing")]
-        Secondary,
-        [Display(Name = "Primary housing")]
-        Primary
-    }
-
-    public enum Heating
-    {
-        Centralized,
-        Individual,
-        Combined,
-        [Display(Name = "Without heating")]
-        WithoutHeating
+        [Display(Name = "Цегла")]
+        Brick,
+        [Display(Name = "Каркасний")]
+        Frame,
+        [Display(Name = "Панель")]
+        Panel
     }
 }

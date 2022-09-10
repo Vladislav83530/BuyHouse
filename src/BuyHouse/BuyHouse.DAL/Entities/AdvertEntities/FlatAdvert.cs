@@ -12,23 +12,22 @@ namespace BuyHouse.DAL.Entities.AdvertEntities
 
         /*Main flat parameters*/
         public string? Description { get; set; }
-        public TypeOfRealty? Type { get; set; }
+        public string? Type { get; set; }
         public int? Rooms { get; set; }
-        public string? TypeOfWalls { get; set; }
+        public TypeOfWalls? TypeOfWalls { get; set; }
         public double? TotalArea { get; set; }
         public double? LivingArea { get; set; }
         public int? Floor { get; set; }
-        public string? FeatureOfLayout { get; set; }
-        public Heating? Heating { get; set; }
-        [Range(1900, 2026)]
+        public string? Heating { get; set; }
+        //[Range(1900, 2026)]
         public int? YearBuilt { get; set; }
-        [RegularExpression(@"[1-9]\d{1}[0-9]\d{10-12}")]
+        //[RegularExpression(@"[1-9]\d{1}[0-9]\d{10-12}")]
         public string? RegistrationNumber { get; set; }
 
         /*Advert properties*/
         public double? Price { get; set; }
         public Currency Currency { get; set; }
-        public TypePrice TypePrice { get; set; }
+        public string? TypePrice { get; set; }
         public DateTime? CreationDate { get; set; }
 
         /*Info for statistic*/

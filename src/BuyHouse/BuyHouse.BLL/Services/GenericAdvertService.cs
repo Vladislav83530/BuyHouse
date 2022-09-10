@@ -36,7 +36,7 @@ namespace BuyHouse.BLL.Services
         /// <param name="advertId"></param>
         /// <returns>Advertising DTO</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task<TAdvertDTO?> GetById(int? advertId)
+        public async Task<TAdvertDTO> GetById(int? advertId)
         {
             int? id = advertId;
             if (id == null)

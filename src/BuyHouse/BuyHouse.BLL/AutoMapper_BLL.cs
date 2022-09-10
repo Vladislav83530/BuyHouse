@@ -13,12 +13,19 @@ namespace BuyHouse.BLL
             return new MapperConfiguration(config =>
             {
                 config.CreateMap<FlatAdvertDTO, FlatAdvert>();
+                config.CreateMap<FlatAdvert, FlatAdvertDTO>();
 
                 config.CreateMap<HouseAdvertDTO, HouseAdvert>();
+                config.CreateMap<HouseAdvert, HouseAdvertDTO>();
+
+                config.CreateMap<RoomAdvertDTO, RoomAdvert>();
+                config.CreateMap<RoomAdvert, RoomAdvertDTO>();
 
                 config.CreateMap<RealtyMainInfoDTO, RealtyMainInfo>();
+                config.CreateMap<RealtyMainInfo, RealtyMainInfoDTO>();
 
                 config.CreateMap<RealtyPhotoDTO, RealtyPhoto>();
+                config.CreateMap<RealtyPhoto, RealtyPhotoDTO>();
 
                 config.CreateMap<T, K>();
                 config.CreateMap<K, T>();
