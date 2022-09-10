@@ -5,7 +5,7 @@
         where TAdvert : class
     {
         public Task<IEnumerable<TAdvertDTO>> GetAll();
-        public Task<TAdvertDTO?> GetById(int? advertId);
+        public Task<TAdvertDTO> GetById(int? advertId);
         public Task Delete(int? advertId);
     }
 }

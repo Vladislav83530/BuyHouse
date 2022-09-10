@@ -16,4 +16,9 @@
     <ProjectReference Include="..\BuyHouse.BLL\BuyHouse.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\ViewModels\" />
+    <Folder Include="wwwroot\Files\" />
+  </ItemGroup>
+
 </Project>

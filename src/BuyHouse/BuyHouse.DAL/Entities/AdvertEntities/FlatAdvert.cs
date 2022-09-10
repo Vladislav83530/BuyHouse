@@ -19,9 +19,9 @@ namespace BuyHouse.DAL.Entities.AdvertEntities
         public double? LivingArea { get; set; }
         public int? Floor { get; set; }
         public string? Heating { get; set; }
-        [Range(1900, 2026)]
+        //[Range(1900, 2026)]
         public int? YearBuilt { get; set; }
-        [RegularExpression(@"[1-9]\d{1}[0-9]\d{10-12}")]
+        //[RegularExpression(@"[1-9]\d{1}[0-9]\d{10-12}")]
         public string? RegistrationNumber { get; set; }
 
         /*Advert properties*/

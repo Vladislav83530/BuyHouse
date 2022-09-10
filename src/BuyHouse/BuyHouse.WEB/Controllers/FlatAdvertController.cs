@@ -21,9 +21,9 @@ namespace BuyHouse.WEB.Controllers
         [HttpGet]
         public IActionResult CreateAdvert() => View();
 
-        //TODO: HttpPos | delete region | currentUserId change | Redirect to action
+        //TODO: currentUserId change | Redirect to action
         [HttpPost]
-        public async Task<IActionResult> CreateAdvertPost(FlatAdvertModel flatAdvertModel)
+        public async Task<IActionResult> CreateAdvertPost(FlatAdvertModel flatAdvertModel, IFormFileCollection uploads)
         {
             #region Test Data
             //RealtyPhotoDTO photoDTO1 = new RealtyPhotoDTO() { Name = "room1", Path = "a/b/c/" };
@@ -64,7 +64,7 @@ namespace BuyHouse.WEB.Controllers
                 string? currentUserId = "0f8fad5b-d9cb-469f-a165-70867728950e";
                 try
                 {   FlatAdvertDTO flatAdvertDTO = _mapper.Map<FlatAdvertModel, FlatAdvertDTO>(flatAdvertModel);
-                    await _flatAdvertService.Create(flatAdvertDTO, currentUserId);
+                    await _flatAdvertService.Create(flatAdvertDTO, uploads, currentUserId);
                     return RedirectToAction("Index", "Home");
                 }
                 catch (Exception ex)
@@ -79,8 +79,10 @@ namespace BuyHouse.WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var flatAdverts = await _flatAdvertService.GetAll ();
-            return View( flatAdverts );
+            var flatAdvertDTOs = await _flatAdvertService.GetAll ();
+            List<FlatAdvertModel> flatAdvertModels = new List<FlatAdvertModel>();
+            flatAdvertModels = _mapper.Map<IEnumerable<FlatAdvertDTO>, List<FlatAdvertModel>>(flatAdvertDTOs);
+            return View(flatAdvertModels);
         }
 
         //TODO: change RedirectToAction
@@ -99,8 +101,18 @@ namespace BuyHouse.WEB.Controllers
         {
             if (flatAdvertId == null)
                 return RedirectToAction("Error", "Home");
-            var flatAdvertDTO = await _flatAdvertService.GetById(flatAdvertId);
-            return View(flatAdvertDTO);
+
+            try 
+            {
+                FlatAdvertModel flatAdvertModel = new FlatAdvertModel();
+                var flatAdvertDTO = await _flatAdvertService.GetById(flatAdvertId);
+                flatAdvertModel = _mapper.Map<FlatAdvertDTO, FlatAdvertModel>(flatAdvertDTO);
+                return View(flatAdvertModel);
+            }
+            catch(Exception ex)
+            {
+                return RedirectToAction("Error", "Home", new { exception = ex.Message });
+            }
         }
     }
 }
