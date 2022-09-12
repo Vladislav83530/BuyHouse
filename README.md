@@ -25,10 +25,12 @@
 <h4>--> View announcement</h4>
 User can view all information about house, flat, room etc. and information about seller (name, phone number, …)<br>
 User can add announcement to favourites<br>
+<h4>--> Serch advert
 User has opportunity to sort and filtration advert:
     <ul>
         <li>City</li>
         <li>Cost</li>
+        <li>Type</li>
         <li>Number of rooms</li>
         <li>Area etc.</li>
     </ul>
