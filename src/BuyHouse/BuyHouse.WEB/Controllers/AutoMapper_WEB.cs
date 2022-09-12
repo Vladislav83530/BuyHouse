@@ -15,8 +15,8 @@ namespace BuyHouse.WEB.Controllers
                 config.CreateMap<FlatAdvertDTO, FlatAdvertModel>();
                 config.CreateMap<FlatAdvertModel, FlatAdvertDTO>();
 
-                //config.CreateMap<HouseAdvertDTO, HouseAdvertModel>();
-                //config.CreateMap<HouseAdvertModel, HouseAdvertDTO>();
+                config.CreateMap<HouseAdvertDTO, HouseAdvertModel>();
+                config.CreateMap<HouseAdvertModel, HouseAdvertDTO>();
 
                 config.CreateMap<RealtyMainInfoDTO, RealtyMainInfoModel>();
                 config.CreateMap<RealtyMainInfoModel, RealtyMainInfoDTO>();

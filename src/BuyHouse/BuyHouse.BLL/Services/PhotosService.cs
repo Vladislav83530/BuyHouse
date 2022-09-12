@@ -12,6 +12,13 @@ namespace BuyHouse.BLL.Services
         {
             _hostingEnvironment = hostingEnviroment;
         }
+
+        /// <summary>
+        /// Add photos to DTO
+        /// </summary>
+        /// <param name="uploads"></param>
+        /// <param name="currentUserId"></param>
+        /// <returns>DTO with photos</returns>
         public async Task<List<RealtyPhotoDTO>> AddPhoto(IFormFileCollection uploads, string currentUserId)
         {
             List<RealtyPhotoDTO> realtyPhotoDTOs = new List<RealtyPhotoDTO>();

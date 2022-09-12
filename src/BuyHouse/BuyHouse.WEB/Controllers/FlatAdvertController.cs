@@ -64,8 +64,10 @@ namespace BuyHouse.WEB.Controllers
                 string? currentUserId = "0f8fad5b-d9cb-469f-a165-70867728950e";
                 try
                 {   FlatAdvertDTO flatAdvertDTO = _mapper.Map<FlatAdvertModel, FlatAdvertDTO>(flatAdvertModel);
-                    await _flatAdvertService.Create(flatAdvertDTO, uploads, currentUserId);
-                    return RedirectToAction("Index", "Home");
+                    FlatAdvertDTO flatAdvertDTO_ = await _flatAdvertService.Create(flatAdvertDTO, uploads, currentUserId);
+
+                    TempData["AlertMessage"] = "Your advert was created successfully! If you want to change the information in the advert, go to your profile!";
+                    return RedirectToAction("GetFlatAdvert", new { flatAdvertId = flatAdvertDTO_.Id });
                 }
                 catch (Exception ex)
                 {
@@ -95,7 +97,7 @@ namespace BuyHouse.WEB.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //TODO: change view 
+        //TODO: change view | add info about user 
         [HttpGet]
         public async Task<IActionResult> GetFlatAdvert(int? flatAdvertId)
         {

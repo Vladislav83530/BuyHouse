@@ -1,4 +1,4 @@
-﻿@model BuyHouse.WEB.Models.AdvertModel.FlatAdvertModel
+﻿@model BuyHouse.WEB.Models.AdvertModel.HouseAdvertModel
 @*Test View*@
 @if (TempData["AlertMessage"] != null)
 		{
@@ -16,7 +16,6 @@
 			<p>Місто: @Model.MainInfo.City</p>
 			<p>Вулиця: @Model.MainInfo.Street</p>
 			<p>Номер будинку: @Model.MainInfo.HouseNumber</p>
-			<p>Номер квартири: @Model.MainInfo.FlatNumber</p>
 			<p>Дата реєстрації: @Model.MainInfo.RegistrationDate</p>
 			<hr />
 			<br />
@@ -26,13 +25,13 @@
 			<p>Тип стін: @Model.TypeOfWalls</p>
 			<p>Загальна площа: @Model.TotalArea</p>
 			<p>Житлова площа: @Model.LivingArea</p>
+			<p>Площа ділянки: @Model.LandArea</p>
 			<p>Поверх: @Model.Floor</p>
 			<p>Опалення: @Model.Heating</p>
 			<p>Рік побудови: @Model.YearBuilt</p>
 			<hr />
 			<br />
 			<p>Ціна: @Model.Price @Model.Currency</p>
-			<p>За: @Model.TypePrice</p>
 			<p>Дата створення оголошення: @Model.CreationDate</p>
 		</div>
 		<div class="col-md-5">

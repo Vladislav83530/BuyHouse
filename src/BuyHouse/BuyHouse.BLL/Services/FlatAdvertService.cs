@@ -28,7 +28,7 @@ namespace BuyHouse.BLL.Services
         /// <param name="currentUserId"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task Create(FlatAdvertDTO flatAdvertDTO, IFormFileCollection uploads, string? currentUserId)
+        public async Task<FlatAdvertDTO> Create(FlatAdvertDTO flatAdvertDTO, IFormFileCollection uploads, string? currentUserId)
         {
             if (string.IsNullOrEmpty(currentUserId))
                 throw new ArgumentNullException(nameof(currentUserId));
@@ -43,6 +43,8 @@ namespace BuyHouse.BLL.Services
             flatAdvert.Photos = _mapper.Map<IEnumerable<RealtyPhotoDTO>, List<RealtyPhoto>>(photos);
 
             await _flatAdvertRepository.Create(flatAdvert);
+
+            return _mapper.Map<FlatAdvert, FlatAdvertDTO>(flatAdvert);
         }
     }
 }

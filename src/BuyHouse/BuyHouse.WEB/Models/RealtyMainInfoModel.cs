@@ -16,7 +16,6 @@ namespace BuyHouse.WEB.Models
         [Required(ErrorMessage = "Поле має бути заповненим")]
         [Display(Name = "Номер будинку")]
         public string? HouseNumber { get; set; }
-        [Required(ErrorMessage = "Поле має бути заповненим")]
         [Display(Name = "Номер квартири")]
         public int? FlatNumber { get; set; }
         [Required(ErrorMessage = "Поле має бути заповненим")]

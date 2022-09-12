@@ -6,6 +6,6 @@ namespace BuyHouse.BLL.Services.Abstract
         where TAdvertDTO : class 
         where TAdvert : class
     {
-        public Task Create(TAdvertDTO flatAdvert, IFormFileCollection uploads, string? currentUserId);
+        public Task<TAdvertDTO> Create(TAdvertDTO flatAdvert, IFormFileCollection uploads, string? currentUserId);
     }
 }

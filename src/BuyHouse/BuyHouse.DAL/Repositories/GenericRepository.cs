@@ -29,7 +29,7 @@ namespace BuyHouse.DAL.Repositories
         {
             var entity = await _dbSet.FindAsync(entityId);
             if (entity == null)
-                throw new ArgumentException();
+                throw new ArgumentException(nameof(entity));
             _dbSet.Remove(entity);
             await _context.SaveChangesAsync();
         }
