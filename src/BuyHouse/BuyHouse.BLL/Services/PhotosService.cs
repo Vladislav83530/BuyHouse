@@ -1,5 +1,5 @@
-﻿using BuyHouse.BLL.DTO;
-using BuyHouse.BLL.Services.Abstract;
+﻿using BuyHouse.BLL.Services.Abstract;
+using BuyHouse.DAL.Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
@@ -19,9 +19,9 @@ namespace BuyHouse.BLL.Services
         /// <param name="uploads"></param>
         /// <param name="currentUserId"></param>
         /// <returns>DTO with photos</returns>
-        public async Task<List<RealtyPhotoDTO>> AddPhoto(IFormFileCollection uploads, string currentUserId)
+        public async Task<IEnumerable<RealtyPhoto>> AddPhotoToAdvert(IFormFileCollection uploads, string currentUserId)
         {
-            List<RealtyPhotoDTO> realtyPhotoDTOs = new List<RealtyPhotoDTO>();
+            List<RealtyPhoto> realtyPhotos = new List<RealtyPhoto>();
             foreach (var uploadedFile in uploads)
             {
                 string path = "/Files/" + currentUserId + uploadedFile.FileName;
@@ -29,11 +29,11 @@ namespace BuyHouse.BLL.Services
                 {
                     await uploadedFile.CopyToAsync(fileStream);
                 }
-                RealtyPhotoDTO file = new RealtyPhotoDTO { Name = uploadedFile.FileName, Path = path };
+                RealtyPhoto file = new RealtyPhoto { Name = uploadedFile.FileName, Path = path };
 
-                realtyPhotoDTOs.Add(file);
+                realtyPhotos.Add(file);
             }
-            return realtyPhotoDTOs;
+            return realtyPhotos;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using BuyHouse.BLL.DTO;
-using BuyHouse.BLL.DTO.AdvertDTO;
+using BuyHouse.DAL.Entities;
+using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.WEB.Models;
 using BuyHouse.WEB.Models.AdvertModel;
 
@@ -12,17 +12,17 @@ namespace BuyHouse.WEB.Controllers
         {
             return new MapperConfiguration(config =>
             {
-                config.CreateMap<FlatAdvertDTO, FlatAdvertModel>();
-                config.CreateMap<FlatAdvertModel, FlatAdvertDTO>();
+                config.CreateMap<FlatAdvert, FlatAdvertShortModel>();
+                config.CreateMap<FlatAdvertShortModel, FlatAdvert>();
 
-                config.CreateMap<HouseAdvertDTO, HouseAdvertModel>();
-                config.CreateMap<HouseAdvertModel, HouseAdvertDTO>();
+                config.CreateMap<FlatAdvert, FlatAdvertModel>();
+                config.CreateMap<FlatAdvertModel, FlatAdvert>();
 
-                config.CreateMap<RealtyMainInfoDTO, RealtyMainInfoModel>();
-                config.CreateMap<RealtyMainInfoModel, RealtyMainInfoDTO>();
+                config.CreateMap<RealtyMainInfo, RealtyMainInfoModel>();
+                config.CreateMap<RealtyMainInfoModel, RealtyMainInfo>();
 
-                config.CreateMap<RealtyPhotoDTO, RealtyPhotoModel>();
-                config.CreateMap<RealtyPhotoModel, RealtyPhotoDTO>();
+                config.CreateMap<RealtyPhoto, RealtyPhotoModel>();
+                config.CreateMap<RealtyPhotoModel, RealtyPhoto>();
             });
         }
     }

@@ -1,11 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BuyHouse.BLL.Services.Abstract
 {
-    public interface IAdvertService<TAdvertDTO, TAdvert> : IGeneralAdvertService<TAdvertDTO, TAdvert> 
-        where TAdvertDTO : class 
-        where TAdvert : class
+    public interface IAdvertService<TAdvert>
     {
-        public Task<TAdvertDTO> Create(TAdvertDTO flatAdvert, IFormFileCollection uploads, string? currentUserId);
+        public Task<TAdvert> FindAdvertByIdAsync(int? id);
+        public Task<TAdvert> CreateAdvertAsync(TAdvert advert, IFormFileCollection uploads, string? currentUserId);
     }
 }

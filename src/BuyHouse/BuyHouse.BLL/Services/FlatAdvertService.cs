@@ -1,50 +1,40 @@
-﻿using AutoMapper;
-using BuyHouse.BLL.DTO;
-using BuyHouse.BLL.DTO.AdvertDTO;
+﻿using BuyHouse.BLL.DTO;
 using BuyHouse.BLL.Services.Abstract;
-using BuyHouse.DAL.Entities;
+using BuyHouse.DAL.EF;
 using BuyHouse.DAL.Entities.AdvertEntities;
-using BuyHouse.DAL.Repositories.Abstract;
-using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace BuyHouse.BLL.Services
 {
-    public class FlatAdvertService : GenericAdvertService<FlatAdvertDTO, FlatAdvert>, IAdvertService<FlatAdvertDTO, FlatAdvert>
+    public class FlatAdvertService : AdvertService<FlatAdvert>, IFlatAdvertService
     {
-        private readonly IRepository<FlatAdvert> _flatAdvertRepository;
-        private readonly IPhotosService _photosService;
-        private readonly IMapper _mapper;
-        public FlatAdvertService(IRepository<FlatAdvert> flatAdvertRepository, IPhotosService photosService) : base(flatAdvertRepository)
+        private readonly ApplicationDbContext _context;
+        public FlatAdvertService(ApplicationDbContext context, IPhotosService photoService) : base(context, photoService) 
         {
-            _flatAdvertRepository = flatAdvertRepository;
-            _mapper = new Mapper(AutoMapper_BLL<FlatAdvertDTO, FlatAdvert>.GetMapperConfiguration());
-            _photosService = photosService;
+            _context = context;         
         }
 
-        /// <summary>
-        /// Create flat advertising
-        /// </summary>
-        /// <param name="flatAdvert"></param>
-        /// <param name="currentUserId"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        public async Task<FlatAdvertDTO> Create(FlatAdvertDTO flatAdvertDTO, IFormFileCollection uploads, string? currentUserId)
+        //TODO: pagSize to ResponseDTO
+        public async Task<ResponseFlatAdvertDTO> GetFlatAdvertByParameters(string cityName, int page =1)
         {
-            if (string.IsNullOrEmpty(currentUserId))
-                throw new ArgumentNullException(nameof(currentUserId));
+            int pageSize = 3;
+            IQueryable<FlatAdvert> flatAdverts = _context.FlatAdverts.Include(x=>x.ApplicationUser);
 
-            FlatAdvert flatAdvert = new FlatAdvert();
-            List<RealtyPhotoDTO> photos = new List<RealtyPhotoDTO>();
-            photos = await _photosService.AddPhoto(uploads, currentUserId);
+            if (!String.IsNullOrEmpty(cityName))
+            {
+                flatAdverts = flatAdverts.Where(p => p.MainInfo.City.Contains(cityName));
+            }
 
-            flatAdvert = _mapper.Map<FlatAdvertDTO, FlatAdvert>(flatAdvertDTO);
-            flatAdvert.UserID = currentUserId;
-            flatAdvert.CreationDate = DateTime.Now;
-            flatAdvert.Photos = _mapper.Map<IEnumerable<RealtyPhotoDTO>, List<RealtyPhoto>>(photos);
+            var count = await flatAdverts.CountAsync();
+            var flatAdverts_ = await flatAdverts.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
-            await _flatAdvertRepository.Create(flatAdvert);
+            ResponseFlatAdvertDTO output = new ResponseFlatAdvertDTO()
+            {
+                Count = count,
+                FlatAdverts = flatAdverts_
+            };
 
-            return _mapper.Map<FlatAdvert, FlatAdvertDTO>(flatAdvert);
+            return output;
         }
     }
 }

@@ -1,10 +1,9 @@
-using BuyHouse.BLL.DTO.AdvertDTO;
+
 using BuyHouse.BLL.Services;
 using BuyHouse.BLL.Services.Abstract;
 using BuyHouse.DAL.EF;
 using BuyHouse.DAL.Entities.AdvertEntities;
-using BuyHouse.DAL.Repositories;
-using BuyHouse.DAL.Repositories.Abstract;
+
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,20 +15,22 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddAutoMapper(typeof(Program));
-
-builder.Services.AddScoped<IRepository<FlatAdvert>, FlatAdvertRepository>();
-builder.Services.AddScoped<IRepository<HouseAdvert>, HouseAdvertRepository>();
-builder.Services.AddScoped<IRepository<RoomAdvert>, RoomAdvertRepository>();
-
-builder.Services.AddScoped<IAdvertService<FlatAdvertDTO, FlatAdvert>, FlatAdvertService>();
-builder.Services.AddScoped<IAdvertService<HouseAdvertDTO, HouseAdvert>, HouseAdvertService>();
-builder.Services.AddScoped<IAdvertService<RoomAdvertDTO, RoomAdvert>, RoomAdvertService>();
-
-builder.Services.AddScoped<IGeneralAdvertService<FlatAdvertDTO, FlatAdvert>, FlatAdvertService>();
-builder.Services.AddScoped<IGeneralAdvertService<HouseAdvertDTO, HouseAdvert>, HouseAdvertService>();
-builder.Services.AddScoped<IGeneralAdvertService<RoomAdvertDTO, RoomAdvert>, RoomAdvertService>();
-
 builder.Services.AddScoped<IPhotosService, PhotosService>();
+//builder.Services.AddScoped(typeof(IAdvertService<>), typeof(AdvertService<>));
+//builder.Services.AddScoped<IRepository<FlatAdvert>, FlatAdvertRepository>();
+//builder.Services.AddScoped<IRepository<HouseAdvert>, HouseAdvertRepository>();
+//builder.Services.AddScoped<IRepository<RoomAdvert>, RoomAdvertRepository>();
+builder.Services.AddScoped<IFlatAdvertService, FlatAdvertService>();
+builder.Services.AddScoped<IAdvertService<FlatAdvert>, FlatAdvertService>();
+
+//builder.Services.AddScoped<IAdvertService<HouseAdvertDTO, HouseAdvert>, HouseAdvertService>();
+//builder.Services.AddScoped<IAdvertService<RoomAdvertDTO, RoomAdvert>, RoomAdvertService>();
+
+//builder.Services.AddScoped<IGeneralAdvertService<FlatAdvertDTO, FlatAdvert>, FlatAdvertService>();
+//builder.Services.AddScoped<IGeneralAdvertService<HouseAdvertDTO, HouseAdvert>, HouseAdvertService>();
+//builder.Services.AddScoped<IGeneralAdvertService<RoomAdvertDTO, RoomAdvert>, RoomAdvertService>();
+
+
 
 var app = builder.Build();
 

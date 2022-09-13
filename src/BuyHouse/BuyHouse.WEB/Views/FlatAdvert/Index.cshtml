@@ -1,12 +1,22 @@
-﻿@model IEnumerable<BuyHouse.WEB.Models.AdvertModel.FlatAdvertModel>
+﻿@model BuyHouse.WEB.Models.ViewModels.IndexViewModel
 @*Test View*@
 <div class="container">
-@foreach(var item in Model){
+<form method="post" asp-action="Index" asp-controller="FlatAdvert">
+    <div class="form-inline">
+        <label>Місто: </label>
+        <input name="nameCity" value="@Model.FilterViewModel.SelectedCityName" class="form-control" />     
+ 
+        <input type="submit" value="Фільтр" class="btn btn-outline-dark" />
+    </div>
+</form>
+@foreach(var item in Model.FlatAdverts){
 	<div class="row mt-5" style="border: 3px solid blue; padding: 10px;">
 		<div class="col-md-7">
 			<p>Регіон: @item.MainInfo.Region</p>
 			<p>Місто: @item.MainInfo.City</p>
-			<p>Житлова площа: @item.LivingArea</p><hr>
+			<p>Вулиця: @item.MainInfo.Street, @item.MainInfo.HouseNumber </p>
+			<p>Загальна площа: @item.TotalArea</p>
+			<p>Кількість кімнат: @item.Rooms</p><hr>
 			<p>Ціна: @item.Price @item.Currency</p>
 			<p>@item.TypePrice</p>
 			<hr>
@@ -23,5 +33,26 @@
 		</div>
 	</div>
 	<br /><hr />
+}
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index" asp-controller="FlatAdvert"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       asp-route-nameCity="@(Model.FilterViewModel.SelectedCityName)"
+       class="btn  btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index" asp-controller="FlatAdvert"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       asp-route-nameCity="@(Model.FilterViewModel.SelectedCityName)"
+       class="btn btn-outline-dark">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
 }
 </div>
