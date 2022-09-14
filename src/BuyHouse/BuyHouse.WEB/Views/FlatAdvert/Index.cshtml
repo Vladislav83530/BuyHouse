@@ -6,7 +6,37 @@
         <label>Місто: </label>
         <input name="nameCity" value="@Model.FilterViewModel.SelectedCityName" class="form-control" />     
  
-        <input type="submit" value="Фільтр" class="btn btn-outline-dark" />
+		<label class="control-label">Кількість кімнат: </label>
+        @Html.DropDownList("countRooms", Model.FilterViewModel.CountRooms,
+                    htmlAttributes: new { @class = "form-control" })
+
+		<label>Ціна: </label><br />
+		<label>Від: </label>
+        <input id="inputMinMaxValue" name="minPrice" class="form-control" value="@Model.FilterViewModel.SelectedMinPrice"  />  
+		<label>До: </label>
+        <input id="inputMinMaxValue" name="maxPrice" class="form-control" value="@Model.FilterViewModel.SelectedMaxPrice"  /> 
+		
+		<label class="control-label">Валюта: </label>
+        @Html.DropDownList("currency", Model.FilterViewModel.Currency,
+                    htmlAttributes: new { @class = "form-control" })
+
+		<label class="control-label">Ціна за: </label>
+        @Html.DropDownList("typeOfPrice", Model.FilterViewModel.TypeOfPrice,
+                    htmlAttributes: new { @class = "form-control" })
+
+		<label>Загальна площа: </label><br />
+		<label>Від: </label>
+        <input name="minTotalArea" id="inputMinMaxValue" value="@Model.FilterViewModel.SelectedMinTotalArea" class="form-control" />  
+		<label>До: </label>
+        <input name="maxTotalArea" id="inputMinMaxValue" value="@Model.FilterViewModel.SelectedMaxTotalArea" class="form-control" />
+
+		<label>Поверх: </label><br />
+		<label>Від: </label>
+        <input name="minFloor" id="inputMinMaxValue" value="@Model.FilterViewModel.SelecetedMinFloor" class="form-control" />  
+		<label>До: </label>
+        <input name="maxFloor" id="inputMinMaxValue" value="@Model.FilterViewModel.SelectedMaxFloor" class="form-control" />
+		
+		 <input type="submit" value="Фільтр" class="btn btn-success" />
     </div>
 </form>
 @foreach(var item in Model.FlatAdverts){
@@ -39,8 +69,16 @@
     <a asp-action="Index" asp-controller="FlatAdvert"
        asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
        asp-route-nameCity="@(Model.FilterViewModel.SelectedCityName)"
+	   asp-route-countRooms="@(Model.FilterViewModel.CountRooms)"
+	   asp-route-minPrice="@(Model.FilterViewModel.SelectedMinPrice)"
+	   asp-route-maxPrice="@(Model.FilterViewModel.SelectedMaxPrice)"
+	   asp-route-currency="@(Model.FilterViewModel.Currency)"
+	   asp-route-typeOfPrice="@(Model.FilterViewModel.TypeOfPrice)"
+	   asp-route-minTotalArea="@(Model.FilterViewModel.SelectedMinTotalArea)"
+	   asp-route-maxTotalArea="@(Model.FilterViewModel.SelectedMaxTotalArea)"
+	   asp-route-minFloor="@(Model.FilterViewModel.SelecetedMinFloor)"
+	   asp-route-minFloor="@(Model.FilterViewModel.SelectedMaxFloor)"
        class="btn  btn-outline-dark">
-        <i class="glyphicon glyphicon-chevron-left"></i>
         Назад
     </a>
 }
@@ -50,9 +88,25 @@
     <a asp-action="Index" asp-controller="FlatAdvert"
        asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
        asp-route-nameCity="@(Model.FilterViewModel.SelectedCityName)"
+	   asp-route-countRooms="@(Model.FilterViewModel.CountRooms)"
+	   asp-route-minPrice="@(Model.FilterViewModel.SelectedMinPrice)"
+	   asp-route-maxPrice="@(Model.FilterViewModel.SelectedMaxPrice)"
+	   asp-route-currency="@(Model.FilterViewModel.Currency)"
+	   asp-route-typeOfPrice="@(Model.FilterViewModel.TypeOfPrice)"
+	   asp-route-minTotalArea="@(Model.FilterViewModel.SelectedMinTotalArea)"
+	   asp-route-maxTotalArea="@(Model.FilterViewModel.SelectedMaxTotalArea)"
+	   asp-route-minFloor="@(Model.FilterViewModel.SelecetedMinFloor)"
+	   asp-route-minFloor="@(Model.FilterViewModel.SelectedMaxFloor)"
        class="btn btn-outline-dark">
         Вперед
-        <i class="glyphicon glyphicon-chevron-right"></i>
     </a>
 }
 </div>
+
+<script>
+		var input = document.querySelectorAll("#inputMinMaxValue");
+		for(const item of input) {
+			if(item.value=="0")
+				item.value = ""
+		}
+</script>

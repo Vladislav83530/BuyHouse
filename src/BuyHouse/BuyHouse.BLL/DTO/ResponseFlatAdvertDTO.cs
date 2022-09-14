@@ -11,5 +11,6 @@ namespace BuyHouse.BLL.DTO
     {
         public IEnumerable<FlatAdvert> FlatAdverts {get ;set;}
         public int Count { get; set; }
+        public int PageSize { get; set; }
     }
 }

@@ -16,21 +16,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<IPhotosService, PhotosService>();
-//builder.Services.AddScoped(typeof(IAdvertService<>), typeof(AdvertService<>));
-//builder.Services.AddScoped<IRepository<FlatAdvert>, FlatAdvertRepository>();
-//builder.Services.AddScoped<IRepository<HouseAdvert>, HouseAdvertRepository>();
-//builder.Services.AddScoped<IRepository<RoomAdvert>, RoomAdvertRepository>();
+
 builder.Services.AddScoped<IFlatAdvertService, FlatAdvertService>();
 builder.Services.AddScoped<IAdvertService<FlatAdvert>, FlatAdvertService>();
-
-//builder.Services.AddScoped<IAdvertService<HouseAdvertDTO, HouseAdvert>, HouseAdvertService>();
-//builder.Services.AddScoped<IAdvertService<RoomAdvertDTO, RoomAdvert>, RoomAdvertService>();
-
-//builder.Services.AddScoped<IGeneralAdvertService<FlatAdvertDTO, FlatAdvert>, FlatAdvertService>();
-//builder.Services.AddScoped<IGeneralAdvertService<HouseAdvertDTO, HouseAdvert>, HouseAdvertService>();
-//builder.Services.AddScoped<IGeneralAdvertService<RoomAdvertDTO, RoomAdvert>, RoomAdvertService>();
-
-
 
 var app = builder.Build();
 

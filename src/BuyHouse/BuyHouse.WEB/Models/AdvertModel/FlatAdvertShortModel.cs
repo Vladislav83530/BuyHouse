@@ -21,7 +21,7 @@ namespace BuyHouse.WEB.Models.AdvertModel
         /*Advert properties*/
         [Required(ErrorMessage = "Поле має бути заповненим")]
         [Display(Name = "Ціна")]
-        public double? Price { get; set; }
+        public int? Price { get; set; }
         [Required(ErrorMessage = "Поле має бути заповненим")]
         [Display(Name = "Валюта")]
         public Currency? Currency { get; set; }

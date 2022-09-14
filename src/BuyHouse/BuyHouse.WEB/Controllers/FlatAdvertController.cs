@@ -5,6 +5,7 @@ using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.WEB.Models.AdvertModel;
 using BuyHouse.WEB.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BuyHouse.WEB.Controllers
 {
@@ -50,18 +51,44 @@ namespace BuyHouse.WEB.Controllers
         //TODO: Exception
         [HttpGet]
         [HttpPost]
-        public async Task<IActionResult> Index(string nameCity, int page =1)
+        public async Task<IActionResult> Index(
+            string nameCity, 
+            string countRooms,
+            int minPrice, int maxPrice, 
+            string currency, 
+            string typeOfPrice,
+            double minTotalArea, double maxTotalArea, 
+            int minFloor, int maxFloor,
+            int page = 1)
         {
-            int pageSize = 3;
-            ResponseFlatAdvertDTO responseFlatAdvertDTO =  await _flatAdvertService.GetFlatAdvertByParameters(nameCity, page );
-            IEnumerable<FlatAdvert> flatAdverts = responseFlatAdvertDTO.FlatAdverts;
-            List<FlatAdvertShortModel> flatAdvertShortModels = _mapper.Map<IEnumerable<FlatAdvert>, List<FlatAdvertShortModel>>(flatAdverts);
+            ResponseFlatAdvertDTO responseFlatAdvertDTO =  await _flatAdvertService
+                .GetFlatAdvertByParameters(
+                nameCity, 
+                countRooms,
+                minPrice, maxPrice, currency, typeOfPrice,
+                minTotalArea, maxTotalArea,
+                minFloor, maxFloor,
+                page);
+
+            var flatAdvertShortModels = _mapper.Map<IEnumerable<FlatAdvert>, List<FlatAdvertShortModel>>(responseFlatAdvertDTO.FlatAdverts);
 
             IndexViewModel vm = new IndexViewModel()
             {
-                FlatAdverts = flatAdvertShortModels,
-                FilterViewModel = new FilterViewModel(nameCity),
-                PageViewModel = new PageViewModel(responseFlatAdvertDTO.Count, page, pageSize)
+                FlatAdverts = flatAdvertShortModels,            
+                FilterViewModel = new FilterViewModel 
+                {
+                    SelectedCityName = nameCity, 
+                    CountRooms = new SelectList(new List<string> {"Усі","1","2","3","4+"}),
+                    SelectedMaxPrice = maxPrice, 
+                    SelectedMinPrice =minPrice,
+                    Currency = new SelectList(new List<string> { "Будь-яка", "$", "€", "₴" }),
+                    TypeOfPrice = new SelectList(new List<string> {"за об'єкт", "за кв. метр"}),
+                    SelectedMinTotalArea = minTotalArea,
+                    SelectedMaxTotalArea = maxTotalArea,
+                    SelecetedMinFloor = minFloor,
+                    SelectedMaxFloor = maxFloor
+                },
+                PageViewModel = new PageViewModel(responseFlatAdvertDTO.Count, page, responseFlatAdvertDTO.PageSize)
             };
             return View(vm);
         }

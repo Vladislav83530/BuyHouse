@@ -10,6 +10,14 @@ namespace BuyHouse.BLL.Services.Abstract
 {
     public interface IFlatAdvertService
     {
-        public Task<ResponseFlatAdvertDTO> GetFlatAdvertByParameters(string cityName, int page);
+        public Task<ResponseFlatAdvertDTO> GetFlatAdvertByParameters(
+            string cityName,
+            string countRooms,
+            int minPrice, int maxPrice,
+            string currency, 
+            string typeOfPrice,
+            double minTotalArea, double maxTotalArea,
+            int minFloor, int maxFloor,
+            int page);
     }
 }

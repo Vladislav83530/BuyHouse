@@ -25,7 +25,7 @@ namespace BuyHouse.DAL.Entities.AdvertEntities
         public string? RegistrationNumber { get; set; }
 
         /*Advert properties*/
-        public double? Price { get; set; }
+        public int? Price { get; set; }
         public Currency Currency { get; set; }
         public string? TypePrice { get; set; }
         public DateTime? CreationDate { get; set; }
