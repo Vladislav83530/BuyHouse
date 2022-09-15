@@ -1,4 +1,6 @@
-﻿namespace BuyHouse.WEB.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BuyHouse.WEB.Models
 {
     public class RealtyPhotoModel
     {

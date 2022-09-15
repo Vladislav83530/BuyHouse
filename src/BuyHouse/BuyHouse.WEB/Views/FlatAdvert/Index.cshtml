@@ -20,9 +20,9 @@
         @Html.DropDownList("currency", Model.FilterViewModel.Currency,
                     htmlAttributes: new { @class = "form-control" })
 
-		<label class="control-label">Ціна за: </label>
+		<label  class="control-label">Ціна за: </label>
         @Html.DropDownList("typeOfPrice", Model.FilterViewModel.TypeOfPrice,
-                    htmlAttributes: new { @class = "form-control" })
+                    htmlAttributes: new { @class = "form-control", @id="typeOfPrice" })
 
 		<label>Загальна площа: </label><br />
 		<label>Від: </label>
@@ -46,9 +46,9 @@
 			<p>Місто: @item.MainInfo.City</p>
 			<p>Вулиця: @item.MainInfo.Street, @item.MainInfo.HouseNumber </p>
 			<p>Загальна площа: @item.TotalArea</p>
-			<p>Кількість кімнат: @item.Rooms</p><hr>
-			<p>Ціна: @item.Price @item.Currency</p>
-			<p>@item.TypePrice</p>
+			<p>Кількість кімнат: @item.Rooms</p><hr>	
+			<p id="totalPrice">Ціна: @item.TotalPrice @item.Currency за об'єкт</p>
+			<p id="pricePerSquareMeter">@item.PricePerSquareMeter @item.Currency за кв. метр</p>
 			<hr>
 			<p>User Name: some name</p>
 			<p>User email: some email</p>
@@ -109,4 +109,30 @@
 			if(item.value=="0")
 				item.value = ""
 		}
+
+
+		var typeOfPrice = document.querySelector("#typeOfPrice");
+		var totalPrice = document.querySelectorAll("#totalPrice");
+        var pricePerSquareMeter = document.querySelectorAll("#pricePerSquareMeter");
+		if (typeOfPrice.value == "за об'єкт") {
+            for (const item of totalPrice) {
+                item.style.fontSize = "35px";
+                
+            }
+		    for (const item of pricePerSquareMeter) {
+                item.style.fontSize = "15px";
+                
+            }
+		}
+
+        if(typeOfPrice.value == "за кв. метр"){
+            for (const item of totalPrice) {
+                item.style.fontSize = "15px";
+                
+            }
+		    for (const item of pricePerSquareMeter) {
+                item.style.fontSize = "35px";
+                
+            }
+        }
 </script>

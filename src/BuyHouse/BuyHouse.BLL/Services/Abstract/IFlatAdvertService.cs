@@ -14,10 +14,11 @@ namespace BuyHouse.BLL.Services.Abstract
             string cityName,
             string countRooms,
             int minPrice, int maxPrice,
-            string currency, 
-            string typeOfPrice,
+            string currency, string typeOfPrice,
             double minTotalArea, double maxTotalArea,
             int minFloor, int maxFloor,
             int page);
+
+        public Task<IEnumerable<FlatAdvert>> GetMostLikedFlatAdvert();
     }
 }

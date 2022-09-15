@@ -89,9 +89,9 @@
 
 			<div class="row">
 				<div class="col-md-10">
-					@Html.LabelFor(m => m.Price)
-					@Html.TextBoxFor(m => m.Price, new { @class = "form-control", @type="number", required="true" })
-					@Html.ValidationMessageFor(m => m.Price)
+					@Html.LabelFor(m => m.TotalPrice)
+					@Html.TextBoxFor(m => m.TotalPrice, new { @class = "form-control", @type="number", required="true" })
+					@Html.ValidationMessageFor(m => m.TotalPrice)
 				</div>
 				<div class="col-md-2 mt-4">
 					@Html.DropDownListFor(m => m.Currency,

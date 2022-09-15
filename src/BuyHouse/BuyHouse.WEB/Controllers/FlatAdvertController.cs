@@ -15,11 +15,11 @@ namespace BuyHouse.WEB.Controllers
         private readonly IFlatAdvertService _flatAdvertService;
         private readonly IMapper _mapper;
 
-        public FlatAdvertController(IAdvertService<FlatAdvert> advertService, IFlatAdvertService flatAdertService)
+        public FlatAdvertController(IAdvertService<FlatAdvert> advertService, IFlatAdvertService flatAdertService, IMapper mapper)
         {
             _advertService = advertService;
             _flatAdvertService = flatAdertService;
-            _mapper = new Mapper(AutoMapper_WEB.GetMapperConfiguration());
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -66,7 +66,7 @@ namespace BuyHouse.WEB.Controllers
                 nameCity, 
                 countRooms,
                 minPrice, maxPrice, currency, typeOfPrice,
-                minTotalArea, maxTotalArea,
+                minTotalArea, maxTotalArea, 
                 minFloor, maxFloor,
                 page);
 

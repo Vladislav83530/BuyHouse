@@ -41,11 +41,18 @@ namespace BuyHouse.BLL.Services
             if (advert != null)
             {
                 if (advert is FlatAdvert)
-                {
+                {            
                     FlatAdvert flatAdvert = (advert as FlatAdvert);
                     flatAdvert.UserID = currentUserId;
                     flatAdvert.CreationDate = DateTime.Now;
-                    flatAdvert.Photos = (ICollection<RealtyPhoto>)photos;
+                    flatAdvert.Photos =(ICollection<RealtyPhoto>)photos;
+                    if(flatAdvert.TypePrice == "за об'єкт")
+                        flatAdvert.PricePerSquareMeter = (int)(flatAdvert.TotalPrice / flatAdvert.TotalArea);
+                    else
+                    {
+                        flatAdvert.PricePerSquareMeter = flatAdvert.TotalPrice;
+                        flatAdvert.TotalPrice = (int)(flatAdvert.TotalPrice * flatAdvert.TotalArea);
+                    }
                 }
                 if (advert is HouseAdvert)
                 {
@@ -53,6 +60,13 @@ namespace BuyHouse.BLL.Services
                     houseAdvert.UserID = currentUserId;
                     houseAdvert.CreationDate = DateTime.Now;
                     houseAdvert.Photos = (ICollection<RealtyPhoto>)photos;
+                    if (houseAdvert.TypePrice == "за об'єкт")
+                        houseAdvert.PricePerSquareMeter = (int)(houseAdvert.TotalPrice / houseAdvert.TotalArea);
+                    else
+                    {
+                        houseAdvert.PricePerSquareMeter = houseAdvert.TotalPrice;
+                        houseAdvert.TotalPrice = (int)(houseAdvert.TotalPrice * houseAdvert.TotalArea);
+                    }
                 }
                 if (advert is RoomAdvert)
                 {
@@ -60,6 +74,13 @@ namespace BuyHouse.BLL.Services
                     roomAdvert.UserID = currentUserId;
                     roomAdvert.CreationDate = DateTime.Now;
                     roomAdvert.Photos = (ICollection<RealtyPhoto>)photos;
+                    if (roomAdvert.TypePrice == "за об'єкт")
+                        roomAdvert.PricePerSquareMeter = (int)(roomAdvert.TotalPrice / roomAdvert.TotalArea);
+                    else
+                    {
+                        roomAdvert.PricePerSquareMeter = roomAdvert.TotalPrice;
+                        roomAdvert.TotalPrice = (int)(roomAdvert.TotalPrice * roomAdvert.TotalArea);
+                    }
                 }
                 await _dbSet.AddAsync(advert);
                 await _context.SaveChangesAsync();

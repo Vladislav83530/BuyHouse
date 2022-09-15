@@ -15,13 +15,12 @@ namespace BuyHouse.BLL.Services
         }
 
         public async Task<ResponseFlatAdvertDTO> GetFlatAdvertByParameters(
-            string cityName, 
-            string countRooms, 
-            int minPrice, int maxPrice, 
-            string currency, 
-            string typeOfPrice, 
-            double minTotalArea, double maxTotalArea, 
-            int minFloor, int maxFloor, 
+            string cityName,
+            string countRooms,
+            int minPrice, int maxPrice,
+            string currency, string typeOfPrice,
+            double minTotalArea, double maxTotalArea,
+            int minFloor, int maxFloor,
             int page = 1)
         {
             int pageSize = 3;
@@ -53,14 +52,30 @@ namespace BuyHouse.BLL.Services
 
             if (maxPrice != null && minPrice != null)
             {
-                if (minPrice == 0 && maxPrice == 0)
-                    flatAdverts = flatAdverts.Where(p => p.Price != null);
-                if (minPrice != 0 && maxPrice == 0)
-                    flatAdverts = flatAdverts.Where(p => p.Price >= minPrice);
-                if (minPrice == 0 && maxPrice != 0)
-                    flatAdverts = flatAdverts.Where(p => p.Price <= maxPrice);
-                if (minPrice > 0 && maxPrice > 0)
-                    flatAdverts = flatAdverts.Where(p => p.Price >= minPrice && p.Price <= maxPrice);
+
+                if (typeOfPrice == "за об'єкт")
+                {
+                    if (minPrice == 0 && maxPrice == 0)
+                        flatAdverts = flatAdverts.Where(p => p.TotalPrice != null);
+                    if (minPrice != 0 && maxPrice == 0)
+                        flatAdverts = flatAdverts.Where(p => p.TotalPrice >= minPrice);
+                    if (minPrice == 0 && maxPrice != 0)
+                        flatAdverts = flatAdverts.Where(p => p.TotalPrice <= maxPrice);
+                    if (minPrice > 0 && maxPrice > 0)
+                        flatAdverts = flatAdverts.Where(p => p.TotalPrice >= minPrice && p.TotalPrice <= maxPrice);
+                }
+                else
+                {
+                    if (minPrice == 0 && maxPrice == 0)
+                        flatAdverts = flatAdverts.Where(p => p.PricePerSquareMeter != null);
+                    if (minPrice != 0 && maxPrice == 0)
+                        flatAdverts = flatAdverts.Where(p => p.PricePerSquareMeter >= minPrice);
+                    if (minPrice == 0 && maxPrice != 0)
+                        flatAdverts = flatAdverts.Where(p => p.PricePerSquareMeter <= maxPrice);
+                    if (minPrice > 0 && maxPrice > 0)
+                        flatAdverts = flatAdverts.Where(p => p.PricePerSquareMeter >= minPrice && p.PricePerSquareMeter <= maxPrice);
+
+                }
             }
 
 
@@ -83,29 +98,16 @@ namespace BuyHouse.BLL.Services
                 }
             }
 
-            if (!String.IsNullOrEmpty(typeOfPrice))
-            {
-                switch (typeOfPrice)
-                {
-                    case "за об'єкт":
-                        flatAdverts = flatAdverts.Where(p => p.TypePrice == "за об'єкт");
-                        break;
-                    case "за кв. метр":
-                        flatAdverts = flatAdverts.Where(p => p.TypePrice == "за кв. метр");
-                        break;
-                }
-            }
-
             if (maxTotalArea != null && minTotalArea != null)
             {
                 if (minTotalArea == 0 && maxTotalArea == 0)
                     flatAdverts = flatAdverts.Where(p => p.TotalArea != null);
                 if (minTotalArea != 0 && maxTotalArea == 0)
-                     flatAdverts = flatAdverts.Where(p => p.TotalArea >= minTotalArea);
+                    flatAdverts = flatAdverts.Where(p => p.TotalArea >= minTotalArea);
                 if (minTotalArea == 0 && maxTotalArea != 0)
                     flatAdverts = flatAdverts.Where(p => p.TotalArea <= maxTotalArea);
                 if (minTotalArea > 0 && maxTotalArea > 0)
-                    flatAdverts = flatAdverts.Where(p => p.TotalArea >= minTotalArea && p.Price <= maxTotalArea);
+                    flatAdverts = flatAdverts.Where(p => p.TotalArea >= minTotalArea && p.TotalArea <= maxTotalArea);
             }
 
             if (maxFloor != null && minFloor != null)
@@ -117,10 +119,10 @@ namespace BuyHouse.BLL.Services
                 if (minFloor == 0 && maxFloor != 0)
                     flatAdverts = flatAdverts.Where(p => p.Floor <= maxFloor);
                 if (minFloor > 0 && maxFloor > 0)
-                    flatAdverts = flatAdverts.Where(p => p.Floor >= minFloor && p.Price <= maxFloor);
+                    flatAdverts = flatAdverts.Where(p => p.Floor >= minFloor && p.Floor <= maxFloor);
             }
 
-            var count =  await flatAdverts.CountAsync();
+            var count = await flatAdverts.CountAsync();
             var flatAdverts_ = await flatAdverts.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
             ResponseFlatAdvertDTO output = new ResponseFlatAdvertDTO()
@@ -131,6 +133,12 @@ namespace BuyHouse.BLL.Services
             };
 
             return output;
+        }
+
+        public async Task<IEnumerable<FlatAdvert>> GetMostLikedFlatAdvert()
+        {
+            IEnumerable<FlatAdvert> flatAdverts = await _context.FlatAdverts.OrderBy(p => p.LikeCount).Take(3).ToListAsync();
+            return flatAdverts;
         }
     }
 }

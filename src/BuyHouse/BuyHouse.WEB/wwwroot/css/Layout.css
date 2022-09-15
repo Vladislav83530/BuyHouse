@@ -1,0 +1,20 @@
+﻿.menu {
+    background-color: #FFD61D;
+}
+
+.link {
+    font-size: 18px;
+    --bs-nav-link-hover-color: white;
+}
+
+.title {
+    font-size: 38px;
+    font-family: 'Kaushan Script', cursive;
+    font-weight: 900;
+}
+
+.dropdown_link {
+    background-color: #FFD61D;
+    --bs-dropdown-link-hover-bg: #FFD61D;
+    --bs-dropdown-link-active-bg: #FFD61D;
+}

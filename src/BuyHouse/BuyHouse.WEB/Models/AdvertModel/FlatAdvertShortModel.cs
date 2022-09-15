@@ -10,22 +10,23 @@ namespace BuyHouse.WEB.Models.AdvertModel
         public ICollection<RealtyPhotoModel>? Photos { get; set; }
 
         /*Main flat parameters*/
-        [Required(ErrorMessage = "Поле має бути заповненим")]
+        [Required]
         [Display(Name = "Кількість кімнат")]
         public int? Rooms { get; set; }
         public double? TotalArea { get; set; }
-        [Required(ErrorMessage = "Поле має бути заповненим")]
+        [Required]
         [Display(Name = "Житлова площа")]    
         public int? Floor { get; set; }
 
         /*Advert properties*/
-        [Required(ErrorMessage = "Поле має бути заповненим")]
+        [Required]
         [Display(Name = "Ціна")]
-        public int? Price { get; set; }
-        [Required(ErrorMessage = "Поле має бути заповненим")]
+        public int? TotalPrice { get; set; }
+        public int? PricePerSquareMeter { get; set; }
+        [Required]
         [Display(Name = "Валюта")]
         public Currency? Currency { get; set; }
-        [Required(ErrorMessage = "Поле має бути заповненим")]
+        [Required]
         [Display(Name = "Ціна за")]
         public string? TypePrice { get; set; }
 

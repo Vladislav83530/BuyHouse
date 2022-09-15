@@ -1,0 +1,198 @@
+﻿.intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 650px;
+    background: linear-gradient( rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0.6) ), url('../images/Intro_index.jpg') center;
+    background-size: cover;
+}
+
+.intro_inner {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 120px;
+}
+
+.title_intro {
+    font-size: 95px;
+    font-family: 'Kaushan Script', cursive;
+    color: #FBDF62;
+}
+
+.btn_intro {
+    margin-right: 25px;
+    width: 220px;
+    align-content: center;
+    height: 60px;
+    font-family: 'Kaushan Script', cursive;
+    font-size: 30px;
+    display: inline-block;
+    vertical-align: top;
+    --bs-btn-bg: #FFD61D;
+    --bs-btn-hover-border-color: #FFD61D;
+    --bs-btn-hover-bg: transparent;
+}
+
+.grow:hover {
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+}
+
+.grow {
+    transition: all 0.3s ease;
+}
+
+.title_block_advert {
+    font-family: 'Kaushan Script', cursive;
+    font-size: 55px;
+}
+
+.img_block_advert {
+    width: 410px;
+    height: 410px;
+    border-radius: 25px;
+}
+
+.info_block_advert {
+    padding-left: 15px;
+}
+
+.link_block_advert:hover,
+.link_block_advert:active,
+.link_block_advert {
+    text-decoration: none;
+    color: black;
+}
+
+@media only screen and (max-width: 1399px) {
+    .img_block_advert {
+        width: 360px;
+        height: 360px;
+    }
+}
+
+@media only screen and (max-width: 1199px) {
+    .img_block_advert {
+        width: 300px;
+        height: 300px;
+    }
+
+    .title_intro {
+        font-size: 75px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .img_block_advert {
+        width: 230px;
+        height: 230px;
+    }
+
+    .title_intro {
+        font-size: 62px;
+    }
+
+    .title_block_advert {
+        font-size: 42px;
+    }
+
+    h5 {
+        font-size: 18px;
+    }
+
+    .param_block_advert {
+        font-size: 14px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .img_block_advert {
+        width: 100%;
+        height: auto;
+    }
+
+    .row_block_advert {
+        text-align: center;
+    }
+
+    .info_block_advert {
+        text-align: left;
+    }
+
+    .title_intro {
+        font-size: 56px;
+    }
+
+    .title_block_advert {
+        font-size: 32px;
+    }
+
+    h5 {
+        font-size: 26px;
+    }
+
+    .param_block_advert {
+        font-size: 20px;
+    }
+
+    .grow {
+        margin-bottom: 12px;
+    }
+
+    .btn_intro {
+        width: 160px;
+        font-size: 25px;
+    }
+}
+
+@media only screen and (max-width: 580px) {
+    .btn_intro {
+        width: 120px;
+        font-size: 20px;
+        height: 50px;
+    }
+
+    .title_block_advert {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .grow {
+        text-align: center;
+    }
+
+    .btn_intro {
+        width: 160px;
+        margin-bottom: 15px;
+    }
+}
+
+@media only screen and (max-width: 467px) {
+    .title_block_advert {
+        font-size: 20px;
+    }
+
+    .param_block_advert {
+        font-size: 15px;
+    }
+
+    h5 {
+        font-size: 20px;
+    }
+
+    .title_intro {
+        font-size: 46px;
+    }
+
+    .btn_intro {
+        width: 200px;
+    }
+}
+
+@media only screen and (max-width: 380px) {
+    .title_block_advert {
+        font-size: 18px;
+    }
+}

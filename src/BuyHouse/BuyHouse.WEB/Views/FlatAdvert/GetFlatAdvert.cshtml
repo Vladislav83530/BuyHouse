@@ -30,7 +30,8 @@
 			<p>Рік побудови: @Model.FlatAdvert.YearBuilt</p>
 			<hr />
 			<br />
-			<p>Ціна: @Model.FlatAdvert.Price @Model.FlatAdvert.Currency</p>
+			<p>Ціна: @Model.FlatAdvert.TotalPrice @Model.FlatAdvert.Currency @Model.FlatAdvert.TypePrice</p>
+			<p>@Model.FlatAdvert.PricePerSquareMeter @Model.FlatAdvert.Currency @Model.FlatAdvert.TypePrice</p>
 			<p>За: @Model.FlatAdvert.TypePrice</p>
 			<p>Дата створення оголошення: @Model.FlatAdvert.CreationDate</p>
 		</div>

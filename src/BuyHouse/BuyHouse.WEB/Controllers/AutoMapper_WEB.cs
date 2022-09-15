@@ -6,24 +6,21 @@ using BuyHouse.WEB.Models.AdvertModel;
 
 namespace BuyHouse.WEB.Controllers
 {
-    public class AutoMapper_WEB
+    public class AutoMapper_WEB : Profile
     {
-        public static MapperConfiguration GetMapperConfiguration()
+        public AutoMapper_WEB()
         {
-            return new MapperConfiguration(config =>
-            {
-                config.CreateMap<FlatAdvert, FlatAdvertShortModel>();
-                config.CreateMap<FlatAdvertShortModel, FlatAdvert>();
+            CreateMap<FlatAdvert, FlatAdvertShortModel>();
+            CreateMap<FlatAdvertShortModel, FlatAdvert>();
 
-                config.CreateMap<FlatAdvert, FlatAdvertModel>();
-                config.CreateMap<FlatAdvertModel, FlatAdvert>();
+            CreateMap<FlatAdvert, FlatAdvertModel>();
+            CreateMap<FlatAdvertModel, FlatAdvert>();
 
-                config.CreateMap<RealtyMainInfo, RealtyMainInfoModel>();
-                config.CreateMap<RealtyMainInfoModel, RealtyMainInfo>();
+            CreateMap<RealtyMainInfo, RealtyMainInfoModel>();
+            CreateMap<RealtyMainInfoModel, RealtyMainInfo>();
 
-                config.CreateMap<RealtyPhoto, RealtyPhotoModel>();
-                config.CreateMap<RealtyPhotoModel, RealtyPhoto>();
-            });
+            CreateMap<RealtyPhoto, RealtyPhotoModel>();
+            CreateMap<RealtyPhotoModel, RealtyPhoto>();
         }
     }
 }
