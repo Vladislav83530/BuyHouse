@@ -28,7 +28,7 @@ namespace BuyHouse.WEB.Models.AdvertModel
         public Currency? Currency { get; set; }
         [Required]
         [Display(Name = "Ціна за")]
-        public string? TypePrice { get; set; }
+        public TypeOfPrice? TypePrice { get; set; }
 
         /*Info for statistic*/
         public int? LikeCount { get; set; }

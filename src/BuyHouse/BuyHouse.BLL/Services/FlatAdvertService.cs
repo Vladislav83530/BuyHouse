@@ -2,6 +2,7 @@
 using BuyHouse.BLL.Services.Abstract;
 using BuyHouse.DAL.EF;
 using BuyHouse.DAL.Entities.AdvertEntities;
+using BuyHouse.DAL.Entities.HelperEnum;
 using Microsoft.EntityFrameworkCore;
 
 namespace BuyHouse.BLL.Services
@@ -14,35 +15,29 @@ namespace BuyHouse.BLL.Services
             _context = context;
         }
 
-        public async Task<ResponseFlatAdvertDTO> GetFlatAdvertByParameters(
-            string cityName,
-            string countRooms,
-            int minPrice, int maxPrice,
-            string currency, string typeOfPrice,
-            double minTotalArea, double maxTotalArea,
-            int minFloor, int maxFloor,
-            int page = 1)
+        public async Task<ResponseFlatAdvertDTO> GetFlatAdvertByParameters( FlatAdvertFilter filter, int pageSize, int page = 1)
         {
-            int pageSize = 3;
+            if (pageSize == 0)
+                pageSize = 3;
 
             IQueryable<FlatAdvert> flatAdverts = _context.FlatAdverts;
 
-            if (!String.IsNullOrEmpty(cityName))
+            if (!String.IsNullOrEmpty(filter.CityName))
             {
-                flatAdverts = flatAdverts.Where(p => p.MainInfo.City.Contains(cityName));
+                flatAdverts = flatAdverts.Where(p => p.MainInfo.City.Contains(filter.CityName));
             }
 
-            if (countRooms != null)
+            if (filter.CountRooms != null)
             {
-                switch (countRooms)
+                switch (filter.CountRooms)
                 {
-                    case " ":
+                    case "All":
                         flatAdverts = flatAdverts.Where(p => p.Rooms >= 0);
                         break;
                     case "1":
                     case "2":
                     case "3":
-                        flatAdverts = flatAdverts.Where(p => p.Rooms.ToString() == countRooms);
+                        flatAdverts = flatAdverts.Where(p => p.Rooms.ToString() == filter.CountRooms);
                         break;
                     case "4+":
                         flatAdverts = flatAdverts.Where(p => p.Rooms >= 4);
@@ -50,76 +45,74 @@ namespace BuyHouse.BLL.Services
                 }
             }
 
-            if (maxPrice != null && minPrice != null)
+            if (filter.MaxPrice != null && filter.MinPrice != null)
             {
 
-                if (typeOfPrice == "за об'єкт")
+                if (filter.TypeOfPrice == TypeOfPrice.TotalPrice)
                 {
-                    if (minPrice == 0 && maxPrice == 0)
+                    if (filter.MinPrice == 0 && filter.MaxPrice == 0)
                         flatAdverts = flatAdverts.Where(p => p.TotalPrice != null);
-                    if (minPrice != 0 && maxPrice == 0)
-                        flatAdverts = flatAdverts.Where(p => p.TotalPrice >= minPrice);
-                    if (minPrice == 0 && maxPrice != 0)
-                        flatAdverts = flatAdverts.Where(p => p.TotalPrice <= maxPrice);
-                    if (minPrice > 0 && maxPrice > 0)
-                        flatAdverts = flatAdverts.Where(p => p.TotalPrice >= minPrice && p.TotalPrice <= maxPrice);
+                    if (filter.MinPrice != 0 && filter.MaxPrice == 0)
+                        flatAdverts = flatAdverts.Where(p => p.TotalPrice >= filter.MinPrice);
+                    if (filter.MinPrice == 0 && filter.MaxPrice != 0)
+                        flatAdverts = flatAdverts.Where(p => p.TotalPrice <= filter.MaxPrice);
+                    if (filter.MinPrice > 0 && filter.MaxPrice > 0)
+                        flatAdverts = flatAdverts.Where(p => p.TotalPrice >= filter.MinPrice && p.TotalPrice <= filter.MaxPrice);
                 }
                 else
                 {
-                    if (minPrice == 0 && maxPrice == 0)
+                    if (filter.MinPrice == 0 && filter.MaxPrice == 0)
                         flatAdverts = flatAdverts.Where(p => p.PricePerSquareMeter != null);
-                    if (minPrice != 0 && maxPrice == 0)
-                        flatAdverts = flatAdverts.Where(p => p.PricePerSquareMeter >= minPrice);
-                    if (minPrice == 0 && maxPrice != 0)
-                        flatAdverts = flatAdverts.Where(p => p.PricePerSquareMeter <= maxPrice);
-                    if (minPrice > 0 && maxPrice > 0)
-                        flatAdverts = flatAdverts.Where(p => p.PricePerSquareMeter >= minPrice && p.PricePerSquareMeter <= maxPrice);
-
+                    if (filter.MinPrice != 0 && filter.MaxPrice == 0)
+                        flatAdverts = flatAdverts.Where(p => p.PricePerSquareMeter >= filter.MinPrice);
+                    if (filter.MinPrice == 0 && filter.MaxPrice != 0)
+                        flatAdverts = flatAdverts.Where(p => p.PricePerSquareMeter <= filter.MaxPrice);
+                    if (filter.MinPrice > 0 && filter.MaxPrice > 0)
+                        flatAdverts = flatAdverts.Where(p => p.PricePerSquareMeter >= filter.MinPrice && p.PricePerSquareMeter <= filter.MaxPrice);
                 }
             }
 
-
-            if (!String.IsNullOrEmpty(currency))
+            if (filter.Currency!=null)
             {
-                switch (currency)
+                switch (filter.Currency.ToString())
                 {
-                    case "Будь-яка":
+                    case "Any":
                         flatAdverts = flatAdverts.Where(p => p.Currency != null);
                         break;
-                    case "$":
-                        flatAdverts = flatAdverts.Where(p => p.Currency == DAL.Entities.HelperEnum.Currency.USD);
+                    case "USD":
+                        flatAdverts = flatAdverts.Where(p => p.Currency == Currency.USD);
                         break;
-                    case "€":
-                        flatAdverts = flatAdverts.Where(p => p.Currency == DAL.Entities.HelperEnum.Currency.Euro);
+                    case "Euro":
+                        flatAdverts = flatAdverts.Where(p => p.Currency == Currency.Euro);
                         break;
-                    case "₴":
-                        flatAdverts = flatAdverts.Where(p => p.Currency == DAL.Entities.HelperEnum.Currency.UAH);
+                    case "UAH":
+                        flatAdverts = flatAdverts.Where(p => p.Currency == Currency.UAH);
                         break;
                 }
             }
 
-            if (maxTotalArea != null && minTotalArea != null)
+            if (filter.MaxTotalArea != null && filter.MinTotalArea != null)
             {
-                if (minTotalArea == 0 && maxTotalArea == 0)
+                if (filter.MinTotalArea == 0 && filter.MaxTotalArea == 0)
                     flatAdverts = flatAdverts.Where(p => p.TotalArea != null);
-                if (minTotalArea != 0 && maxTotalArea == 0)
-                    flatAdverts = flatAdverts.Where(p => p.TotalArea >= minTotalArea);
-                if (minTotalArea == 0 && maxTotalArea != 0)
-                    flatAdverts = flatAdverts.Where(p => p.TotalArea <= maxTotalArea);
-                if (minTotalArea > 0 && maxTotalArea > 0)
-                    flatAdverts = flatAdverts.Where(p => p.TotalArea >= minTotalArea && p.TotalArea <= maxTotalArea);
+                if (filter.MinTotalArea != 0 && filter.MaxTotalArea == 0)
+                    flatAdverts = flatAdverts.Where(p => p.TotalArea >= filter.MinTotalArea);
+                if (filter.MinTotalArea == 0 && filter.MaxTotalArea != 0)
+                    flatAdverts = flatAdverts.Where(p => p.TotalArea <= filter.MinTotalArea);
+                if (filter.MinTotalArea > 0 && filter.MaxTotalArea > 0)
+                    flatAdverts = flatAdverts.Where(p => p.TotalArea >= filter.MinTotalArea && p.TotalArea <= filter.MaxTotalArea);
             }
 
-            if (maxFloor != null && minFloor != null)
+            if (filter.MaxFloor != null && filter.MinFloor != null)
             {
-                if (minFloor == 0 && maxFloor == 0)
+                if (filter.MinFloor == 0 && filter.MaxFloor == 0)
                     flatAdverts = flatAdverts.Where(p => p.Floor != null);
-                if (minFloor != 0 && maxFloor == 0)
-                    flatAdverts = flatAdverts.Where(p => p.Floor >= minFloor);
-                if (minFloor == 0 && maxFloor != 0)
-                    flatAdverts = flatAdverts.Where(p => p.Floor <= maxFloor);
-                if (minFloor > 0 && maxFloor > 0)
-                    flatAdverts = flatAdverts.Where(p => p.Floor >= minFloor && p.Floor <= maxFloor);
+                if (filter.MinFloor != 0 && filter.MaxFloor == 0)
+                    flatAdverts = flatAdverts.Where(p => p.Floor >= filter.MinFloor);
+                if (filter.MinFloor == 0 && filter.MaxFloor != 0)
+                    flatAdverts = flatAdverts.Where(p => p.Floor <= filter.MinFloor);
+                if (filter.MinFloor > 0 && filter.MaxFloor > 0)
+                    flatAdverts = flatAdverts.Where(p => p.Floor >= filter.MinFloor && p.Floor <= filter.MaxFloor);
             }
 
             var count = await flatAdverts.CountAsync();

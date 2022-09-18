@@ -18,3 +18,11 @@
     --bs-dropdown-link-hover-bg: #FFD61D;
     --bs-dropdown-link-active-bg: #FFD61D;
 }
+
+.dropdown_lang{
+    width: 150px;
+    height: 35px;
+    border: white;
+    border-radius: 20px;
+    padding:0px 10px;
+}

@@ -31,7 +31,7 @@ namespace BuyHouse.DAL.Entities.AdvertEntities
         public int? TotalPrice { get; set; }
         public int? PricePerSquareMeter { get; set; }
         public Currency Currency { get; set; }
-        public string? TypePrice { get; set; }
+        public TypeOfPrice TypePrice { get; set; }
         public DateTime? CreationDate { get; set; }
 
         /*Info for statistic*/

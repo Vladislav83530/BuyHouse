@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+ 
+@inject IViewLocalizer Localizer
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -20,25 +23,27 @@
 				<div class="collapse navbar-collapse" id="navbarColor01">
 					<ul class="navbar-nav me-auto">
 						<li class="nav-item">
-							<a class="nav-link link" asp-controller="Home" asp-action="Index">Головна</a>
+							<a class="nav-link link" asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle link" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Купити</a>
+							<a class="nav-link dropdown-toggle link" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Buy"]</a>
 							<div class="dropdown-menu menu">
-								<a class="dropdown-item link dropdown_link" asp-action="Index" asp-controller="FlatAdvert">Квартири</a>
-								<a class="dropdown-item link dropdown_link" asp-action="Index" asp-controller="HouseAdvert">Будинки</a>
-								<a class="dropdown-item link dropdown_link" href="#">Кімнати</a>
+								<a class="dropdown-item link dropdown_link" asp-action="Index" asp-controller="FlatAdvert">@Localizer["Apartments"]</a>
+								<a class="dropdown-item link dropdown_link" asp-action="Index" asp-controller="HouseAdvert">@Localizer["Houses"]</a>
+								<a class="dropdown-item link dropdown_link" href="#">@Localizer["Rooms"]</a>
 							</div>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle link" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Продати</a>
+							<a class="nav-link dropdown-toggle link" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Sell"]</a>
 							<div class="dropdown-menu menu">
-								<a class="dropdown-item link dropdown_link" asp-action="CreateAdvert" asp-controller="FlatAdvert">Квартири</a>
-								<a class="dropdown-item link dropdown_link" asp-action="CreateAdvert" asp-controller="HouseAdvert">Будинки</a>
-								<a class="dropdown-item link dropdown_link" href="#">Кімнати</a>
+								<a class="dropdown-item link dropdown_link" asp-action="CreateAdvert" asp-controller="FlatAdvert">@Localizer["Apartments"]</a>
+								<a class="dropdown-item link dropdown_link" asp-action="CreateAdvert" asp-controller="HouseAdvert">@Localizer["Houses"]</a>
+								<a class="dropdown-item link dropdown_link" href="#">@Localizer["Rooms"]</a>
 							</div>
 						</li>
 					</ul>
+						 @await Html.PartialAsync("_SelectLanguagePartial")
+				
 				</div>
 			</div>
 		</nav>

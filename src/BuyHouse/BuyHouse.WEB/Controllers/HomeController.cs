@@ -4,6 +4,7 @@ using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.WEB.Models;
 using BuyHouse.WEB.Models.AdvertModel;
 using BuyHouse.WEB.Models.ViewModels;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -38,6 +39,18 @@ namespace BuyHouse.WEB.Controllers
             {
                 return RedirectToAction("Error", "Home", new { exception = ex.Message });
             }
+        }
+
+        [HttpPost]
+        public IActionResult SetLanguage(string culture, string returnUrl)
+        {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+            );
+
+            return LocalRedirect(returnUrl);
         }
 
         public IActionResult Privacy()

@@ -2,6 +2,7 @@
 using BuyHouse.DAL.EF;
 using BuyHouse.DAL.Entities;
 using BuyHouse.DAL.Entities.AdvertEntities;
+using BuyHouse.DAL.Entities.HelperEnum;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
@@ -46,7 +47,7 @@ namespace BuyHouse.BLL.Services
                     flatAdvert.UserID = currentUserId;
                     flatAdvert.CreationDate = DateTime.Now;
                     flatAdvert.Photos =(ICollection<RealtyPhoto>)photos;
-                    if(flatAdvert.TypePrice == "за об'єкт")
+                    if(flatAdvert.TypePrice == TypeOfPrice.TotalPrice)
                         flatAdvert.PricePerSquareMeter = (int)(flatAdvert.TotalPrice / flatAdvert.TotalArea);
                     else
                     {
@@ -60,7 +61,7 @@ namespace BuyHouse.BLL.Services
                     houseAdvert.UserID = currentUserId;
                     houseAdvert.CreationDate = DateTime.Now;
                     houseAdvert.Photos = (ICollection<RealtyPhoto>)photos;
-                    if (houseAdvert.TypePrice == "за об'єкт")
+                    if (houseAdvert.TypePrice == TypeOfPrice.TotalPrice)
                         houseAdvert.PricePerSquareMeter = (int)(houseAdvert.TotalPrice / houseAdvert.TotalArea);
                     else
                     {
@@ -74,7 +75,7 @@ namespace BuyHouse.BLL.Services
                     roomAdvert.UserID = currentUserId;
                     roomAdvert.CreationDate = DateTime.Now;
                     roomAdvert.Photos = (ICollection<RealtyPhoto>)photos;
-                    if (roomAdvert.TypePrice == "за об'єкт")
+                    if (roomAdvert.TypePrice == TypeOfPrice.TotalPrice)
                         roomAdvert.PricePerSquareMeter = (int)(roomAdvert.TotalPrice / roomAdvert.TotalArea);
                     else
                     {

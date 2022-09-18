@@ -1,5 +1,7 @@
 ﻿@model BuyHouse.WEB.Models.ViewModels.GetFlatAdvertViewModel
-
+@using Microsoft.AspNetCore.Mvc.Localization
+ 
+@inject IViewLocalizer Localizer
 @if (TempData["AlertMessage"] != null)
 		{
 			<div class="alert alert-success d-flex align-items-center">

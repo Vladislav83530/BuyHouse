@@ -10,7 +10,8 @@ namespace BuyHouse.DAL.Entities.HelperEnum
         [Display(Name = "€")]
         Euro,
         [Display(Name = "₴")]
-        UAH
+        UAH,
+        Any
     }
 
     public enum TypeOfWalls
@@ -21,5 +22,11 @@ namespace BuyHouse.DAL.Entities.HelperEnum
         Frame,
         [Display(Name = "Панель")]
         Panel
+    }
+
+    public enum TypeOfPrice
+    {
+        TotalPrice,
+        PerSquareMeter
     }
 }

@@ -1,18 +1,24 @@
 ﻿@model BuyHouse.WEB.Models.ViewModels.HomeIndexViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+ 
+@inject IViewLocalizer Localizer
+
 <div class="intro">
 	<div class="intro_inner">
-		<h2 class="title_intro mb-5">Знайди своє нове житло!</h2>
-		<a class="btn btn-lg btn-warning btn_intro" asp-action="Index" asp-controller="FlatAdvert">Квартири</a>
-		<a class="btn btn-lg btn-warning btn_intro" asp-action="#" asp-controller="#">Будинки</a>
-		<a class="btn btn-lg btn-warning btn_intro" asp-action="#" asp-controller="#">Кімнати</a>
+		<h2 class="title_intro mb-5">@Localizer["Intro title"]</h2>
+		<a class="btn btn-lg btn-warning btn_intro" asp-action="Index" asp-controller="FlatAdvert">@Localizer["Apartments"]</a>
+		<a class="btn btn-lg btn-warning btn_intro" asp-action="#" asp-controller="#">@Localizer["Houses"]</a>
+		<a class="btn btn-lg btn-warning btn_intro" asp-action="#" asp-controller="#">@Localizer["Rooms"]</a>
 	</div>
 </div>
+
 <div class="container">
 	<div class="row mb-4">
-		<h2 class="title_block_advert mt-3">Найбільш вподобані квартири <img src="~/images/icons/flat.png" width="50" height="50" /></h2>
+		<h2 class="title_block_advert mt-3">@Localizer["Apartment advert title"] <img src="~/images/icons/flat.png" width="50" height="50" /></h2>
 		<hr />
 	</div>
 </div>
+
 <div class="container">
 	<div class="row row_block_advert">
 		@foreach (var item in Model.FlatAdverts)
@@ -24,13 +30,13 @@
 						<p class="param_block_advert">
 							<img src="~/images/icons/money.png" class="mb-2" width="20" height="20" />
 							<b>@item.TotalPrice @item.Currency</b>
-							за об'єкт
-							(@item.PricePerSquareMeter @item.Currency за м<sup>2</sup>)
+							@Localizer["Price per object"]
+							(@item.PricePerSquareMeter @item.Currency @Localizer["Per"] м<sup>2</sup>)
 						</p>
 						<h5>@item.MainInfo.City, @item.MainInfo.Street, @item.MainInfo.HouseNumber</h5>
 						<p class="param_block_advert">
-							<b>Загальна площа:</b> @item.TotalArea м<sup>2</sup><br>
-							<b>Кімнати:</b> @item.Rooms
+							<b>@Localizer["Total area"]:</b> @item.TotalArea м<sup>2</sup><br>
+							<b>@Localizer["Rooms"]:</b> @item.Rooms
 						</p>
 					</div>
 				</a>

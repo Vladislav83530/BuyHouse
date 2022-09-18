@@ -38,7 +38,7 @@ namespace BuyHouse.WEB.Models.AdvertModel
         [Required]
         public Currency Currency { get; set; }
         [Required]
-        public string? TypePrice { get; set; }
+        public TypeOfPrice? TypePrice { get; set; }
         [Required]
         public DateTime CreationDate { get; set; }
 

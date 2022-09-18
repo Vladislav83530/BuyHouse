@@ -1,40 +1,65 @@
 ﻿@model BuyHouse.WEB.Models.ViewModels.IndexViewModel
-@*Test View*@
+@using BuyHouse.DAL.Entities.HelperEnum
+@addTagHelper *, BuyHouse.WEB
 <div class="container">
-<form method="post" asp-action="Index" asp-controller="FlatAdvert">
+<form name="filterForm" method="post" asp-action="Index" asp-controller="FlatAdvert">
     <div class="form-inline">
+		<label >Кількість оголошень на сторінці: </label><br />
+		<input id="pageSize" name="pageSize" type="radio" value="10" />
+		<lable>10</lable><br />
+		<input id="pageSize" name="pageSize" type="radio" value="20" />
+		<lable>20</lable><br />
+		<input id="pageSize" name="pageSize" type="radio" value="50" />
+		<lable>50</lable><br />
+
         <label>Місто: </label>
-        <input name="nameCity" value="@Model.FilterViewModel.SelectedCityName" class="form-control" />     
+        <input name="filter.CityName" value="@Model.FlatAdvertFilter.CityName" class="form-control" />     
  
-		<label class="control-label">Кількість кімнат: </label>
-        @Html.DropDownList("countRooms", Model.FilterViewModel.CountRooms,
-                    htmlAttributes: new { @class = "form-control" })
+		<label >Кількість кімнат: </label><br />
+		<input id="countRooms" name="filter.CountRooms" type="radio" value="All" />
+        <lable>All</lable><br />
+		<input id="countRooms" name="filter.CountRooms" type="radio" value="1" />
+		<lable>1</lable><br />
+		<input id="countRooms" name="filter.CountRooms" type="radio" value="2" />
+		<lable>2</lable><br />
+		<input id="countRooms" name="filter.CountRooms" type="radio" value="3" />
+		<lable>3</lable><br />
+		<input id="countRooms" name="filter.CountRooms" type="radio" value="4+" />
+		<lable>4+</lable><br />
 
 		<label>Ціна: </label><br />
 		<label>Від: </label>
-        <input id="inputMinMaxValue" name="minPrice" class="form-control" value="@Model.FilterViewModel.SelectedMinPrice"  />  
+        <input id="inputMinMaxValue" name="filter.MinPrice" class="form-control" value="@Model.FlatAdvertFilter.MinPrice"  />  
 		<label>До: </label>
-        <input id="inputMinMaxValue" name="maxPrice" class="form-control" value="@Model.FilterViewModel.SelectedMaxPrice"  /> 
-		
-		<label class="control-label">Валюта: </label>
-        @Html.DropDownList("currency", Model.FilterViewModel.Currency,
-                    htmlAttributes: new { @class = "form-control" })
+        <input id="inputMinMaxValue" name="filter.MaxPrice" class="form-control" value="@Model.FlatAdvertFilter.MaxPrice"  /> 		
 
-		<label  class="control-label">Ціна за: </label>
-        @Html.DropDownList("typeOfPrice", Model.FilterViewModel.TypeOfPrice,
-                    htmlAttributes: new { @class = "form-control", @id="typeOfPrice" })
+		<label  class="control-label">Валюта: </label><br />
+	    <input id="currency" name="filter.Currency" type="radio" value="@Currency.Any" />
+		<lable>Any</lable><br />
+		<input id="currency" name="filter.Currency" type="radio" value="@Currency.USD" />
+		<lable>USD</lable><br />
+		<input id="currency" name="filter.Currency" type="radio" value="@Currency.Euro" />
+		<lable>Euro</lable><br />
+		<input id="currency" name="filter.Currency" type="radio" value="@Currency.UAH" />
+		<lable>UAH</lable><br />
 
-		<label>Загальна площа: </label><br />
+		<label  class="control-label">Ціна за: </label><br />
+		<input id="typeOfPrice" name="filter.TypeOfPrice" type="radio" value="@TypeOfPrice.TotalPrice" />
+        <lable>за об'єкт</lable><br />
+		<input id="typeOfPrice" name="filter.TypeOfPrice" type="radio" value="@TypeOfPrice.PerSquareMeter" />
+		<lable>за кв. метр</lable><br />
+
+	    <label>Загальна площа: </label><br />
 		<label>Від: </label>
-        <input name="minTotalArea" id="inputMinMaxValue" value="@Model.FilterViewModel.SelectedMinTotalArea" class="form-control" />  
+        <input name="filter.MinTotalArea" id="inputMinMaxValue" value="@Model.FlatAdvertFilter.MinTotalArea" class="form-control" />  
 		<label>До: </label>
-        <input name="maxTotalArea" id="inputMinMaxValue" value="@Model.FilterViewModel.SelectedMaxTotalArea" class="form-control" />
-
+        <input name="filter.MaxTotalArea" id="inputMinMaxValue" value="@Model.FlatAdvertFilter.MaxTotalArea" class="form-control" />
+	
 		<label>Поверх: </label><br />
 		<label>Від: </label>
-        <input name="minFloor" id="inputMinMaxValue" value="@Model.FilterViewModel.SelecetedMinFloor" class="form-control" />  
+        <input name="filter.MinFloor" id="inputMinMaxValue" value="@Model.FlatAdvertFilter.MinFloor" class="form-control" />  
 		<label>До: </label>
-        <input name="maxFloor" id="inputMinMaxValue" value="@Model.FilterViewModel.SelectedMaxFloor" class="form-control" />
+        <input name="filter.MaxFloor" id="inputMinMaxValue" value="@Model.FlatAdvertFilter.MaxFloor" class="form-control" />
 		
 		 <input type="submit" value="Фільтр" class="btn btn-success" />
     </div>
@@ -64,75 +89,18 @@
 	</div>
 	<br /><hr />
 }
-@if (Model.PageViewModel.HasPreviousPage)
-{
-    <a asp-action="Index" asp-controller="FlatAdvert"
-       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
-       asp-route-nameCity="@(Model.FilterViewModel.SelectedCityName)"
-	   asp-route-countRooms="@(Model.FilterViewModel.CountRooms)"
-	   asp-route-minPrice="@(Model.FilterViewModel.SelectedMinPrice)"
-	   asp-route-maxPrice="@(Model.FilterViewModel.SelectedMaxPrice)"
-	   asp-route-currency="@(Model.FilterViewModel.Currency)"
-	   asp-route-typeOfPrice="@(Model.FilterViewModel.TypeOfPrice)"
-	   asp-route-minTotalArea="@(Model.FilterViewModel.SelectedMinTotalArea)"
-	   asp-route-maxTotalArea="@(Model.FilterViewModel.SelectedMaxTotalArea)"
-	   asp-route-minFloor="@(Model.FilterViewModel.SelecetedMinFloor)"
-	   asp-route-minFloor="@(Model.FilterViewModel.SelectedMaxFloor)"
-       class="btn  btn-outline-dark">
-        Назад
-    </a>
-}
 
-@if (Model.PageViewModel.HasNextPage)
-{
-    <a asp-action="Index" asp-controller="FlatAdvert"
-       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
-       asp-route-nameCity="@(Model.FilterViewModel.SelectedCityName)"
-	   asp-route-countRooms="@(Model.FilterViewModel.CountRooms)"
-	   asp-route-minPrice="@(Model.FilterViewModel.SelectedMinPrice)"
-	   asp-route-maxPrice="@(Model.FilterViewModel.SelectedMaxPrice)"
-	   asp-route-currency="@(Model.FilterViewModel.Currency)"
-	   asp-route-typeOfPrice="@(Model.FilterViewModel.TypeOfPrice)"
-	   asp-route-minTotalArea="@(Model.FilterViewModel.SelectedMinTotalArea)"
-	   asp-route-maxTotalArea="@(Model.FilterViewModel.SelectedMaxTotalArea)"
-	   asp-route-minFloor="@(Model.FilterViewModel.SelecetedMinFloor)"
-	   asp-route-minFloor="@(Model.FilterViewModel.SelectedMaxFloor)"
-       class="btn btn-outline-dark">
-        Вперед
-    </a>
-}
+<page-link page-model="Model.PageViewModel" page-action="Index"
+       page-url-filter.CityName="@Model.FlatAdvertFilter.CityName"
+	   page-url-filter.CountRooms="@Model.FlatAdvertFilter.CountRooms"	
+	   page-url-filter.MinPrice="@Model.FlatAdvertFilter.MinPrice"
+	   page-url-filter.MaxPrice="@Model.FlatAdvertFilter.MaxPrice"
+	   page-url-filter.TypeOfPrice="@Model.FlatAdvertFilter.TypeOfPrice"
+	   page-url-filter.Currency="@Model.FlatAdvertFilter.Currency"
+	   page-url-filter.MinTotalArea="@Model.FlatAdvertFilter.MinTotalArea" 
+	   page-url-filter.MaxTotalArea="@Model.FlatAdvertFilter.MaxTotalArea"
+	   page-url-filter.MinFloor="@Model.FlatAdvertFilter.MinFloor" 
+	   page-url-filter.MaxFloor="@Model.FlatAdvertFilter.MaxFloor">
+	   </page-link>
 </div>
-
-<script>
-		var input = document.querySelectorAll("#inputMinMaxValue");
-		for(const item of input) {
-			if(item.value=="0")
-				item.value = ""
-		}
-
-
-		var typeOfPrice = document.querySelector("#typeOfPrice");
-		var totalPrice = document.querySelectorAll("#totalPrice");
-        var pricePerSquareMeter = document.querySelectorAll("#pricePerSquareMeter");
-		if (typeOfPrice.value == "за об'єкт") {
-            for (const item of totalPrice) {
-                item.style.fontSize = "35px";
-                
-            }
-		    for (const item of pricePerSquareMeter) {
-                item.style.fontSize = "15px";
-                
-            }
-		}
-
-        if(typeOfPrice.value == "за кв. метр"){
-            for (const item of totalPrice) {
-                item.style.fontSize = "15px";
-                
-            }
-		    for (const item of pricePerSquareMeter) {
-                item.style.fontSize = "35px";
-                
-            }
-        }
-</script>
+<script  src="~/js/FilterScript.js"></script>
