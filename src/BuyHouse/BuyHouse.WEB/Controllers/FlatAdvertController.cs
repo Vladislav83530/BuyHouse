@@ -40,7 +40,7 @@ namespace BuyHouse.WEB.Controllers
                 try
                 {
                     FlatAdvert flatAdvert_ = await _client.CreateFlatAdvert(new CreateRequestModel { FlatAdvert = flatAdvertModel}, uploads, currentUserId);
-                    TempData["AlertMessage"] = "Your advert was created successfully!If you want to change the information in the advert, go to your profile!";
+                    TempData["AlertMessage"] = _localizer["create alert message"];
                     return RedirectToAction("GetFlatAdvert", new { flatAdvertId = flatAdvert_.Id });
                 }
                 catch (Exception ex)

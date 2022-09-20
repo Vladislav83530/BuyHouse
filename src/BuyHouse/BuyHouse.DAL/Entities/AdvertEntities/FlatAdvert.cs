@@ -1,7 +1,6 @@
 ﻿using BuyHouse.DAL.Entities.ApplicationUserEntities;
 using BuyHouse.DAL.Entities.HelperEnum;
 
-
 namespace BuyHouse.DAL.Entities.AdvertEntities
 {
     public class FlatAdvert
@@ -12,7 +11,7 @@ namespace BuyHouse.DAL.Entities.AdvertEntities
 
         /*Main flat parameters*/
         public string? Description { get; set; }
-        public string? Type { get; set; }
+        public TypeOfRealty? Type { get; set; }
         public int? Rooms { get; set; }
         public TypeOfWalls? TypeOfWalls { get; set; }
         public double? TotalArea { get; set; }

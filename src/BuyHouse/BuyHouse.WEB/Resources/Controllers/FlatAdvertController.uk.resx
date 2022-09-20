@@ -124,6 +124,9 @@
     <value>Будь-яка</value>
     <comment>currency</comment>
   </data>
+  <data name="create alert message" xml:space="preserve">
+    <value>Твоє оголошення успішно створено!</value>
+  </data>
   <data name="Error advert message" xml:space="preserve">
     <value>Не вірні дані реклами</value>
   </data>
@@ -132,8 +135,5 @@
   </data>
   <data name="Per square meter" xml:space="preserve">
     <value>за кв. метр</value>
-  </data>
-  <data name="Success message create" xml:space="preserve">
-    <value />
   </data>
 </root>

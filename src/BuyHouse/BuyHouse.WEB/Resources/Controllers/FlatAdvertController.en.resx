@@ -124,6 +124,9 @@
     <value>Any</value>
     <comment>currency</comment>
   </data>
+  <data name="create alert message" xml:space="preserve">
+    <value>Your advert was created succesfully! </value>
+  </data>
   <data name="Error advert message" xml:space="preserve">
     <value>Invalid flat advertising</value>
   </data>

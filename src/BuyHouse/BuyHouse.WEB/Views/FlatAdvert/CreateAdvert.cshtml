@@ -10,7 +10,6 @@
 			@Html.LabelFor(m => m.MainInfo.Region)
 			@Html.TextBoxFor(m => m.MainInfo.Region, new { @class = "form-control", @required="true" })
 			@Html.ValidationMessageFor(m => m.MainInfo.Region, "")
-			
 
 			@Html.LabelFor(m => m.MainInfo.City)
 			@Html.TextBoxFor(m => m.MainInfo.City, new { @class = "form-control", @required="true"  })
@@ -39,10 +38,10 @@
 			@Html.ValidationMessageFor(m => m.Description)
 
 			@Html.LabelFor(m => m.Type)<br />
-			<lable>Первинне житло</lable>
-			@Html.RadioButtonFor(m => m.Type, "Первинне житло", new{ @required="true"})<br />
-			<lable>Вторинне житло</lable>
-			@Html.RadioButtonFor(m => m.Type, "Вторинне житло", new{ @required="true"})<br />
+			@Html.RadioButtonFor(m => m.Type, TypeOfRealty.Primary , new{ @required="true"})
+			<lable>Первинне житло</lable><br />
+			@Html.RadioButtonFor(m => m.Type, TypeOfRealty.Secondary , new{ @required="true"})
+			<lable>Вторинне житло</lable><br />
 			@Html.ValidationMessageFor(m => m.Type)
 
 			@Html.LabelFor(m => m.Rooms)
@@ -50,9 +49,11 @@
 			@Html.ValidationMessageFor(m => m.Rooms)
 
 			@Html.LabelFor(m => m.TypeOfWalls)
-			@Html.DropDownListFor(m => m.TypeOfWalls,
-			new SelectList(Enum.GetValues(typeof(TypeOfWalls))),
-			"Тип стін", new{ @required="true"})<br />
+			<select class="form-control" name="TypeOfWalls" required>
+				<option value="@TypeOfWalls.Brick">Цегла</option>
+				<option value="@TypeOfWalls.Frame">Каркасний</option>
+				<option value="@TypeOfWalls.Panel">Панель</option>
+			</select>
 			@Html.ValidationMessageFor(m => m.TypeOfWalls)
 
 			@Html.LabelFor(m => m.TotalArea)
@@ -95,9 +96,9 @@
 				<div class="col-md-2 mt-4">
 					<lable>Валюта</lable>
 					<select class="form-control" name="Currency" required>
-						<option value="@Currency.USD">USD</option> 
-						<option value="@Currency.Euro">Euro</option> 
-						<option value="@Currency.UAH">UAH</option> 
+						<option value="@Currency.USD">USD</option>
+						<option value="@Currency.Euro">Euro</option>
+						<option value="@Currency.UAH">UAH</option>
 					</select>
 					@Html.ValidationMessageFor(m => m.Currency)
 				</div>
@@ -119,4 +120,4 @@
 			<button type="submit" class="btn btn-primary mt-3">Створити оголошення</button>
 		</form>
 	</div>
-</div>	
+</div>

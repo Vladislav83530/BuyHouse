@@ -1,9 +1,7 @@
 ﻿using BuyHouse.BLL.Services.Abstract;
 using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.WEB.Models.HttpClientModel;
-using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Text;
 
 namespace BuyHouse.WEB.Clients
 {
@@ -52,7 +50,6 @@ namespace BuyHouse.WEB.Clients
         {
             requestModel.RealtyPhotos = await _photosService.AddPhotoToAdvert(uploads, currentUserId);
             var response =await  _client.PostAsJsonAsync(_address + $"/api/FlatAdvert/CreateFlatAdvert?currentUserId={currentUserId}", requestModel);
-            var item = JsonConvert.SerializeObject(requestModel);
             var content = await response.Content.ReadAsStringAsync();
             if (content != null)
             {

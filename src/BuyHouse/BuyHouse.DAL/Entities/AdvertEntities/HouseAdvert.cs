@@ -12,7 +12,7 @@ namespace BuyHouse.DAL.Entities.AdvertEntities
 
         /*Main flat parameters*/
         public string? Description { get; set; }
-        public string? Type { get; set; }
+        public TypeOfRealty? Type { get; set; }
         public int? Rooms { get; set; }
         public string? TypeOfWalls { get; set; }
         public double? TotalArea { get; set; }

@@ -11,7 +11,7 @@ namespace BuyHouse.DAL.Entities.AdvertEntities
         public ICollection<RealtyPhoto>? Photos { get; set; }
 
         /*Main room parameters*/
-        public string? Type { get; set; }
+        public TypeOfRealty? Type { get; set; }
         public string? Description { get; set; }
         public double? TotalArea { get; set; }
         public double? LivingArea { get; set; }

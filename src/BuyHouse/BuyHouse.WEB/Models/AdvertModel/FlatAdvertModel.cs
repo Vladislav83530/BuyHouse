@@ -15,6 +15,7 @@ namespace BuyHouse.WEB.Models.AdvertModel
         [Required]
         public string? Type { get; set; }
         [Required]
+
         public int Rooms { get; set; }
         [Required]
         public TypeOfWalls TypeOfWalls { get; set; }

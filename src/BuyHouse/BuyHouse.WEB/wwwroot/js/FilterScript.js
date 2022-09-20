@@ -1,5 +1,5 @@
 ﻿/*set cheked values to input*/
-function setChekedValue(inputName, inputId, key) {
+function setChekedValue(inputName, inputClass, key) {
     document.forms.filterForm.addEventListener("submit", function (e) {
         const form = document.forms.filterForm;
         var input = document.querySelector(`input[name="${inputName}"]:checked`);
@@ -11,7 +11,7 @@ function setChekedValue(inputName, inputId, key) {
         }
     });
 
-    var inputs = document.querySelectorAll(`#${inputId}`);
+    var inputs = document.querySelectorAll(`.${inputClass}`);
     for (const item2 of inputs) {
         if (item2.value == localStorage.getItem(key)) {
             item2.checked = true;

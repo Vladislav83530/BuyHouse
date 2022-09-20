@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BuyHouse.BLL.Services.Providers.DateTimeProvider;
 using BuyHouse.DAL.EF;
 using BuyHouse.DAL.Entities;
 using BuyHouse.DAL.Entities.AdvertEntities;
@@ -15,11 +16,13 @@ namespace BuyHouse.API.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IDateTimeProvider _dateTimeProvider;
 
-        public FlatAdvertController(ApplicationDbContext context, IMapper mapper)
+        public FlatAdvertController(ApplicationDbContext context, IMapper mapper, IDateTimeProvider dateTimeProvider)
         {
             _context = context;
             _mapper = mapper;
+            _dateTimeProvider = dateTimeProvider;
         }
 
         /// <summary>
@@ -63,7 +66,7 @@ namespace BuyHouse.API.Controllers
                     advert = _mapper.Map<FlatAdvertModel, FlatAdvert>(requestModel.FlatAdvert);
 
                     advert.UserID = currentUserId;
-                    advert.CreationDate = DateTime.Now;
+                    advert.CreationDate = _dateTimeProvider.Now();
                     advert.Photos = (ICollection<RealtyPhoto>)requestModel.RealtyPhotos;
 
                     if (advert.TypePrice == TypeOfPrice.TotalPrice)

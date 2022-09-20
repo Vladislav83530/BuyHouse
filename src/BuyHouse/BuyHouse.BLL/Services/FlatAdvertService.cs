@@ -15,10 +15,17 @@ namespace BuyHouse.BLL.Services
             _context = context;
         }
 
+        /// <summary>
+        /// Filter falt adverts
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="page"></param>
+        /// <returns>filtered flat adverts</returns>
         public async Task<ResponseFlatAdvertDTO> GetFlatAdvertByParameters( FlatAdvertFilter filter, int pageSize, int page = 1)
         {
             if (pageSize == 0)
-                pageSize = 3;
+                pageSize = 10;
 
             IQueryable<FlatAdvert> flatAdverts = _context.FlatAdverts;
 
@@ -128,6 +135,10 @@ namespace BuyHouse.BLL.Services
             return output;
         }
 
+        /// <summary>
+        /// Get most liked flat advert
+        /// </summary>
+        /// <returns>list of most liked flat advert</returns>
         public async Task<IEnumerable<FlatAdvert>> GetMostLikedFlatAdvert()
         {
             IEnumerable<FlatAdvert> flatAdverts = await _context.FlatAdverts.OrderBy(p => p.LikeCount).Take(3).ToListAsync();

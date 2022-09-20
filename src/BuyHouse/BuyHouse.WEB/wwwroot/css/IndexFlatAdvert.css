@@ -11,14 +11,16 @@
     .radio-toolbar label {
         display: inline-block;
         background-color: #FFD61D;
-        padding: 10px 20px;
+        padding: 5px 30px;
         font-family: sans-serif, Arial;
         font-size: 16px;
-        border-radius: 10px;
+        border-radius: 50px;
+        text-align: center;
     }
 
         .radio-toolbar label:hover {
             background-color: #153351;
+            color: white;
         }
 
     .radio-toolbar input[type="radio"]:focus + label {
@@ -29,3 +31,21 @@
         background-color: #153351;
         color: white;
     }
+
+.currency_lable{
+    width: 140px;
+}
+
+.typePrice_lable{
+    width: 170px;
+}
+
+.from-to-input {
+    width: 140px;
+}
+
+label{
+    font-family: 'MS Reference Sans Serif';
+    font-size: 18px;
+    font-weight: 600;
+}

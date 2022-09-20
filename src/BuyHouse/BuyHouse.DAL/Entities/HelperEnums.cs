@@ -16,11 +16,8 @@ namespace BuyHouse.DAL.Entities.HelperEnum
 
     public enum TypeOfWalls
     {
-        [Display(Name = "Цегла")]
         Brick,
-        [Display(Name = "Каркасний")]
         Frame,
-        [Display(Name = "Панель")]
         Panel
     }
 
@@ -28,5 +25,11 @@ namespace BuyHouse.DAL.Entities.HelperEnum
     {
         TotalPrice,
         PerSquareMeter
+    }
+
+    public enum TypeOfRealty
+    {
+        Primary,
+        Secondary
     }
 }
