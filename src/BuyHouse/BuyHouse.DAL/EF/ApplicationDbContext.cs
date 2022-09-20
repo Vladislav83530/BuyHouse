@@ -1,7 +1,5 @@
-﻿using BuyHouse.DAL.Entities;
-using BuyHouse.DAL.Entities.AdvertEntities;
+﻿using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.DAL.Entities.ApplicationUserEntities;
-
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

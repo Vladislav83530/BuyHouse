@@ -4,23 +4,16 @@ namespace BuyHouse.WEB.Models
 {
     public class RealtyMainInfoModel
     {
-        [Required(ErrorMessage = "Поле має бути заповненим")]
-        [Display(Name ="Регіон")]
+        [Required]
         public string? Region { get; set; }
-        [Required(ErrorMessage = "Поле має бути заповненим")]
-        [Display(Name = "Місто")]
+        [Required]
         public string? City { get; set; }
-        [Required(ErrorMessage = "Поле має бути заповненим")]
-        [Display(Name = "Вулиця")]
+        [Required]
         public string? Street { get; set; }
-        [Required(ErrorMessage = "Поле має бути заповненим")]
-        [Display(Name = "Номер будинку")]
+        [Required]
         public string? HouseNumber { get; set; }
-        [Required(ErrorMessage = "Поле має бути заповненим")]
-        [Display(Name = "Номер квартири")]
         public int? FlatNumber { get; set; }
-        [Required(ErrorMessage = "Поле має бути заповненим")]
-        [Display(Name = "Дата реєстрації")]
+        [Required]
         public DateTime? RegistrationDate { get; set; }
     }
 }

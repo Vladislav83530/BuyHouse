@@ -1,115 +1,95 @@
 ﻿using AutoMapper;
-using BuyHouse.BLL.DTO.AdvertDTO;
+using BuyHouse.BLL.DTO;
 using BuyHouse.BLL.Services.Abstract;
 using BuyHouse.DAL.Entities.AdvertEntities;
+using BuyHouse.WEB.Clients;
 using BuyHouse.WEB.Models.AdvertModel;
+using BuyHouse.WEB.Models.HttpClientModel;
+using BuyHouse.WEB.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace BuyHouse.WEB.Controllers
 {
     public class FlatAdvertController : Controller
     {
-        private readonly IAdvertService<FlatAdvertDTO, FlatAdvert> _flatAdvertService;
+        private readonly IFlatAdvertService _flatAdvertService;
+        private readonly BuyHouseAPIClient _client;
         private readonly IMapper _mapper;
+        private readonly IStringLocalizer<FlatAdvertController> _localizer;
 
-        public FlatAdvertController(IAdvertService<FlatAdvertDTO, FlatAdvert> flatAdvertService)
+        public FlatAdvertController(IFlatAdvertService flatAdertService, IMapper mapper,
+            IStringLocalizer<FlatAdvertController> localizer, BuyHouseAPIClient  client)
         {
-            _flatAdvertService = flatAdvertService;
-            _mapper = new Mapper(AutoMapper_WEB.GetMapperConfiguration());
+            _flatAdvertService = flatAdertService;
+            _mapper = mapper;
+            _localizer = localizer;
+            _client = client;
         }
 
         [HttpGet]
         public IActionResult CreateAdvert() => View();
 
-        //TODO: currentUserId change | Redirect to action
+        //TODO: currentUserId change
         [HttpPost]
-        public async Task<IActionResult> CreateAdvertPost(FlatAdvertModel flatAdvertModel, IFormFileCollection uploads)
+        public async Task<IActionResult> CreateAdvertPost( FlatAdvertModel flatAdvertModel, IFormFileCollection uploads)
         {
-            #region Test Data
-            //RealtyPhotoDTO photoDTO1 = new RealtyPhotoDTO() { Name = "room1", Path = "a/b/c/" };
-            //RealtyPhotoDTO photoDTO2 = new RealtyPhotoDTO() { Name = "room2", Path = "a/b/d/" };
-            //List<RealtyPhotoDTO> photos = new List<RealtyPhotoDTO>();
-            //photos.Add(photoDTO1);
-            //photos.Add(photoDTO2);
-            //FlatAdvertDTO flatAdvert = new FlatAdvertDTO()
-            //{
-            //    MainInfo = new RealtyMainInfoDTO()
-            //    {
-            //        City = "Lviv",
-            //        Region = "Lviv region",
-            //        Street = "Some street",
-            //        FlatNumber = 23,
-            //        HouseNumber = "21/1",
-            //        RegistrationDate = DateTime.Today
-            //    },
-            //    Description = "Some main description",
-            //    Type = "Secondary",
-            //    Rooms = 4,
-            //    TypeOfWalls = DAL.Entities.HelperEnum.TypeOfWalls.Brick,
-            //    TotalArea = 200,
-            //    LivingArea = 180,
-            //    Floor = 7,
-            //    Heating = "централізоване",
-            //    YearBuilt = 2021,
-            //    RegistrationNumber = "123476489312",
-            //    Price = 32121312,
-            //    Currency = DAL.Entities.HelperEnum.Currency.UAH,
-            //    TypePrice = "за об'єкт",
-            //    LikeCount = 56
-            //};
-            #endregion
-
             if (ModelState.IsValid)
             {
                 string? currentUserId = "0f8fad5b-d9cb-469f-a165-70867728950e";
                 try
-                {   FlatAdvertDTO flatAdvertDTO = _mapper.Map<FlatAdvertModel, FlatAdvertDTO>(flatAdvertModel);
-                    await _flatAdvertService.Create(flatAdvertDTO, uploads, currentUserId);
-                    return RedirectToAction("Index", "Home");
+                {
+                    FlatAdvert flatAdvert_ = await _client.CreateFlatAdvert(new CreateRequestModel { FlatAdvert = flatAdvertModel}, uploads, currentUserId);
+                    TempData["AlertMessage"] = _localizer["create alert message"];
+                    return RedirectToAction("GetFlatAdvert", new { flatAdvertId = flatAdvert_.Id });
                 }
                 catch (Exception ex)
                 {
                     return RedirectToAction("Error", "Home", new { exception = ex.Message });
                 }
             }
-            return RedirectToAction("Error", "Home", new { exception = "Invalid flat advertising" });
+            return RedirectToAction("Error", "Home", new { exception = _localizer["Error advert message"] });
         }
 
-        //TODO: add FlatAdvertModel and ViewModel      
+        //TODO: Exception
         [HttpGet]
-        public async Task<IActionResult> Index()
+        [HttpPost]
+        public async Task<IActionResult> Index(FlatAdvertFilter filter, int pageSize, int page = 1)
         {
-            var flatAdvertDTOs = await _flatAdvertService.GetAll ();
-            List<FlatAdvertModel> flatAdvertModels = new List<FlatAdvertModel>();
-            flatAdvertModels = _mapper.Map<IEnumerable<FlatAdvertDTO>, List<FlatAdvertModel>>(flatAdvertDTOs);
-            return View(flatAdvertModels);
+            ResponseFlatAdvertDTO responseFlatAdvertDTO =  await _flatAdvertService
+                .GetFlatAdvertByParameters(filter, pageSize, page);
+
+            var flatAdvertShortModels = _mapper.Map<IEnumerable<FlatAdvert>, List<FlatAdvertShortModel>>(responseFlatAdvertDTO.FlatAdverts);
+
+            IndexViewModel vm = new IndexViewModel()
+            {
+                FlatAdverts = flatAdvertShortModels,            
+                FlatAdvertFilter = filter,
+                PageViewModel = new PageViewModel(responseFlatAdvertDTO.Count, page, responseFlatAdvertDTO.PageSize)
+            };
+            return View(vm);
         }
 
-        //TODO: change RedirectToAction
-        [HttpGet]
-        public async Task<IActionResult> DeleteFlatAdvert(int? flatAdvertId)
-        {
-            if (flatAdvertId == null)
-                return RedirectToAction("Error", "Home");
-            await _flatAdvertService.Delete(flatAdvertId);
-            return RedirectToAction("Index", "Home");
-        }
-
-        //TODO: change view 
+        //TODO: change view | add info about user 
         [HttpGet]
         public async Task<IActionResult> GetFlatAdvert(int? flatAdvertId)
         {
             if (flatAdvertId == null)
                 return RedirectToAction("Error", "Home");
 
-            try 
+            try
             {
                 FlatAdvertModel flatAdvertModel = new FlatAdvertModel();
-                var flatAdvertDTO = await _flatAdvertService.GetById(flatAdvertId);
-                flatAdvertModel = _mapper.Map<FlatAdvertDTO, FlatAdvertModel>(flatAdvertDTO);
-                return View(flatAdvertModel);
+                var flatAdvert = await _client.GetFlatAdvertByID(flatAdvertId);
+
+                flatAdvertModel =  _mapper.Map<FlatAdvert, FlatAdvertModel>(flatAdvert);
+                GetFlatAdvertViewModel vm = new GetFlatAdvertViewModel
+                {
+                    FlatAdvert = flatAdvertModel
+                };
+                return View(vm);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return RedirectToAction("Error", "Home", new { exception = ex.Message });
             }

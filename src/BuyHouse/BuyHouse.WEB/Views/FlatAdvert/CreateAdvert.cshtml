@@ -10,7 +10,6 @@
 			@Html.LabelFor(m => m.MainInfo.Region)
 			@Html.TextBoxFor(m => m.MainInfo.Region, new { @class = "form-control", @required="true" })
 			@Html.ValidationMessageFor(m => m.MainInfo.Region, "")
-			
 
 			@Html.LabelFor(m => m.MainInfo.City)
 			@Html.TextBoxFor(m => m.MainInfo.City, new { @class = "form-control", @required="true"  })
@@ -31,7 +30,6 @@
 			@Html.LabelFor(m => m.MainInfo.RegistrationDate)
 			@Html.TextBoxFor(m => m.MainInfo.RegistrationDate, new { @class = "form-control", @type="date", @required="true"  })
 			@Html.ValidationMessageFor(m => m.MainInfo.RegistrationDate)
-
 			<hr />
 
 			<h2>Параметри</h2>
@@ -40,10 +38,10 @@
 			@Html.ValidationMessageFor(m => m.Description)
 
 			@Html.LabelFor(m => m.Type)<br />
-			<lable>Первинне житло</lable>
-			@Html.RadioButtonFor(m => m.Type, "Первинне житло", new{ @required="true"})<br />
-			<lable>Вторинне житло</lable>
-			@Html.RadioButtonFor(m => m.Type, "Вторинне житло", new{ @required="true"})<br />
+			@Html.RadioButtonFor(m => m.Type, TypeOfRealty.Primary , new{ @required="true"})
+			<lable>Первинне житло</lable><br />
+			@Html.RadioButtonFor(m => m.Type, TypeOfRealty.Secondary , new{ @required="true"})
+			<lable>Вторинне житло</lable><br />
 			@Html.ValidationMessageFor(m => m.Type)
 
 			@Html.LabelFor(m => m.Rooms)
@@ -51,9 +49,11 @@
 			@Html.ValidationMessageFor(m => m.Rooms)
 
 			@Html.LabelFor(m => m.TypeOfWalls)
-			@Html.DropDownListFor(m => m.TypeOfWalls,
-			new SelectList(Enum.GetValues(typeof(TypeOfWalls))),
-			"Тип стін", new{ @required="true"})<br />
+			<select class="form-control" name="TypeOfWalls" required>
+				<option value="@TypeOfWalls.Brick">Цегла</option>
+				<option value="@TypeOfWalls.Frame">Каркасний</option>
+				<option value="@TypeOfWalls.Panel">Панель</option>
+			</select>
 			@Html.ValidationMessageFor(m => m.TypeOfWalls)
 
 			@Html.LabelFor(m => m.TotalArea)
@@ -89,22 +89,25 @@
 
 			<div class="row">
 				<div class="col-md-10">
-					@Html.LabelFor(m => m.Price)
-					@Html.TextBoxFor(m => m.Price, new { @class = "form-control", @type="number", required="true" })
-					@Html.ValidationMessageFor(m => m.Price)
+					@Html.LabelFor(m => m.TotalPrice)
+					@Html.TextBoxFor(m => m.TotalPrice, new { @class = "form-control", @type="number", required="true" })
+					@Html.ValidationMessageFor(m => m.TotalPrice)
 				</div>
 				<div class="col-md-2 mt-4">
-					@Html.DropDownListFor(m => m.Currency,
-					new SelectList(Enum.GetValues(typeof(Currency))),
-					"Валюта", new{ @required="true"})
+					<lable>Валюта</lable>
+					<select class="form-control" name="Currency" required>
+						<option value="@Currency.USD">USD</option>
+						<option value="@Currency.Euro">Euro</option>
+						<option value="@Currency.UAH">UAH</option>
+					</select>
 					@Html.ValidationMessageFor(m => m.Currency)
 				</div>
 			</div>
 
 			@Html.LabelFor(m => m.TypePrice)<br />
-			@Html.RadioButtonFor(m => m.TypePrice,"за кв. метр", new{ @required="true"})
+			@Html.RadioButtonFor(m => m.TypePrice, TypeOfPrice.PerSquareMeter , new{ @required="true"})
 			<lable>За кв. метр</lable><br />
-			@Html.RadioButtonFor(m => m.TypePrice,"за об'єкт", new{ @required="true"})
+			@Html.RadioButtonFor(m => m.TypePrice, TypeOfPrice.TotalPrice , new{ @required="true"})
 			<lable>За об'єкт</lable><br />
 			@Html.ValidationMessageFor(m => m.TypePrice)
 
@@ -117,4 +120,4 @@
 			<button type="submit" class="btn btn-primary mt-3">Створити оголошення</button>
 		</form>
 	</div>
-</div>	
+</div>

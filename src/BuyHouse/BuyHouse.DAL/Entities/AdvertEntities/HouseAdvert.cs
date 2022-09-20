@@ -12,7 +12,7 @@ namespace BuyHouse.DAL.Entities.AdvertEntities
 
         /*Main flat parameters*/
         public string? Description { get; set; }
-        public string? Type { get; set; }
+        public TypeOfRealty? Type { get; set; }
         public int? Rooms { get; set; }
         public string? TypeOfWalls { get; set; }
         public double? TotalArea { get; set; }
@@ -28,8 +28,10 @@ namespace BuyHouse.DAL.Entities.AdvertEntities
         public string? CadastralNumber { get; set; }
 
         /*Advert properties*/
-        public double? Price { get; set; }
+        public ulong? TotalPrice { get; set; }
+        public ulong? PricePerSquareMeter { get; set; }
         public Currency Currency { get; set; }
+        public TypeOfPrice TypePrice { get; set; }
         public DateTime? CreationDate { get; set; }
 
         /*Info for statistic*/

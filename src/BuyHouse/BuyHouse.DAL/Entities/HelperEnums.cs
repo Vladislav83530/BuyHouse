@@ -10,16 +10,26 @@ namespace BuyHouse.DAL.Entities.HelperEnum
         [Display(Name = "€")]
         Euro,
         [Display(Name = "₴")]
-        UAH
+        UAH,
+        Any
     }
 
     public enum TypeOfWalls
     {
-        [Display(Name = "Цегла")]
         Brick,
-        [Display(Name = "Каркасний")]
         Frame,
-        [Display(Name = "Панель")]
         Panel
+    }
+
+    public enum TypeOfPrice
+    {
+        TotalPrice,
+        PerSquareMeter
+    }
+
+    public enum TypeOfRealty
+    {
+        Primary,
+        Secondary
     }
 }

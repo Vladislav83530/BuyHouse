@@ -11,6 +11,6 @@ namespace BuyHouse.DAL.Entities.ApplicationUserEntities
         public ICollection<FlatAdvert>? FlatAdverts { get; set; }
         public ICollection<RoomAdvert>? RoomAdverts { get; set; }
         public ICollection<HouseAdvert>? HouseAdverts { get; set; }
-        public UserAvatar UserAvatar { get; set; }
+        public UserAvatar? UserAvatar { get; set; }
     }
 }

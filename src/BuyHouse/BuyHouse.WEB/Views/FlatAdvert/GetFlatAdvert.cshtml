@@ -1,33 +1,44 @@
-﻿@model BuyHouse.WEB.Models.AdvertModel.FlatAdvertModel
-@*Test View*@
+﻿@model BuyHouse.WEB.Models.ViewModels.GetFlatAdvertViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+ 
+@inject IViewLocalizer Localizer
+@if (TempData["AlertMessage"] != null)
+		{
+			<div class="alert alert-success d-flex align-items-center">
+				<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill" /></svg>
+				<div>
+					<strong>Success!</strong>@TempData["AlertMessage"]
+				</div>
+			</div>
+		}
 <div class="container mt-3">
 	<div class="row">
 		<div class="col-md-7">
-			<p>Регіон: @Model.MainInfo.City</p>
-			<p>Місто: @Model.MainInfo.City</p>
-			<p>Вулиця: @Model.MainInfo.Street</p>
-			<p>Номер будинку: @Model.MainInfo.HouseNumber</p>
-			<p>Номер квартири: @Model.MainInfo.FlatNumber</p>
-			<p>Дата реєстрації: @Model.MainInfo.RegistrationDate</p>
+			<p>Регіон: @Model.FlatAdvert.MainInfo.City</p>
+			<p>Місто: @Model.FlatAdvert.MainInfo.City</p>
+			<p>Вулиця: @Model.FlatAdvert.MainInfo.Street</p>
+			<p>Номер будинку: @Model.FlatAdvert.MainInfo.HouseNumber</p>
+			<p>Номер квартири: @Model.FlatAdvert.MainInfo.FlatNumber</p>
 			<hr />
 			<br />
-			<p>Опис: @Model.Description</p>
-			<p>Тип нерухомості: @Model.Type</p>
-			<p>Кінати: @Model.Rooms</p>
-			<p>Тип стін: @Model.TypeOfWalls</p>
-			<p>Загальна площа: @Model.TotalArea</p>
-			<p>Житлова площа: @Model.LivingArea</p>
-			<p>Поверх: @Model.Floor</p>
-			<p>Опалення: @Model.Heating</p>
-			<p>Рік побудови: @Model.YearBuilt</p>
+			<p>Опис: @Model.FlatAdvert.Description</p>
+			<p>Тип нерухомості: @Model.FlatAdvert.Type</p>
+			<p>Кінати: @Model.FlatAdvert.Rooms</p>
+			<p>Тип стін: @Model.FlatAdvert.TypeOfWalls</p>
+			<p>Загальна площа: @Model.FlatAdvert.TotalArea</p>
+			<p>Житлова площа: @Model.FlatAdvert.LivingArea</p>
+			<p>Поверх: @Model.FlatAdvert.Floor</p>
+			<p>Опалення: @Model.FlatAdvert.Heating</p>
+			<p>Рік побудови: @Model.FlatAdvert.YearBuilt</p>
 			<hr />
 			<br />
-			<p>Ціна: @Model.Price @Model.Currency</p>
-			<p>За: @Model.TypePrice</p>
-			<p>Дата створення оголошення: @Model.CreationDate</p>
+			<p>Ціна: @Model.FlatAdvert.TotalPrice @Model.FlatAdvert.Currency @Model.FlatAdvert.TypePrice</p>
+			<p>@Model.FlatAdvert.PricePerSquareMeter @Model.FlatAdvert.Currency @Model.FlatAdvert.TypePrice</p>
+			<p>За: @Model.FlatAdvert.TypePrice</p>
+			<p>Дата створення оголошення: @Model.FlatAdvert.CreationDate</p>
 		</div>
 		<div class="col-md-5">
-			@foreach (var photo in Model.Photos)
+			@foreach (var photo in Model.FlatAdvert.Photos)
 			{
 				<img src="@photo.Path" width="250" height="250">
 			}
