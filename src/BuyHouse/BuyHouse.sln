@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuyHouse.WEB", "BuyHouse.WEB\BuyHouse.WEB.csproj", "{A8AC1BE4-142D-46C7-914F-B119D962ABA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuyHouse.WEB", "BuyHouse.WEB\BuyHouse.WEB.csproj", "{A8AC1BE4-142D-46C7-914F-B119D962ABA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuyHouse.DAL", "BuyHouse.DAL\BuyHouse.DAL.csproj", "{9A8D2FA0-AAE8-4CC9-90C2-FF49651F01A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuyHouse.DAL", "BuyHouse.DAL\BuyHouse.DAL.csproj", "{9A8D2FA0-AAE8-4CC9-90C2-FF49651F01A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuyHouse.BLL", "BuyHouse.BLL\BuyHouse.BLL.csproj", "{34E407DF-BF50-4560-A501-360D1B8C73E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuyHouse.BLL", "BuyHouse.BLL\BuyHouse.BLL.csproj", "{34E407DF-BF50-4560-A501-360D1B8C73E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuyHouse.UnitTests", "..\..\tests\BuyHouse.UnitTests\BuyHouse.UnitTests.csproj", "{17F97596-E165-49B3-B763-C911C9453133}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuyHouse.UnitTests", "..\..\tests\BuyHouse.UnitTests\BuyHouse.UnitTests.csproj", "{17F97596-E165-49B3-B763-C911C9453133}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuyHouse.API", "BuyHouse.API\BuyHouse.API.csproj", "{4B1B506F-CDEA-4A8B-9F8F-65A99AD355DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{17F97596-E165-49B3-B763-C911C9453133}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17F97596-E165-49B3-B763-C911C9453133}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17F97596-E165-49B3-B763-C911C9453133}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B1B506F-CDEA-4A8B-9F8F-65A99AD355DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B1B506F-CDEA-4A8B-9F8F-65A99AD355DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B1B506F-CDEA-4A8B-9F8F-65A99AD355DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B1B506F-CDEA-4A8B-9F8F-65A99AD355DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

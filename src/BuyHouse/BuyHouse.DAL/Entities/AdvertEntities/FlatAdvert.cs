@@ -1,6 +1,6 @@
 ﻿using BuyHouse.DAL.Entities.ApplicationUserEntities;
 using BuyHouse.DAL.Entities.HelperEnum;
-using System.ComponentModel.DataAnnotations;
+
 
 namespace BuyHouse.DAL.Entities.AdvertEntities
 {
@@ -25,8 +25,8 @@ namespace BuyHouse.DAL.Entities.AdvertEntities
         public string? RegistrationNumber { get; set; }
 
         /*Advert properties*/
-        public int? TotalPrice { get; set; }
-        public int? PricePerSquareMeter { get; set; }
+        public ulong? TotalPrice { get; set; }
+        public ulong? PricePerSquareMeter { get; set; }
         public Currency Currency { get; set; }
         public TypeOfPrice? TypePrice { get; set; }
         public DateTime? CreationDate { get; set; }

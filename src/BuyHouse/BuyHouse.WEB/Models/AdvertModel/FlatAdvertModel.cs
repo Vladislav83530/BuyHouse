@@ -5,7 +5,7 @@ namespace BuyHouse.WEB.Models.AdvertModel
 {
     public class FlatAdvertModel
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public RealtyMainInfoModel? MainInfo { get; set; }
         public ICollection<RealtyPhotoModel>? Photos { get; set; }
 
@@ -39,10 +39,9 @@ namespace BuyHouse.WEB.Models.AdvertModel
         public Currency Currency { get; set; }
         [Required]
         public TypeOfPrice? TypePrice { get; set; }
-        [Required]
-        public DateTime CreationDate { get; set; }
+        public DateTime? CreationDate { get; set; }
 
         /*Info for statistic*/
-        public int LikeCount { get; set; }
+        public int? LikeCount { get; set; }
     }
 }

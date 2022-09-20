@@ -2,6 +2,7 @@ using BuyHouse.BLL.Services;
 using BuyHouse.BLL.Services.Abstract;
 using BuyHouse.DAL.EF;
 using BuyHouse.DAL.Entities.AdvertEntities;
+using BuyHouse.WEB.Clients;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
@@ -19,9 +20,10 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<IPhotosService, PhotosService>();
 
 builder.Services.AddScoped<IFlatAdvertService, FlatAdvertService>();
-builder.Services.AddScoped<IAdvertService<FlatAdvert>, FlatAdvertService>();
 
-
+builder.Services.AddScoped<BuyHouseAPIClient>();
+builder.Services.AddScoped<HttpClient>();
+builder.Services.AddScoped<HttpRequestMessage>();
 
 //Localization
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");

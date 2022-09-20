@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BuyHouse.BLL.Services
 {
-    public class FlatAdvertService : AdvertService<FlatAdvert>, IFlatAdvertService
+    public class FlatAdvertService : IFlatAdvertService
     {
         private readonly ApplicationDbContext _context;
-        public FlatAdvertService(ApplicationDbContext context, IPhotosService photoService) : base(context, photoService)
+        public FlatAdvertService(ApplicationDbContext context)
         {
             _context = context;
         }
