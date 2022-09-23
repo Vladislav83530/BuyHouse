@@ -1,0 +1,38 @@
+﻿@model BuyHouse.WEB.Models.ViewModels.Auth.LoginViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+<div class="container main_container">
+	<h2>@Localizer["Sign in"]</h2>
+	<div class="row">
+		<div class="col-lg-6">
+			<form method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl" >
+				<div asp-validation-summary="ModelOnly"></div>
+				<div>
+					<label>@Localizer["Email"]</label><br />
+					<input class="form-control mb-1" asp-for="Email" />
+					<span asp-validation-for="Email"></span>
+				</div>
+				<div>
+					<label>@Localizer["Password"]</label><br />
+					<input class="form-control mb-1" asp-for="Password" />
+					<span asp-validation-for="Password"></span>
+				</div>
+				<div>
+					<label>@Localizer["Remember me"]?</label><br />
+					<input class="mb-1" asp-for="RememberMe" />
+				</div>
+				<div>
+					<input class="btn btn-primary" type="submit" value=@Localizer["Sign in"] />
+				</div>
+			</form>
+			@if(Model.ExternalProviders!=null){
+			<form class="mt-2" asp-action="ExternalLogin" asp-controller="Account" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+				@foreach (var provider in Model.ExternalProviders)
+				{
+					<button class="btn btn-primary" name="provider" value="@provider.Name" type="submit">@provider.Name</button>
+				}		
+			</form>
+			}
+		</div>
+	</div>
+</div>

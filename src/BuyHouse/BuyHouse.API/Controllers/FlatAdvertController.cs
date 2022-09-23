@@ -6,12 +6,13 @@ using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.DAL.Entities.HelperEnum;
 using BuyHouse.WEB.Models.AdvertModel;
 using BuyHouse.WEB.Models.HttpClientModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BuyHouse.API.Controllers
+namespace BuyHouse.API.Controllers  
 {
     [ApiController]
-    [Route("api/[controller]/[action]/")]
+    [Route("api/[controller]/")]
     public class FlatAdvertController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -53,6 +54,7 @@ namespace BuyHouse.API.Controllers
         /// <param name="currentUserId"></param>
         /// <returns>created flat advert</returns>
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateFlatAdvert(CreateRequestModel requestModel, string? currentUserId)
         {
             try
@@ -96,17 +98,24 @@ namespace BuyHouse.API.Controllers
         /// <param name="requestModel"></param>
         /// <returns>updated flat advert</returns>
         [HttpPut("{Id:int}")]
-        public async Task<IActionResult> UpdateFlatAdvert(int Id, CreateRequestModel requestModel)
+        [Authorize]
+        public async Task<IActionResult> UpdateFlatAdvert(int Id, CreateRequestModel requestModel, string currentUserId)
         {
             try
             {
                 if (Id != requestModel.FlatAdvert.Id)
                     return BadRequest("Flat advert ID is mismatch");
 
+                if (string.IsNullOrEmpty(currentUserId))
+                    return NotFound("Not found current user");
+
                 FlatAdvert flatAdvert_ = new FlatAdvert();
                 flatAdvert_ = _mapper.Map<FlatAdvertModel, FlatAdvert>(requestModel.FlatAdvert);
 
                 var flatAdvertToUpdate = await _context.FlatAdverts.FindAsync(Id);
+
+                if (flatAdvertToUpdate.UserID != currentUserId)
+                    return BadRequest("This advert isn't belong current user");
 
                 if (flatAdvertToUpdate == null)
                     return NotFound($"Flat advert with Id = {Id} not found");
@@ -150,11 +159,18 @@ namespace BuyHouse.API.Controllers
         /// <param name="Id"></param>
         /// <returns>deleted flat advert</returns>
         [HttpDelete("{Id:int}")]
-        public async Task<IActionResult> DeleteFlatAdvert(int Id)
+        [Authorize]
+        public async Task<IActionResult> DeleteFlatAdvert(int Id, string currentUserId)
         {
             try
             {
+                if (string.IsNullOrEmpty(currentUserId))
+                    return NotFound("Not found current user");
+
                 var flatAdvertToDelete = await _context.FlatAdverts.FindAsync(Id);
+
+                if (flatAdvertToDelete.UserID != currentUserId)
+                    return BadRequest("This advert isn't belong current user");
 
                 if (flatAdvertToDelete == null)
                     return NotFound($"Flat advert with Id = {Id} not found");

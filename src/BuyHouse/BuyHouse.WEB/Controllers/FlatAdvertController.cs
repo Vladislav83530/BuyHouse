@@ -6,8 +6,10 @@ using BuyHouse.WEB.Clients;
 using BuyHouse.WEB.Models.AdvertModel;
 using BuyHouse.WEB.Models.HttpClientModel;
 using BuyHouse.WEB.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
+using System.Security.Claims;
 
 namespace BuyHouse.WEB.Controllers
 {
@@ -27,20 +29,30 @@ namespace BuyHouse.WEB.Controllers
             _client = client;
         }
 
+        /// <summary>
+        /// CreateAdvert view
+        /// </summary>
+        /// <returns>View for creating advert</returns>
         [HttpGet]
+        [Authorize]
         public IActionResult CreateAdvert() => View();
 
-        //TODO: currentUserId change
+        /// <summary>
+        /// Create flat advert
+        /// </summary>
+        /// <param name="flatAdvertModel"></param>
+        /// <param name="uploads"></param>
+        /// <returns>Created advert</returns>
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateAdvertPost( FlatAdvertModel flatAdvertModel, IFormFileCollection uploads)
         {
             if (ModelState.IsValid)
             {
-                string? currentUserId = "0f8fad5b-d9cb-469f-a165-70867728950e";
+                string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value; ;
                 try
                 {
                     FlatAdvert flatAdvert_ = await _client.CreateFlatAdvert(new CreateRequestModel { FlatAdvert = flatAdvertModel}, uploads, currentUserId);
-                    TempData["AlertMessage"] = _localizer["create alert message"];
                     return RedirectToAction("GetFlatAdvert", new { flatAdvertId = flatAdvert_.Id });
                 }
                 catch (Exception ex)

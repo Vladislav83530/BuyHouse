@@ -12,23 +12,22 @@ namespace BuyHouse.WEB.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IFlatAdvertService _flatAdvertService;
         private readonly IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger, IFlatAdvertService flatAdvertService, IMapper mapper)
+        public HomeController(IFlatAdvertService flatAdvertService, IMapper mapper)
         {
-            _logger = logger;
             _flatAdvertService = flatAdvertService;
-            _mapper=mapper;
+            _mapper = mapper;
         }
 
         public async Task<IActionResult> Index()
         {
             try
             {
-                IEnumerable<FlatAdvert> flatAdverts_ =await _flatAdvertService.GetMostLikedFlatAdvert();
+                IEnumerable<FlatAdvert> flatAdverts_ = await _flatAdvertService.GetMostLikedFlatAdvert();
                 List<FlatAdvertShortModel> flatAdverts = _mapper.Map<IEnumerable<FlatAdvert>, List<FlatAdvertShortModel>>(flatAdverts_);
+
                 HomeIndexViewModel vm = new HomeIndexViewModel
                 {
                     FlatAdverts = flatAdverts,

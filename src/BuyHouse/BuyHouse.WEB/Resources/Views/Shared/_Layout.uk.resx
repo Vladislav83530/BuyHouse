@@ -129,10 +129,19 @@
   <data name="Houses" xml:space="preserve">
     <value>Будинки</value>
   </data>
+  <data name="Log in" xml:space="preserve">
+    <value>Увійти</value>
+  </data>
+  <data name="Log out" xml:space="preserve">
+    <value>Вийти</value>
+  </data>
   <data name="Rooms" xml:space="preserve">
     <value>Кімнати</value>
   </data>
   <data name="Sell" xml:space="preserve">
     <value>Продати</value>
+  </data>
+  <data name="Sign up" xml:space="preserve">
+    <value>Реєстрація</value>
   </data>
 </root>
