@@ -1,0 +1,114 @@
+﻿.main_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient( rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0.2) ), url('../images/register.jpeg') no-repeat center center fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: top;
+}
+
+#container_reg {
+    border-radius: 15px;
+    color: white;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto 250px;
+    padding: 15px;
+    border-radius: 5px;
+    background: rgba(3,3,3,0.7);
+    box-shadow: 1px 1px 50px #000;
+}
+
+.valid {
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+
+h1 {
+    font-family: 'Open Sans Condensed', sans-serif;
+    text-align: center;
+    font-size: 40px;
+    color: #ddd;
+    text-shadow: 3px 3px 10px #000;
+}
+
+input {
+    font-family: 'Open Sans Condensed', sans-serif;
+    text-decoration: none;
+    position: relative;
+    width: 90%;
+    height: 45px;
+    display: block;
+    margin: 9px auto;
+    margin-bottom: 0px;
+    font-size: 20px;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    background: rgba(3,3,3,.8);
+    transition: all 0.2s ease-in-out;
+}
+
+    input:focus {
+        outline: none;
+        box-shadow: 3px 3px 10px #333;
+        background: rgba(3,3,3,.18);
+    }
+
+.submit_btn {
+    background: rgba(95, 106, 220, 0.7);
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+.submitProv_btn {
+    background: rgba(95, 106, 220, 0.7);
+    width: 49%;
+    margin-top: 5px;
+}
+
+.input_chek{
+    height: 20px;
+    
+}
+
+
+@media only screen and (max-width: 1200px) {
+    #container_reg {
+        -moz-transform: scale(0.8, 0.8);
+        zoom: 0.8;
+        zoom: 80%;
+    }
+}
+
+@media only screen and (max-width: 990px) {
+    #container_reg {
+        margin: auto 100px;
+    }
+
+    #container_reg {
+        -moz-transform: scale(0.7, 0.7);
+        zoom: 0.7;
+        zoom: 70%;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    #container_reg {
+        margin: 50px 25px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    .submitProv_btn {
+        width: 100%;
+    }
+}

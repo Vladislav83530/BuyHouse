@@ -14,12 +14,14 @@ namespace BuyHouse.WEB.Clients
         private readonly HttpRequestMessage _request;
         private readonly IPhotosService _photosService;
         private readonly IJwtTokenProvider _tokenProvider;
+        private readonly IConfiguration _config;
 
-        public BuyHouseAPIClient(IPhotosService photosService, HttpClient client, HttpRequestMessage request, IJwtTokenProvider tokenProvider)
+        public BuyHouseAPIClient(IPhotosService photosService, IJwtTokenProvider tokenProvider, IConfiguration config)
         {
-            _client = client;
-            _address = "https://localhost:7122";
-            _request = request;
+            _config = config;
+            _client = new HttpClient();
+            _address = _config.GetValue<string>("APIAdress");
+            _request = new HttpRequestMessage();
             _photosService = photosService;
             _tokenProvider = tokenProvider;
         }
@@ -51,10 +53,11 @@ namespace BuyHouse.WEB.Clients
         /// <returns>Created flat advert</returns>
         public async Task<FlatAdvert> CreateFlatAdvert(CreateRequestModel requestModel, IFormFileCollection uploads, string? currentUserId)
         {
-            var JwtToken = await _tokenProvider.GenerateJwtToken(currentUserId);
 
             if (currentUserId == null)
                 throw new ArgumentNullException("User Id can't be null");
+
+            var JwtToken = await _tokenProvider.GenerateJwtToken(currentUserId);
 
             requestModel.RealtyPhotos = await _photosService.AddPhotoToAdvert(uploads, currentUserId);
 

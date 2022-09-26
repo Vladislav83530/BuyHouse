@@ -135,7 +135,7 @@
   <data name="UserName" xml:space="preserve">
     <value>Ім'я</value>
   </data>
-  <data name="UserSurnme" xml:space="preserve">
+  <data name="UserSurname" xml:space="preserve">
     <value>Прізвище</value>
   </data>
 </root>

@@ -25,8 +25,6 @@ builder.Services.AddScoped<IPhotosService, PhotosService>();
 builder.Services.AddScoped<IFlatAdvertService, FlatAdvertService>();
 
 builder.Services.AddScoped<BuyHouseAPIClient>();
-builder.Services.AddScoped<HttpClient>();
-builder.Services.AddScoped<HttpRequestMessage>();
 
 builder.Services.AddScoped<IJwtTokenProvider, JwtTokenProvider>();
 

@@ -31,8 +31,8 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = JwtTokenProvider.SIGNING_KEY,
         ValidateIssuer = true,
         ValidateAudience = true,
-        ValidIssuer = "https://localhost:7122",
-        ValidAudience = "https://localhost:7021",
+        ValidIssuer = builder.Configuration.GetValue<string>("ValidIssuer"),
+        ValidAudience = builder.Configuration.GetValue<string>("ValidAudience"),
         ValidateLifetime = true
     };
 });

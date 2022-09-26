@@ -6,28 +6,27 @@ using System.Text;
 
 namespace BuyHouse.BLL.Services.Providers.JwtTokenProvider
 {
+    //TODO: configuration
     public class JwtTokenProvider : IJwtTokenProvider
     {
-
-        //TODO: secret key 
-        private const string SECRET_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJNeUFwcGxpY2F0aW9uQnV5SG91c2UiLCJuYW1lIjoiMjM0MzIzMjQzMiIsImlhdCI6MTUxNjIzOTAyMn0.5sXQL4Z-K5HPQYIRU7B4ZEL5XS7H1-lx-c9ylbJlXps";
-        public static readonly SymmetricSecurityKey SIGNING_KEY = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SECRET_KEY));
-
         private readonly ApplicationDbContext _context;
         public JwtTokenProvider(ApplicationDbContext context)
         {
             _context = context;
         }
+       
+        private static string SECRET_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBsaWNhdGlvblNlY3JldEtleSI6Ik15QXBwbGljYXRpb25TZWNyZXRLZXkifQ.HkGrLPt2lTMpywpbFf1mqAq8Hl5qgenFxA337xEUno4";
+        public static readonly SymmetricSecurityKey SIGNING_KEY = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SECRET_KEY));
 
-        //currentUser == null exception 
         public async Task<string> GenerateJwtToken(string? currentUserId)
         {
-            //if(currentUserId == null)
+            if (String.IsNullOrEmpty(currentUserId))
+                throw new Exception("User id can't be null");
 
             var currentUser = await _context.Users.FindAsync(currentUserId);
 
-            //if (currentUser == null)
-            //    return null;
+            if (currentUser == null)
+                throw new Exception("Not found current user");
 
             var credentials = new SigningCredentials(SIGNING_KEY, SecurityAlgorithms.HmacSha256);
 

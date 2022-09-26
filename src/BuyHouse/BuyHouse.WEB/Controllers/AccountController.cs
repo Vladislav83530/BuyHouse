@@ -1,4 +1,5 @@
-﻿using BuyHouse.DAL.Entities.ApplicationUserEntities;
+﻿using BuyHouse.DAL.EF;
+using BuyHouse.DAL.Entities.ApplicationUserEntities;
 using BuyHouse.WEB.Models.ViewModels.Auth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,7 @@ namespace BuyHouse.WEB.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IStringLocalizer<AccountController> _localizer;
+
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
             IStringLocalizer<AccountController> localizer)
         {
@@ -65,7 +67,6 @@ namespace BuyHouse.WEB.Controllers
             return View(new RegisterViewModel {ExternalProviders = externalProvider});
         }
 
-        //TODO: same email (error)
         /// <summary>
         /// Register user
         /// </summary>
@@ -160,7 +161,6 @@ namespace BuyHouse.WEB.Controllers
         }
 
 
-        //TODO: same email (error)
         /// <summary>
         /// Register by external provider
         /// </summary>
