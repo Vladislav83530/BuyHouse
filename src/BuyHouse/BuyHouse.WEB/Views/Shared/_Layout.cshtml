@@ -9,9 +9,7 @@
 	<title>@ViewData["Title"] - BuyHouse.WEB</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.2.0/zephyr/bootstrap.min.css" integrity="sha512-4hshmZC4nWxAKC1H3MJBd2uRv+gRBkcBODzZoj3Jzd0XrF+osekpAAI1W7ASmMTuSKzrq+3xDoTfNU2sbNK67w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Montserrat:400,700&amp;subset=cyrillic-ext" rel="stylesheet">
-	<link rel="stylesheet" href="~/css/HomeIndex.css" />
 	<link rel="stylesheet" href="~/css/Layout.css" />
-	<link rel="stylesheet" href="~/css/IndexFlatAdvert.css" />
 </head>
 <body>
 	<header>
@@ -52,13 +50,13 @@
 							<li class="nav-item">
 								<a class="nav-link link" asp-controller="Account" asp-action="Login">@Localizer["Log in"]</a>
 							</li>
-						</ul>
-					}
-					else
-					{
-						<ul class="navbar-nav">
-							<li class="nav-item">
-								<a class="nav-link link" >@User.Identity.Name</a>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link link" asp-action="Index" asp-controller="UserProfile">@Localizer["Office"]</a>
 							</li>
 						<form class="nav-item" asp-action="Logout" asp-controller="Account">
 							<ul class="navbar-nav">
@@ -78,7 +76,7 @@
 	<main role="main">
 		@RenderBody()
 	</main>
-	<footer class="border-top footer text-muted" style="background-color: black;">
+	<footer class="border-top footer text-muted"style="background-color: black; ">
 		<div class="container">
 			&copy; 2022 - BuyHouse.WEB - Vladislav Petrov
 		</div>

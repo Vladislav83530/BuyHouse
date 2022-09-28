@@ -135,6 +135,9 @@
   <data name="Log out" xml:space="preserve">
     <value>Вийти</value>
   </data>
+  <data name="Office" xml:space="preserve">
+    <value>Кабінет</value>
+  </data>
   <data name="Rooms" xml:space="preserve">
     <value>Кімнати</value>
   </data>

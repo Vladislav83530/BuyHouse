@@ -13,13 +13,15 @@ namespace BuyHouse.WEB.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IStringLocalizer<AccountController> _localizer;
+        private readonly ApplicationDbContext _context;
 
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-            IStringLocalizer<AccountController> localizer)
+            IStringLocalizer<AccountController> localizer, ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _localizer = localizer;
+            _context = context;
         }
 
         /// <summary>
@@ -89,6 +91,9 @@ namespace BuyHouse.WEB.Controllers
                     PhoneNumber = model.PhoneNumber
                 };
 
+                UserAvatar avatar = new UserAvatar { ApplicationUser = user, Name = "download", Path = "/Files/Avatars/AccountAvatar.png" };
+                _context.UserAvatars.AddRange(avatar);
+
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -151,6 +156,7 @@ namespace BuyHouse.WEB.Controllers
             string? userSurname = info.Principal.FindFirst(ClaimTypes.Surname)?.Value;
             var userEmail = info.Principal.FindFirst(ClaimTypes.Email)?.Value;
             var userPhoneNumber = info.Principal.FindFirst(ClaimTypes.MobilePhone)?.Value;
+
             return RedirectToAction("ExternalRegister", new ExternalRegisterViewModel
             {
                 Name = userName,
@@ -180,19 +186,31 @@ namespace BuyHouse.WEB.Controllers
                 Name = vm.Name,
                 Surname = vm.Surname
             };
-            var result = await _userManager.CreateAsync(user);
 
-            if (!result.Succeeded)
-                return View(vm);
+            UserAvatar avatar = new UserAvatar { ApplicationUser = user, Name = "download", Path = "/Files/Avatars/AccountAvatar.png" };
+            _context.UserAvatars.AddRange(avatar);
 
-            result = await _userManager.AddLoginAsync(user, info);
+            var users = _context.Users.Where(x => x.Email == vm.Email).ToList();
+            if (users.Count != 0)
+            {
+                await _signInManager.SignInAsync(users.FirstOrDefault(), false);
+                return RedirectToAction("Index", "Home");
+            }
 
-            if (!result.Succeeded)
-                return View(vm);
+                var result = await _userManager.CreateAsync(user);
 
-            await _signInManager.SignInAsync(user, false);
+                if (!result.Succeeded)
+                    return View(vm);
 
-            return RedirectToAction("Index", "Home");
+                result = await _userManager.AddLoginAsync(user, info);
+
+                if (!result.Succeeded)
+                    return View(vm);
+
+                await _signInManager.SignInAsync(user, false);
+
+                return RedirectToAction("Index", "Home");
+         
         }
     }
 }

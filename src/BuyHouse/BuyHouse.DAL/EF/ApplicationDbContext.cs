@@ -66,6 +66,11 @@ namespace BuyHouse.DAL.EF
                 .HasMany<RoomAdvert>(c => c.RoomAdverts)
                 .WithOne(e => e.ApplicationUser)
                 .HasForeignKey(c => c.UserID);
+
+            builder.Entity<ApplicationUser>()
+                .HasOne<UserAvatar>(u => u.UserAvatar)
+                .WithOne(c => c.ApplicationUser)
+                .HasForeignKey<UserAvatar>(c => c.ApplicationUserId);
         }
     }
 }

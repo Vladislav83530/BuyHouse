@@ -15,8 +15,7 @@ namespace BuyHouse.WEB.Models.AdvertModel
         [Required]
         public string? Type { get; set; }
         [Required]
-
-        public int Rooms { get; set; }
+        public uint Rooms { get; set; }
         [Required]
         public TypeOfWalls TypeOfWalls { get; set; }
         [Required]
@@ -24,18 +23,20 @@ namespace BuyHouse.WEB.Models.AdvertModel
         [Required]
         public double LivingArea { get; set; }
         [Required]
-        public int Floor { get; set; }
+        public uint Floor { get; set; }
         [Required]
         public string? Heating { get; set; }
         [Required]
-        public int YearBuilt { get; set; }
+        [Range(1990, 2026)]
+        public uint YearBuilt { get; set; }
         [Required]
+        [RegularExpression(@"[1-9]{1}[0-9]{12}")]
         public string? RegistrationNumber { get; set; }
 
         /*Advert properties*/
         [Required]
-        public int TotalPrice { get; set; }
-        public int? PricePerSquareMeter { get; set; }
+        public ulong? TotalPrice { get; set; }
+        public ulong? PricePerSquareMeter { get; set; }
         [Required]
         public Currency Currency { get; set; }
         [Required]
@@ -43,6 +44,6 @@ namespace BuyHouse.WEB.Models.AdvertModel
         public DateTime? CreationDate { get; set; }
 
         /*Info for statistic*/
-        public int? LikeCount { get; set; }
+        public uint? LikeCount { get; set; }
     }
 }

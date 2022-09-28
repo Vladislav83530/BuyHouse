@@ -14,26 +14,24 @@ namespace BuyHouse.DAL.Entities.AdvertEntities
         public TypeOfRealty? Type { get; set; }
         public int? Rooms { get; set; }
         public TypeOfWalls? TypeOfWalls { get; set; }
-        public double? TotalArea { get; set; }
-        public double? LivingArea { get; set; }
-        public int? Floor { get; set; }
+        public double TotalArea { get; set; }
+        public double LivingArea { get; set; }
+        public uint Floor { get; set; }
         public string? Heating { get; set; }
-        //[Range(1900, 2026)]
-        public int? YearBuilt { get; set; }
-        //[RegularExpression(@"[1-9]\d{1}[0-9]\d{10-12}")]
+        public uint YearBuilt { get; set; }
         public string? RegistrationNumber { get; set; }
 
         /*Advert properties*/
-        public ulong? TotalPrice { get; set; }
-        public ulong? PricePerSquareMeter { get; set; }
+        public ulong TotalPrice { get; set; }
+        public ulong PricePerSquareMeter { get; set; }
         public Currency Currency { get; set; }
-        public TypeOfPrice? TypePrice { get; set; }
-        public DateTime? CreationDate { get; set; }
+        public TypeOfPrice TypePrice { get; set; }
+        public DateTime CreationDate { get; set; }
 
         /*Info for statistic*/
-        public int? LikeCount { get; set; }
+        public uint? LikeCount { get; set; }
 
-        public string UserID { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+        public string? UserID { get; set; }
+        public ApplicationUser? ApplicationUser { get; set; }
     }
 }

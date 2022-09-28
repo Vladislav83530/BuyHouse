@@ -64,7 +64,7 @@ namespace BuyHouse.API.Controllers
 
                 if (requestModel.FlatAdvert != null)
                 {
-                    FlatAdvert advert = new FlatAdvert();
+                    FlatAdvert advert = new();
                     advert = _mapper.Map<FlatAdvertModel, FlatAdvert>(requestModel.FlatAdvert);
 
                     advert.UserID = currentUserId;
@@ -72,11 +72,11 @@ namespace BuyHouse.API.Controllers
                     advert.Photos = (ICollection<RealtyPhoto>)requestModel.RealtyPhotos;
 
                     if (advert.TypePrice == TypeOfPrice.TotalPrice)
-                        advert.PricePerSquareMeter = (ulong?)(advert.TotalPrice / advert.TotalArea);
+                        advert.PricePerSquareMeter = (ulong)(advert.TotalPrice / advert.TotalArea);
                     else
                     {
                         advert.PricePerSquareMeter = advert.TotalPrice;
-                        advert.TotalPrice = (ulong?)(advert.TotalPrice * advert.TotalArea);
+                        advert.TotalPrice = (ulong)(advert.TotalPrice * advert.TotalArea);
                     }
 
                     await _context.FlatAdverts.AddAsync(advert);
@@ -109,7 +109,7 @@ namespace BuyHouse.API.Controllers
                 if (string.IsNullOrEmpty(currentUserId))
                     return NotFound("Not found current user");
 
-                FlatAdvert flatAdvert_ = new FlatAdvert();
+                FlatAdvert flatAdvert_ = new();
                 flatAdvert_ = _mapper.Map<FlatAdvertModel, FlatAdvert>(requestModel.FlatAdvert);
 
                 var flatAdvertToUpdate = await _context.FlatAdverts.FindAsync(Id);

@@ -1,4 +1,9 @@
-﻿.menu {
+﻿body {
+    min-height: 100%;
+    position:relative;
+}
+
+.menu {
     background-color: #FFD61D;
 }
 
@@ -32,4 +37,12 @@
     color: white;
     border-radius: 30px;
     padding: 15px auto;
+}
+
+@media only screen and (max-width: 990px) {
+    .logout_btn {
+        margin-bottom: 5px;
+        margin-left: -15px;
+        width: 150px;
+    }
 }

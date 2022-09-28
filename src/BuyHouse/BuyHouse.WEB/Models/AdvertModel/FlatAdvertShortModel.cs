@@ -11,21 +11,21 @@ namespace BuyHouse.WEB.Models.AdvertModel
 
         /*Main flat parameters*/
         [Required]
-        public int? Rooms { get; set; }
-        public double? TotalArea { get; set; }
+        public uint Rooms { get; set; }
+        public double TotalArea { get; set; }
         [Required] 
-        public int? Floor { get; set; }
+        public uint Floor { get; set; }
 
         /*Advert properties*/
         [Required]
-        public int? TotalPrice { get; set; }
-        public int? PricePerSquareMeter { get; set; }
+        public uint TotalPrice { get; set; }
+        public uint PricePerSquareMeter { get; set; }
         [Required]
-        public Currency? Currency { get; set; }
+        public Currency Currency { get; set; }
         [Required]
-        public TypeOfPrice? TypePrice { get; set; }
+        public TypeOfPrice TypePrice { get; set; }
 
         /*Info for statistic*/
-        public int? LikeCount { get; set; }
+        public uint LikeCount { get; set; }
     }
 }

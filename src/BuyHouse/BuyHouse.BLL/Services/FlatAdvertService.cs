@@ -22,7 +22,7 @@ namespace BuyHouse.BLL.Services
         /// <param name="pageSize"></param>
         /// <param name="page"></param>
         /// <returns>filtered flat adverts</returns>
-        public async Task<ResponseFlatAdvertDTO> GetFlatAdvertByParameters( FlatAdvertFilter filter, int pageSize, int page = 1)
+        public async Task<ResponseFlatAdvertDTO> GetFlatAdvertByParameters(FlatAdvertFilter filter, int pageSize, int page = 1)
         {
             if (pageSize == 0)
                 pageSize = 10;
@@ -52,7 +52,7 @@ namespace BuyHouse.BLL.Services
                 }
             }
 
-            if (filter.MaxPrice != null && filter.MinPrice != null)
+            if (filter?.MaxPrice != null && filter?.MinPrice != null)
             {
 
                 if (filter.TypeOfPrice == TypeOfPrice.TotalPrice)

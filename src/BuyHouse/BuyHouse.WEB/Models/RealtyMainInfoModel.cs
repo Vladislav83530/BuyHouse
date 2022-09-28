@@ -12,8 +12,8 @@ namespace BuyHouse.WEB.Models
         public string? Street { get; set; }
         [Required]
         public string? HouseNumber { get; set; }
-        public int? FlatNumber { get; set; }
+        public uint FlatNumber { get; set; }
         [Required]
-        public DateTime? RegistrationDate { get; set; }
+        public DateTime RegistrationDate { get; set; }
     }
 }
