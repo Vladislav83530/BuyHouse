@@ -18,7 +18,7 @@ namespace BuyHouse.DAL.Entities.AdvertEntities
         public double LandArea { get; set; }
         public double LivingArea { get; set; }
         public uint Floor { get; set; }
-        public string? Heating { get; set; }
+        public TypeOfHeating Heating { get; set; }
         public uint YearBuilt { get; set; }
         public string? RegistrationNumber { get; set; }
         public string? CadastralNumber { get; set; }

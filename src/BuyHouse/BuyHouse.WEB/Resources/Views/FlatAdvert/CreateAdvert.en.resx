@@ -117,28 +117,70 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Apartment advert title" xml:space="preserve">
-    <value>Most liked apartments</value>
+  <data name="AeratedСoncrete" xml:space="preserve">
+    <value>Aerated сoncrete</value>
   </data>
-  <data name="Apartments" xml:space="preserve">
-    <value>Apartments</value>
+  <data name="BlockBrick" xml:space="preserve">
+    <value>Block-brick</value>
   </data>
-  <data name="Houses" xml:space="preserve">
-    <value>Houses</value>
+  <data name="Brick" xml:space="preserve">
+    <value>Brick</value>
   </data>
-  <data name="Intro title" xml:space="preserve">
-    <value>Find your new home!</value>
+  <data name="Centralized" xml:space="preserve">
+    <value>Centralized</value>
   </data>
-  <data name="Per" xml:space="preserve">
-    <value>per</value>
+  <data name="Create advert" xml:space="preserve">
+    <value>Create advert</value>
   </data>
-  <data name="Price per object" xml:space="preserve">
+  <data name="Create your advert" xml:space="preserve">
+    <value>Create your advert</value>
+  </data>
+  <data name="Ferroconcrete" xml:space="preserve">
+    <value>Ferroconcrete</value>
+  </data>
+  <data name="FoamBlock" xml:space="preserve">
+    <value>Foam block</value>
+  </data>
+  <data name="Frame" xml:space="preserve">
+    <value>Frame</value>
+  </data>
+  <data name="Individual" xml:space="preserve">
+    <value>Individual</value>
+  </data>
+  <data name="MainInfo" xml:space="preserve">
+    <value>Main information</value>
+  </data>
+  <data name="Monolith" xml:space="preserve">
+    <value>Monolith</value>
+  </data>
+  <data name="Panel" xml:space="preserve">
+    <value>Panel</value>
+  </data>
+  <data name="Parameters" xml:space="preserve">
+    <value>Parameters</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>Photo</value>
+  </data>
+  <data name="PricePerObject" xml:space="preserve">
     <value>per object</value>
   </data>
-  <data name="Rooms" xml:space="preserve">
-    <value>Rooms</value>
+  <data name="PricePerSquareMeter" xml:space="preserve">
+    <value>per square meter</value>
   </data>
-  <data name="Total area" xml:space="preserve">
-    <value>Total area</value>
+  <data name="Primary" xml:space="preserve">
+    <value>Primary</value>
+  </data>
+  <data name="Secondary" xml:space="preserve">
+    <value>Secondary</value>
+  </data>
+  <data name="Upload photos message" xml:space="preserve">
+    <value>Upload multiple photos to get more ad views</value>
+  </data>
+  <data name="WithoutHeating" xml:space="preserve">
+    <value>WithoutHeating</value>
+  </data>
+  <data name="Сombined" xml:space="preserve">
+    <value>Сombined</value>
   </data>
 </root>

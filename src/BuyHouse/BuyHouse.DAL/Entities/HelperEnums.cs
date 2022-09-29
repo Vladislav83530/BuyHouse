@@ -15,10 +15,15 @@ namespace BuyHouse.DAL.Entities.HelperEnum
     }
 
     public enum TypeOfWalls
-    {
+    {   
         Brick,
         Frame,
-        Panel
+        Panel,
+        FoamBlock,
+        Ferroconcrete,
+        AeratedСoncrete,
+        BlockBrick,
+        Monolith
     }
 
     public enum TypeOfPrice
@@ -29,7 +34,16 @@ namespace BuyHouse.DAL.Entities.HelperEnum
 
     public enum TypeOfRealty
     {
+        [Display(Name ="Some primary name")]
         Primary,
         Secondary
+    }
+
+    public enum TypeOfHeating
+    {
+        Individual,
+        Centralized,
+        Сombined,
+        WithoutHeating
     }
 }

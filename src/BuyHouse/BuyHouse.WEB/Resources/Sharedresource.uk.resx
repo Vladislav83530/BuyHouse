@@ -117,28 +117,104 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Apartment advert title" xml:space="preserve">
-    <value>Most liked apartments</value>
+  <data name="City" xml:space="preserve">
+    <value>Місто</value>
+    <comment>Field name</comment>
   </data>
-  <data name="Apartments" xml:space="preserve">
-    <value>Apartments</value>
+  <data name="CreationDate" xml:space="preserve">
+    <value>Дата створення</value>
+    <comment>Field name</comment>
   </data>
-  <data name="Houses" xml:space="preserve">
-    <value>Houses</value>
+  <data name="Currency" xml:space="preserve">
+    <value>Валюта</value>
+    <comment>Field name</comment>
   </data>
-  <data name="Intro title" xml:space="preserve">
-    <value>Find your new home!</value>
+  <data name="Description" xml:space="preserve">
+    <value>Опис</value>
+    <comment>Field name</comment>
   </data>
-  <data name="Per" xml:space="preserve">
-    <value>per</value>
+  <data name="FlatNumber" xml:space="preserve">
+    <value>Номер квартири</value>
+    <comment>Field name</comment>
   </data>
-  <data name="Price per object" xml:space="preserve">
-    <value>per object</value>
+  <data name="Floor" xml:space="preserve">
+    <value>Поверх</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="Heating" xml:space="preserve">
+    <value>Опалення</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="HouseNumber" xml:space="preserve">
+    <value>Номер будинку</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="LivingArea" xml:space="preserve">
+    <value>Житлова площа</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="PricePerSquareMeter" xml:space="preserve">
+    <value>за кв. метер</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="RangeError" xml:space="preserve">
+    <value>Значення цього поля має бути більше ніж {1}</value>
+    <comment>Error message</comment>
+  </data>
+  <data name="RangeYearBuiltError" xml:space="preserve">
+    <value>Рік побудови має бути в діапазоні від  {1} до {2} </value>
+    <comment>Error message</comment>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Область</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="RegistrationDate" xml:space="preserve">
+    <value>Дата реєстрації</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="RegistrationNumber" xml:space="preserve">
+    <value>Реєстраційний номер</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="RegistrationNumberError" xml:space="preserve">
+    <value> Поле реєстраційний номер має відповідати 13 цифрам від 0 до 9</value>
+    <comment>Error message</comment>
+  </data>
+  <data name="RequiredField" xml:space="preserve">
+    <value>Поле є обов'язковим</value>
+    <comment>Error message</comment>
   </data>
   <data name="Rooms" xml:space="preserve">
-    <value>Rooms</value>
+    <value>Кількість кімнат</value>
+    <comment>Field name</comment>
   </data>
-  <data name="Total area" xml:space="preserve">
-    <value>Total area</value>
+  <data name="Street" xml:space="preserve">
+    <value>Вулиця</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="TotalArea" xml:space="preserve">
+    <value>Загальна площа</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="TotalPrice" xml:space="preserve">
+    <value>Ціна за об'єкт</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Тип</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="TypeOfWalls" xml:space="preserve">
+    <value>Тип стін</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="TypePrice" xml:space="preserve">
+    <value>Ціна за</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="YearBuilt" xml:space="preserve">
+    <value>Рік побудови</value>
+    <comment>Field name</comment>
   </data>
 </root>

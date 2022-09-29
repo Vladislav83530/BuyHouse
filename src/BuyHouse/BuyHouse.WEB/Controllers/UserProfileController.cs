@@ -1,6 +1,7 @@
 ﻿using BuyHouse.BLL.DTO;
 using BuyHouse.BLL.Services.Abstract;
 using BuyHouse.DAL.EF;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -29,6 +30,7 @@ namespace BuyHouse.WEB.Controllers
         /// </summary>
         /// <returns>view with user`s info</returns>
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -53,6 +55,7 @@ namespace BuyHouse.WEB.Controllers
         /// <param name="uploadedFile"></param>
         /// <returns>view with updated avatar</returns>
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> UpdateUsersAvatar(IFormFile uploadedFile)
         {
             string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -81,6 +84,7 @@ namespace BuyHouse.WEB.Controllers
         /// <param name="userProfileInfo"></param>
         /// <returns>View with edited information</returns>
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> UpdateUserInfo(UserProfileDTO userProfileInfo)
         {
             string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

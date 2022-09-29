@@ -117,28 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Apartment advert title" xml:space="preserve">
-    <value>Most liked apartments</value>
-  </data>
-  <data name="Apartments" xml:space="preserve">
-    <value>Apartments</value>
-  </data>
-  <data name="Houses" xml:space="preserve">
-    <value>Houses</value>
-  </data>
-  <data name="Intro title" xml:space="preserve">
-    <value>Find your new home!</value>
-  </data>
-  <data name="Per" xml:space="preserve">
-    <value>per</value>
-  </data>
-  <data name="Price per object" xml:space="preserve">
-    <value>per object</value>
-  </data>
-  <data name="Rooms" xml:space="preserve">
-    <value>Rooms</value>
-  </data>
-  <data name="Total area" xml:space="preserve">
-    <value>Total area</value>
+  <data name="Primary" xml:space="preserve">
+    <value>Primary</value>
   </data>
 </root>

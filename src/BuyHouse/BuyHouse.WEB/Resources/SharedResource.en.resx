@@ -117,28 +117,104 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Apartment advert title" xml:space="preserve">
-    <value>Most liked apartments</value>
+  <data name="City" xml:space="preserve">
+    <value>City</value>
+    <comment>Field name</comment>
   </data>
-  <data name="Apartments" xml:space="preserve">
-    <value>Apartments</value>
+  <data name="CreationDate" xml:space="preserve">
+    <value>Creation date</value>
+    <comment>Field name</comment>
   </data>
-  <data name="Houses" xml:space="preserve">
-    <value>Houses</value>
+  <data name="Currency" xml:space="preserve">
+    <value>Currency</value>
+    <comment>Field name</comment>
   </data>
-  <data name="Intro title" xml:space="preserve">
-    <value>Find your new home!</value>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+    <comment>Field name</comment>
   </data>
-  <data name="Per" xml:space="preserve">
-    <value>per</value>
+  <data name="FlatNumber" xml:space="preserve">
+    <value>Flat number</value>
+    <comment>Field name</comment>
   </data>
-  <data name="Price per object" xml:space="preserve">
-    <value>per object</value>
+  <data name="Floor" xml:space="preserve">
+    <value>Floor</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="Heating" xml:space="preserve">
+    <value>Heating</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="HouseNumber" xml:space="preserve">
+    <value>House number</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="LivingArea" xml:space="preserve">
+    <value>Living area</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="PricePerSquareMeter" xml:space="preserve">
+    <value>per square meter</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="RangeError" xml:space="preserve">
+    <value>This field must be greater than {1}</value>
+    <comment>Error message</comment>
+  </data>
+  <data name="RangeYearBuiltError" xml:space="preserve">
+    <value>Year built must be betwen {1} and {2}</value>
+    <comment>Error message</comment>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Region</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="RegistrationDate" xml:space="preserve">
+    <value>Registration date</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="RegistrationNumber" xml:space="preserve">
+    <value>Registration number</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="RegistrationNumberError" xml:space="preserve">
+    <value>The field registration number must match the 13 numbers for 0 to 9</value>
+    <comment>Error message</comment>
+  </data>
+  <data name="RequiredField" xml:space="preserve">
+    <value>Field is required</value>
+    <comment>Error message</comment>
   </data>
   <data name="Rooms" xml:space="preserve">
-    <value>Rooms</value>
+    <value>Count of rooms</value>
+    <comment>Field name</comment>
   </data>
-  <data name="Total area" xml:space="preserve">
+  <data name="Street" xml:space="preserve">
+    <value>Street</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="TotalArea" xml:space="preserve">
     <value>Total area</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="TotalPrice" xml:space="preserve">
+    <value>Price per object</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="TypeOfWalls" xml:space="preserve">
+    <value>Type of walls</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="TypePrice" xml:space="preserve">
+    <value>Price</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="YearBuilt" xml:space="preserve">
+    <value>Year built</value>
+    <comment>Field name</comment>
   </data>
 </root>

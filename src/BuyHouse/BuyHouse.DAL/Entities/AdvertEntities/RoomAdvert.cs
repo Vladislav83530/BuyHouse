@@ -15,8 +15,7 @@ namespace BuyHouse.DAL.Entities.AdvertEntities
         public double TotalArea { get; set; }
         public double LivingArea { get; set; }
         public uint Floor { get; set; }
-        public string? Heating { get; set; }
-        //[RegularExpression(@"[1-9]\d{1}[0-9]\d{10-12}")]
+        public TypeOfHeating Heating { get; set; }
         public string? RegistrationNumber { get; set; }
 
         /*Advert properties*/

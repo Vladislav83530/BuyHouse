@@ -117,28 +117,70 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Apartment advert title" xml:space="preserve">
-    <value>Most liked apartments</value>
+  <data name="AeratedСoncrete" xml:space="preserve">
+    <value>Газобетон</value>
   </data>
-  <data name="Apartments" xml:space="preserve">
-    <value>Apartments</value>
+  <data name="BlockBrick" xml:space="preserve">
+    <value>Блочно-цегляний</value>
   </data>
-  <data name="Houses" xml:space="preserve">
-    <value>Houses</value>
+  <data name="Brick" xml:space="preserve">
+    <value>Цегла</value>
   </data>
-  <data name="Intro title" xml:space="preserve">
-    <value>Find your new home!</value>
+  <data name="Centralized" xml:space="preserve">
+    <value>Централізоване</value>
   </data>
-  <data name="Per" xml:space="preserve">
-    <value>per</value>
+  <data name="Create advert" xml:space="preserve">
+    <value>Створити оголошення</value>
   </data>
-  <data name="Price per object" xml:space="preserve">
-    <value>per object</value>
+  <data name="Create your advert" xml:space="preserve">
+    <value>Створіть своє оголошення</value>
   </data>
-  <data name="Rooms" xml:space="preserve">
-    <value>Rooms</value>
+  <data name="Ferroconcrete" xml:space="preserve">
+    <value>Зілозобетон</value>
   </data>
-  <data name="Total area" xml:space="preserve">
-    <value>Total area</value>
+  <data name="FoamBlock" xml:space="preserve">
+    <value>Піноблок</value>
+  </data>
+  <data name="Frame" xml:space="preserve">
+    <value>Каркасний</value>
+  </data>
+  <data name="Individual" xml:space="preserve">
+    <value>Індивідуальне</value>
+  </data>
+  <data name="MainInfo" xml:space="preserve">
+    <value>Основна інформація</value>
+  </data>
+  <data name="Monolith" xml:space="preserve">
+    <value>Моноліт</value>
+  </data>
+  <data name="Panel" xml:space="preserve">
+    <value>Панель</value>
+  </data>
+  <data name="Parameters" xml:space="preserve">
+    <value>Параметри</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>Фото</value>
+  </data>
+  <data name="PricePerObject" xml:space="preserve">
+    <value>за об'єкт</value>
+  </data>
+  <data name="PricePerSquareMeter" xml:space="preserve">
+    <value>за кв. метер</value>
+  </data>
+  <data name="Primary" xml:space="preserve">
+    <value>Первинне житло</value>
+  </data>
+  <data name="Secondary" xml:space="preserve">
+    <value>Вторинне житло</value>
+  </data>
+  <data name="Upload photos message" xml:space="preserve">
+    <value>Завантажте декілька фотографій щоб отримати більше переглядів оголошення</value>
+  </data>
+  <data name="WithoutHeating" xml:space="preserve">
+    <value>Без опалення</value>
+  </data>
+  <data name="Сombined" xml:space="preserve">
+    <value>Комбіноване</value>
   </data>
 </root>

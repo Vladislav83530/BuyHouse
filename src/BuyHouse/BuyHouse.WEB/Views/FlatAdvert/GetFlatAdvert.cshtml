@@ -1,6 +1,6 @@
 ﻿@model BuyHouse.WEB.Models.ViewModels.GetFlatAdvertViewModel
 @using Microsoft.AspNetCore.Mvc.Localization
- 
+
 @inject IViewLocalizer Localizer
 @if (TempData["AlertMessage"] != null)
 		{
@@ -34,7 +34,7 @@
 			<br />
 			<p>Ціна: @Model.FlatAdvert.TotalPrice @Model.FlatAdvert.Currency @Model.FlatAdvert.TypePrice</p>
 			<p>@Model.FlatAdvert.PricePerSquareMeter @Model.FlatAdvert.Currency @Model.FlatAdvert.TypePrice</p>
-			<p>За: @Model.FlatAdvert.TypePrice</p>
+			<p>За: @Model.FlatAdvert.TypePrice</p
 			<p>Дата створення оголошення: @Model.FlatAdvert.CreationDate</p>
 		</div>
 		<div class="col-md-5">

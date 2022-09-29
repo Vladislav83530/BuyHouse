@@ -57,7 +57,7 @@ namespace BuyHouse.WEB.Clients
             if (currentUserId == null)
                 throw new ArgumentNullException("User Id can't be null");
 
-            var JwtToken = await _tokenProvider.GenerateJwtToken(currentUserId);
+            var JwtToken = await _tokenProvider.ProvideJwtToken(currentUserId);
 
             requestModel.RealtyPhotos = await _photosService.AddPhotoToAdvert(uploads, currentUserId);
 

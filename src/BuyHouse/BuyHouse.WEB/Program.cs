@@ -3,6 +3,7 @@ using BuyHouse.BLL.Services.Abstract;
 using BuyHouse.BLL.Services.Providers.JwtTokenProvider;
 using BuyHouse.DAL.EF;
 using BuyHouse.DAL.Entities.ApplicationUserEntities;
+using BuyHouse.WEB;
 using BuyHouse.WEB.Clients;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
@@ -13,7 +14,12 @@ using System.Globalization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews().AddDataAnnotationsLocalization().AddViewLocalization();
+builder.Services.AddControllersWithViews()
+    .AddDataAnnotationsLocalization(options => {
+        options.DataAnnotationLocalizerProvider = (type, factory) =>
+            factory.Create(typeof(SharedResource));
+    })
+    .AddViewLocalization();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
