@@ -1,9 +1,4 @@
-﻿body {
-    text-align: left;
-    background-color: #FFFEF1;
-}
-
-.container_avatar .avatar_btn {
+﻿.container_avatar .avatar_btn {
     position: absolute;
     top: 36%;
     left: 54%;

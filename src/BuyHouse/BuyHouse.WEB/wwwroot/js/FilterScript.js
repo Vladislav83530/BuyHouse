@@ -26,18 +26,18 @@ function changeTypeOfPriceStyle() {
     var pricePerSquareMeter = document.querySelectorAll("#pricePerSquareMeter");
     if (typeOfPrice.value == "TotalPrice") {
         for (const item of totalPrice) {
-            item.style.fontSize = "35px";
+            item.style.fontWeight = "900";
         }
         for (const item of pricePerSquareMeter) {
-            item.style.fontSize = "15px";
+            item.style.fontWeight = "400";
         }
     }
     else {
         for (const item of totalPrice) {
-            item.style.fontSize = "15px";
+            item.style.fontWeight = "400";
         }
         for (const item of pricePerSquareMeter) {
-            item.style.fontSize = "35px";
+            item.style.fontWeight = "900";
         }
     }
 }

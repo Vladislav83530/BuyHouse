@@ -1,6 +1,7 @@
 ﻿body {
     min-height: 100%;
-    position:relative;
+    position: relative;
+    background-color: #FFFEF1;
 }
 
 .menu {

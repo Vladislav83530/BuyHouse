@@ -10,6 +10,7 @@ namespace BuyHouse.WEB.Models.AdvertModel
         public ICollection<RealtyPhotoModel>? Photos { get; set; }
 
         /*Main flat parameters*/
+        public string? Description { get; set; }
         [Display(Name = "Rooms")]
         public uint Rooms { get; set; }
         [Display(Name = "TotalArea")]
@@ -26,6 +27,8 @@ namespace BuyHouse.WEB.Models.AdvertModel
         public Currency Currency { get; set; }
         [Display(Name = "TypePrice")]
         public TypeOfPrice TypePrice { get; set; }
+
+        public DateTime? CreationDate { get; set; }
 
         /*Info for statistic*/
         public uint LikeCount { get; set; }

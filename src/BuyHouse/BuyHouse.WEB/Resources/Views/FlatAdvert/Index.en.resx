@@ -129,8 +129,14 @@
   <data name="currency" xml:space="preserve">
     <value>Currency</value>
   </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
   <data name="Euro" xml:space="preserve">
-    <value>Euro</value>
+    <value>€</value>
+  </data>
+  <data name="Euro full name" xml:space="preserve">
+    <value>Euro €</value>
   </data>
   <data name="filter" xml:space="preserve">
     <value>Filter</value>
@@ -146,6 +152,9 @@
   </data>
   <data name="number of rooms" xml:space="preserve">
     <value>Number of rooms</value>
+  </data>
+  <data name="per" xml:space="preserve">
+    <value>per</value>
   </data>
   <data name="per object" xml:space="preserve">
     <value>per object</value>
@@ -166,9 +175,15 @@
     <value>Total area</value>
   </data>
   <data name="UAH" xml:space="preserve">
-    <value>Hryvnia</value>
+    <value>₴</value>
+  </data>
+  <data name="UAH full name" xml:space="preserve">
+    <value>Hryvnia ₴</value>
   </data>
   <data name="USD" xml:space="preserve">
-    <value>Dollar </value>
+    <value>$</value>
+  </data>
+  <data name="USD full name" xml:space="preserve">
+    <value>Dollar $</value>
   </data>
 </root>
