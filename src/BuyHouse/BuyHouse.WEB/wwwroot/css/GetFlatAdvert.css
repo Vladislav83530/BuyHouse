@@ -1,0 +1,28 @@
+﻿.slider_img{
+    width: 100%;
+    height: 600px;
+    border-radius: 25px;
+}
+
+.adress_title{
+    font-weight: 600;
+    font-size: 24px;
+}
+
+.param_block_advert{
+    font-size: 20px; 
+}
+
+.sellerInfo_title {
+    font-family: 'Kaushan Script', cursive;
+}
+
+.phone_block {
+    background-color: #FFD61D;
+    border-radius: 30px;
+    font-size: 22px;
+    font-weight: 600;
+    padding: 10px;
+    text-align: center;
+    margin-top: 20px;
+}

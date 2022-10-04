@@ -1,6 +1,10 @@
-﻿using BuyHouse.BLL.DTO;
+﻿using AutoMapper;
+using BuyHouse.BLL.DTO;
 using BuyHouse.BLL.Services.Abstract;
 using BuyHouse.DAL.EF;
+using BuyHouse.DAL.Entities.AdvertEntities;
+using BuyHouse.WEB.Models.AdvertModel;
+using BuyHouse.WEB.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,14 +19,22 @@ namespace BuyHouse.WEB.Controllers
         private readonly IPhotosService _photoService;
         private readonly ApplicationDbContext _context;
         private readonly IStringLocalizer<UserProfileController> _localizer;
+        private readonly IFlatAdvertService _flatAdvertService;
+        private readonly IMapper _mapper;
 
-        public UserProfileController(IUserProfileService userProfile, IPhotosService photoService, ApplicationDbContext context,
-            IStringLocalizer<UserProfileController> localizer)
+        public UserProfileController(IUserProfileService userProfile, 
+            IPhotosService photoService, 
+            ApplicationDbContext context,
+            IStringLocalizer<UserProfileController> localizer,
+            IFlatAdvertService flatAdvertService, 
+            IMapper mapper)
         {
             _userProfile = userProfile;
             _photoService = photoService;
             _context = context;
             _localizer = localizer;
+            _flatAdvertService = flatAdvertService;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -97,6 +109,28 @@ namespace BuyHouse.WEB.Controllers
                 return RedirectToAction("Index");
             }
             catch(Exception ex)
+            {
+                return RedirectToAction("Error", "Home", new { exception = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("[controller]/SellersAdverts")]
+        public async Task<IActionResult> GetSellersAdverts()
+        {
+            string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (String.IsNullOrEmpty(currentUserId))
+                return NotFound(_localizer["Not found user id error"]);
+
+            try
+            {
+                IEnumerable<FlatAdvert> flatAdverts = await _flatAdvertService.GetSellersFlatAdverts(currentUserId);
+                IEnumerable<FlatAdvertShortModel> flatAdvertShortModels = _mapper.Map<IEnumerable<FlatAdvert>, List<FlatAdvertShortModel>>(flatAdverts);
+                return View(new SellersAdvertsViewModel { FlatAdverts = flatAdvertShortModels });
+            }
+            catch (Exception ex)
             {
                 return RedirectToAction("Error", "Home", new { exception = ex.Message });
             }

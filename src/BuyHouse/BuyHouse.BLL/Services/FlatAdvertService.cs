@@ -144,5 +144,20 @@ namespace BuyHouse.BLL.Services
             IEnumerable<FlatAdvert> flatAdverts = await _context.FlatAdverts.OrderBy(p => p.LikeCount).Take(3).ToListAsync();
             return flatAdverts;
         }
+
+        /// <summary>
+        /// Get seller`s flat adverts
+        /// </summary>
+        /// <param name="currentUserId"></param>
+        /// <returns>List of flat adverts</returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<IEnumerable<FlatAdvert>> GetSellersFlatAdverts(string? currentUserId)
+        {
+            if (String.IsNullOrEmpty(currentUserId))
+                throw new Exception("Current user Id can not be null or empty");
+
+            IEnumerable<FlatAdvert> flatAdverts = await _context.FlatAdverts.Where(x => x.UserID == currentUserId).ToListAsync();
+            return flatAdverts;
+        }
     }
 }

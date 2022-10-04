@@ -16,7 +16,7 @@
 <body>
 	<div class="container">
 		<form name="filterForm" method="post" asp-action="Index" asp-controller="FlatAdvert">
-			<div class="row mt-3" style="background-color: #DDF3FF; padding: 10px; border-radius: 45px;">
+			<div class="row mt-3 blue_block">
 				<div class="col-lg-5 col-md-12 order-1 oreder-md-2">
 					<label>@Localizer["label pageSize"]: </label><br />
 					<div class="radio-toolbar">
@@ -136,7 +136,7 @@
 					</p>
 					<hr>
 					<p>@item.CreationDate.Value.ToString("yyyy-MM-dd")</p>
-					<a class="btn btn-dark btn-md datails_btn" asp-action="GetFlatAdvert" asp-controller="FlatAdvert" asp-route-flatAdvertId="@item.Id">@Localizer["Details"]</a>
+					<a class="btn btn-dark btn-md datails_btn" href="~/FlatAdvert/@item.Id">@Localizer["Details"]</a>
 				</div>
 			</div>
 		}

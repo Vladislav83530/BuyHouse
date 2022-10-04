@@ -2,46 +2,118 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 
 @inject IViewLocalizer Localizer
-@if (TempData["AlertMessage"] != null)
-		{
-			<div class="alert alert-success d-flex align-items-center">
-				<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill" /></svg>
-				<div>
-					<strong>Success!</strong>@TempData["AlertMessage"]
+<link rel="stylesheet" href="~/css/GetFlatAdvert.css" />
+<div class="container pt-3 pb-3">
+	<div class="row">
+		<div class="col-lg-8">
+			<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel" style="height: 600px;">
+				<div class="carousel-inner">
+					@foreach (var photo in Model.FlatAdvert.Photos)
+					{
+						<div class="carousel-item active">
+							<img src="@photo.Path" class="d-block slider_img">
+						</div>
+					}
+				</div>
+				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				</button>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<h2 class="sellerInfo_title">@Localizer["Seller info"]</h2><hr />
+			<div class="row">
+			<div class="col-lg-5">
+				<div class="container_avatar">
+					<img src="@Model.UserProfile.UserAvatar.Path" alt="avatar" class="rounded-circle img-fluid" style='width: 150px; height: 150px;' />
 				</div>
 			</div>
-		}
-<div class="container mt-3">
-	<div class="row">
-		<div class="col-md-7">
-			<p>Регіон: @Model.FlatAdvert.MainInfo.City</p>
-			<p>Місто: @Model.FlatAdvert.MainInfo.City</p>
-			<p>Вулиця: @Model.FlatAdvert.MainInfo.Street</p>
-			<p>Номер будинку: @Model.FlatAdvert.MainInfo.HouseNumber</p>
-			<p>Номер квартири: @Model.FlatAdvert.MainInfo.FlatNumber</p>
-			<hr />
-			<br />
-			<p>Опис: @Model.FlatAdvert.Description</p>
-			<p>Тип нерухомості: @Model.FlatAdvert.Type</p>
-			<p>Кінати: @Model.FlatAdvert.Rooms</p>
-			<p>Тип стін: @Model.FlatAdvert.TypeOfWalls</p>
-			<p>Загальна площа: @Model.FlatAdvert.TotalArea</p>
-			<p>Житлова площа: @Model.FlatAdvert.LivingArea</p>
-			<p>Поверх: @Model.FlatAdvert.Floor</p>
-			<p>Опалення: @Model.FlatAdvert.Heating</p>
-			<p>Рік побудови: @Model.FlatAdvert.YearBuilt</p>
-			<hr />
-			<br />
-			<p>Ціна: @Model.FlatAdvert.TotalPrice @Model.FlatAdvert.Currency @Model.FlatAdvert.TypePrice</p>
-			<p>@Model.FlatAdvert.PricePerSquareMeter @Model.FlatAdvert.Currency @Model.FlatAdvert.TypePrice</p>
-			<p>За: @Model.FlatAdvert.TypePrice</p
-			<p>Дата створення оголошення: @Model.FlatAdvert.CreationDate</p>
-		</div>
-		<div class="col-md-5">
-			@foreach (var photo in Model.FlatAdvert.Photos)
-			{
-				<img src="@photo.Path" width="250" height="250">
-			}
+			<div class="col-lg-7">
+				<div class="pt-lg-4">
+					<h2 class="sellerInfo_title">@Model.UserProfile.Name</h2>
+					<h2 class="sellerInfo_title">@Model.UserProfile.Surname</h2>
+				</div>
+			</div>
+			</div>
+			<div class="row">
+				<div class="phone_block">
+					@Model.UserProfile.PhoneNumber.Substring(0,3) (@Model.UserProfile.PhoneNumber.Substring(3,3))
+					<span class="num_hide">@Model.UserProfile.PhoneNumber.Substring(6,3)-@Model.UserProfile.PhoneNumber.Substring(9,2)-@Model.UserProfile.PhoneNumber.Substring(11,2)</span>
+					<span class="sh_nmr"> show</span>
+				  </div>
+			</div>
 		</div>
 	</div>
-</div>
+	<div class="row pt-3">
+		<div class="col-md-8 blue_block p-4">
+			<h3 class="adress_title">@Model.FlatAdvert.MainInfo.Region, @Model.FlatAdvert.MainInfo.City, @Model.FlatAdvert.MainInfo.Street, @Model.FlatAdvert.MainInfo.HouseNumber</h3>
+			<hr />
+			<p class="param_block_advert">
+				<img src="~/images/icons/money.png" class="mb-2" width="20" height="20" />
+				<b>@Model.FlatAdvert.TotalPrice @Localizer[Model.FlatAdvert.Currency.ToString()]</b>
+				@Localizer["price"] @Localizer["per object"]
+				(@Model.FlatAdvert.PricePerSquareMeter @Localizer[Model.FlatAdvert.Currency.ToString()] @Localizer["per"] м<sup>2</sup>)
+			</p>
+			<p>
+				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
+				<b>@Localizer["Type of realty"]:</b> @Localizer[Model.FlatAdvert.Type]
+			</p>
+			<p>
+				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
+				<b>@Localizer["rooms"]:</b> @Model.FlatAdvert.Rooms
+			</p>
+			<p>
+				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
+				<b>@Localizer["type of walls"]:</b> @Localizer[Model.FlatAdvert.TypeOfWalls.ToString()]
+			</p>
+			<p>
+				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
+				<b>@Localizer["total area"]:</b> @Model.FlatAdvert.TotalArea
+			</p>
+			<p>
+				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
+				<b>@Localizer["living area"]:</b> @Model.FlatAdvert.LivingArea
+			</p>
+			<p>
+				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
+				<b>@Localizer["floor"]:</b> @Model.FlatAdvert.Floor
+			</p>
+			<p>
+				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
+				<b>@Localizer["heating"]:</b> @Localizer[Model.FlatAdvert.Heating.ToString()]
+			</p>
+			<p>
+				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
+				<b>@Localizer["year built"]:</b> @Model.FlatAdvert.YearBuilt
+			</p><hr />
+			<p>
+				<img src="~/images/icons/description.png" class="mb-2" width="20" height="20" />
+				<b>@Localizer["description"]:</b> @Model.FlatAdvert.Description
+			</p>
+			<hr />
+			<p>@Localizer["date of creating advert"]: @Model.FlatAdvert.CreationDate.Value.ToString("yyyy-MM-dd")</p>
+		</div>
+	</div>
+</div>	
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script>
+    jQuery(document).ready(function($){
+    $.fn.textToggle = function(cls, str) {
+    return this.each(function(i) {
+    $(this).click(function() {
+    var c = 0, el = $(cls).eq(i), arr = [str,el.text()];
+    return function() {
+    el.text(arr[c++ % arr.length]);
+    }}());
+    })};
+    $(function(){
+    $('.sh_nmr').textToggle(".sh_nmr","").click();
+    $('.sh_nmr').textToggle(".num_hide","ХХХХХХХXX").click();
+    });
+    });
+</script>

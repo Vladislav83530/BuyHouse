@@ -51,7 +51,7 @@ namespace BuyHouse.WEB.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 model.ExternalProviders = await _signInManager.GetExternalAuthenticationSchemesAsync();
                 if (result.Succeeded)
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "UserProfile");
                 else
                     ModelState.AddModelError("", _localizer["Incorrect login or password"]);
             }
@@ -98,7 +98,7 @@ namespace BuyHouse.WEB.Controllers
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "UserProfile");
                 }
                 else
                 {
@@ -120,7 +120,7 @@ namespace BuyHouse.WEB.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "UserProfile");
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace BuyHouse.WEB.Controllers
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, false);
 
             if (result.Succeeded)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "UserProfile");
 
             string? userName = info.Principal.FindFirst(ClaimTypes.Name)?.Value.Split(' ')[0];
             string? userSurname = info.Principal.FindFirst(ClaimTypes.Surname)?.Value;
@@ -194,7 +194,7 @@ namespace BuyHouse.WEB.Controllers
             if (users.Count != 0)
             {
                 await _signInManager.SignInAsync(users.FirstOrDefault(), false);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "UserProfile");
             }
 
                 var result = await _userManager.CreateAsync(user);
@@ -209,8 +209,7 @@ namespace BuyHouse.WEB.Controllers
 
                 await _signInManager.SignInAsync(user, false);
 
-                return RedirectToAction("Index", "Home");
-         
+                return RedirectToAction("Index", "UserProfile");
         }
     }
 }

@@ -11,7 +11,7 @@ namespace BuyHouse.BLL.Services.Abstract
     public interface IFlatAdvertService
     {
         public Task<ResponseFlatAdvertDTO> GetFlatAdvertByParameters(FlatAdvertFilter filter, int pageSize, int page);
-
         public Task<IEnumerable<FlatAdvert>> GetMostLikedFlatAdvert();
+        public Task<IEnumerable<FlatAdvert>> GetSellersFlatAdverts(string? currentUserId);
     }
 }
