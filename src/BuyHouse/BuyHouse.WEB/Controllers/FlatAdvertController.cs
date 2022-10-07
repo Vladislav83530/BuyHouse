@@ -15,13 +15,13 @@ namespace BuyHouse.WEB.Controllers
 {
     public class FlatAdvertController : Controller
     {
-        private readonly IFlatAdvertService _flatAdvertService;
+        private readonly IFlatAdvertFilterService _flatAdvertService;
         private readonly IUserProfileService _userProfileService;
         private readonly BuyHouseAPIClient _client;
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<FlatAdvertController> _localizer;
 
-        public FlatAdvertController(IFlatAdvertService flatAdertService, 
+        public FlatAdvertController(IFlatAdvertFilterService flatAdertService, 
             IUserProfileService userProfileService,
             IMapper mapper,
             IStringLocalizer<FlatAdvertController> localizer, 
@@ -57,7 +57,7 @@ namespace BuyHouse.WEB.Controllers
                 string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value; ;
                 try
                 {
-                    FlatAdvert flatAdvert_ = await _client.CreateFlatAdvert(new CreateRequestModel { FlatAdvert = flatAdvertModel}, uploads, currentUserId);
+                    FlatAdvert flatAdvert_ = await _client.CreateFlatAdvertAsync(new CreateRequestModel { FlatAdvert = flatAdvertModel}, uploads, currentUserId);
                     return RedirectToAction("GetFlatAdvert", new { flatAdvertId = flatAdvert_.Id });
                 }
                 catch (Exception ex)
@@ -68,6 +68,13 @@ namespace BuyHouse.WEB.Controllers
             return RedirectToAction("Error", "Home", new { exception = _localizer["Error advert message"] });
         }
 
+        /// <summary>
+        /// Search flat adverts
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="page"></param>
+        /// <returns>View with filtered adverts</returns>
         [HttpGet]
         [HttpPost]
         public async Task<IActionResult> Index(FlatAdvertFilter filter, int pageSize, int page = 1)
@@ -75,11 +82,11 @@ namespace BuyHouse.WEB.Controllers
             try
             {
                 ResponseFlatAdvertDTO responseFlatAdvertDTO = await _flatAdvertService
-                    .GetFlatAdvertByParameters(filter, pageSize, page);
+                    .GetFlatAdvertByParametersAsync(filter, pageSize, page);
 
                 var flatAdvertShortModels = _mapper.Map<IEnumerable<FlatAdvert>, List<FlatAdvertShortModel>>(responseFlatAdvertDTO.FlatAdverts);
 
-                IndexViewModel vm = new IndexViewModel()
+                IndexFilterViewModel vm = new IndexFilterViewModel()
                 {
                     FlatAdverts = flatAdvertShortModels,
                     FlatAdvertFilter = filter,
@@ -93,9 +100,14 @@ namespace BuyHouse.WEB.Controllers
             }
         }
 
-        //TODO: change view | add info about user 
+        /// <summary>
+        /// get flat advert with info about user
+        /// </summary>
+        /// <param name="flatAdvertId"></param>
+        /// <returns>View with advert</returns>
         [HttpGet]
-		[Route("/[controller]/{flatAdvertId:int}")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [Route("/[controller]/{flatAdvertId:int}")]
         public async Task<IActionResult> GetFlatAdvert(int? flatAdvertId)
         {
             if (flatAdvertId == null)
@@ -104,9 +116,9 @@ namespace BuyHouse.WEB.Controllers
             try
             {
                 FlatAdvertModel flatAdvertModel = new FlatAdvertModel();
-                var flatAdvert = await _client.GetFlatAdvertByID(flatAdvertId);
+                var flatAdvert = await _client.GetFlatAdvertByIDAsync(flatAdvertId);
 
-                var userProfile = await _userProfileService.GetUserProfileInfo(flatAdvert.UserID);
+                var userProfile = await _userProfileService.GetUserProfileInfoAsync(flatAdvert.UserID);
 
                 flatAdvertModel =  _mapper.Map<FlatAdvert, FlatAdvertModel>(flatAdvert);
                 GetFlatAdvertViewModel vm = new GetFlatAdvertViewModel

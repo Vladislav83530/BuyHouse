@@ -197,6 +197,9 @@
     <value>Загальна площа</value>
     <comment>Field name</comment>
   </data>
+  <data name="TotalCountFloors" xml:space="preserve">
+    <value>Поверховість</value>
+  </data>
   <data name="TotalPrice" xml:space="preserve">
     <value>Ціна за об'єкт</value>
     <comment>Field name</comment>

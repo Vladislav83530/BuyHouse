@@ -6,7 +6,7 @@ namespace BuyHouse.BLL.Services.Abstract
 {
     public interface IPhotosService
     {
-        public Task<IEnumerable<RealtyPhoto>> AddPhotoToAdvert(IFormFileCollection uploads, string currentUserId);
-        public Task UpdateUserAvatarPhoto(IFormFile uploadedFile, UserAvatar currentUsersAvatar, string currentUserId);
+        public Task<IEnumerable<RealtyPhoto>> AddPhotoToAdvertAsync(IFormFileCollection uploads, string currentUserId);
+        public Task UpdateUserAvatarPhotoAsync(IFormFile uploadedFile, UserAvatar currentUsersAvatar, string currentUserId);
     }
 }

@@ -156,7 +156,7 @@ namespace BuyHouse.WEB.Controllers
             string? userSurname = info.Principal.FindFirst(ClaimTypes.Surname)?.Value;
             var userEmail = info.Principal.FindFirst(ClaimTypes.Email)?.Value;
             var userPhoneNumber = info.Principal.FindFirst(ClaimTypes.MobilePhone)?.Value;
-
+          
             return RedirectToAction("ExternalRegister", new ExternalRegisterViewModel
             {
                 Name = userName,

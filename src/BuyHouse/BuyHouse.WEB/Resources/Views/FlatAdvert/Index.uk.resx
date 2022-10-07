@@ -153,6 +153,9 @@
   <data name="number of rooms" xml:space="preserve">
     <value>Кількість кімнат</value>
   </data>
+  <data name="out of" xml:space="preserve">
+    <value>з</value>
+  </data>
   <data name="per" xml:space="preserve">
     <value>за</value>
   </data>

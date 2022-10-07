@@ -12,7 +12,7 @@ namespace BuyHouse.WEB.Models.ViewModels.Auth
         public string Surname { get; set; }
 
         [Required]
-        [RegularExpression(@"^(?:\+38)?(0[5-9][0-9]\d{7})$", ErrorMessage = "Incorrect phone number")]
+        [RegularExpression(@"^(?:\+38)?(0[5-9][0-9]\d{7})$", ErrorMessage = "Incorrect phone number. Enter format (+380XXXXXXXXX)")]
         public string PhoneNumber { get; set; }
 
         [Required]

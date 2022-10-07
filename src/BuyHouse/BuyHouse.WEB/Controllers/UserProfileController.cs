@@ -19,14 +19,14 @@ namespace BuyHouse.WEB.Controllers
         private readonly IPhotosService _photoService;
         private readonly ApplicationDbContext _context;
         private readonly IStringLocalizer<UserProfileController> _localizer;
-        private readonly IFlatAdvertService _flatAdvertService;
+        private readonly IFlatAdvertFilterService _flatAdvertService;
         private readonly IMapper _mapper;
 
         public UserProfileController(IUserProfileService userProfile, 
             IPhotosService photoService, 
             ApplicationDbContext context,
             IStringLocalizer<UserProfileController> localizer,
-            IFlatAdvertService flatAdvertService, 
+            IFlatAdvertFilterService flatAdvertService, 
             IMapper mapper)
         {
             _userProfile = userProfile;
@@ -52,7 +52,7 @@ namespace BuyHouse.WEB.Controllers
 
             try
             {
-                var currentUser = await _userProfile.GetUserProfileInfo(currentUserId);
+                var currentUser = await _userProfile.GetUserProfileInfoAsync(currentUserId);
                 return View(currentUser);
             }
             catch(Exception ex)
@@ -81,7 +81,7 @@ namespace BuyHouse.WEB.Controllers
 
             try
             {
-                 await _photoService.UpdateUserAvatarPhoto(uploadedFile, currentUsersAvatar, currentUserId);
+                 await _photoService.UpdateUserAvatarPhotoAsync(uploadedFile, currentUsersAvatar, currentUserId);
                  return RedirectToAction("Index");
             }
             catch(Exception ex)
@@ -105,7 +105,7 @@ namespace BuyHouse.WEB.Controllers
                 return NotFound(_localizer["Not found user id error"]);
             try
             {
-                await _userProfile.UpdateUserInfo(userProfileInfo, currentUserId);
+                await _userProfile.UpdateUserInfoAsync(userProfileInfo, currentUserId);
                 return RedirectToAction("Index");
             }
             catch(Exception ex)
@@ -114,8 +114,13 @@ namespace BuyHouse.WEB.Controllers
             }
         }
 
+        /// <summary>
+        /// Get Sellers adverts
+        /// </summary>
+        /// <returns>View with sellers adverts</returns>
         [HttpGet]
         [Authorize]
+        [ApiExplorerSettings(IgnoreApi = true)]
         [Route("[controller]/SellersAdverts")]
         public async Task<IActionResult> GetSellersAdverts()
         {
@@ -126,7 +131,7 @@ namespace BuyHouse.WEB.Controllers
 
             try
             {
-                IEnumerable<FlatAdvert> flatAdverts = await _flatAdvertService.GetSellersFlatAdverts(currentUserId);
+                IEnumerable<FlatAdvert> flatAdverts = await _flatAdvertService.GetSellersFlatAdvertsAsync(currentUserId);
                 IEnumerable<FlatAdvertShortModel> flatAdvertShortModels = _mapper.Map<IEnumerable<FlatAdvert>, List<FlatAdvertShortModel>>(flatAdverts);
                 return View(new SellersAdvertsViewModel { FlatAdverts = flatAdvertShortModels });
             }

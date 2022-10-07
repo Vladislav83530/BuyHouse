@@ -1,5 +1,6 @@
 ﻿using BuyHouse.DAL.Entities.HelperEnum;
 using System.ComponentModel.DataAnnotations;
+using TanvirArjel.CustomValidation.Attributes;
 
 namespace BuyHouse.WEB.Models.AdvertModel
 {
@@ -34,7 +35,12 @@ namespace BuyHouse.WEB.Models.AdvertModel
         [Required(ErrorMessage = "RequiredField")]
         [Display(Name = "Floor")]
         [Range(0, uint.MaxValue, ErrorMessage = "RangeError")]
+        [CompareTo(nameof(TotalCountFloors), ComparisonType.SmallerThan)]
         public uint Floor { get; set; }
+        [Required(ErrorMessage = "RequiredField")]
+        [Display(Name = "TotalCountFloors")]
+        [Range(0, uint.MaxValue, ErrorMessage = "RangeError")]
+        public uint TotalCountFloors { get; set; }
         [Required(ErrorMessage = "RequiredField")]
         [Display(Name = "Heating")]
         public string? Heating { get; set; }

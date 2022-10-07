@@ -31,7 +31,7 @@ namespace BuyHouse.WEB.Clients
         /// </summary>
         /// <param name="Id"></param>
         /// <returns>Flat advert</returns>
-        public async Task<FlatAdvert> GetFlatAdvertByID(int? Id)
+        public async Task<FlatAdvert> GetFlatAdvertByIDAsync(int? Id)
         {
             _request.RequestUri = new Uri(_address + $"/api/FlatAdvert/{Id}");
             var response = await _client.SendAsync(_request);
@@ -51,15 +51,15 @@ namespace BuyHouse.WEB.Clients
         /// <param name="uploads"></param>
         /// <param name="currentUserId"></param>
         /// <returns>Created flat advert</returns>
-        public async Task<FlatAdvert> CreateFlatAdvert(CreateRequestModel requestModel, IFormFileCollection uploads, string? currentUserId)
+        public async Task<FlatAdvert> CreateFlatAdvertAsync(CreateRequestModel requestModel, IFormFileCollection uploads, string? currentUserId)
         {
 
             if (currentUserId == null)
                 throw new ArgumentNullException("User Id can't be null");
 
-            var JwtToken = await _tokenProvider.ProvideJwtToken(currentUserId);
+            var JwtToken = await _tokenProvider.ProvideJwtTokenAsync(currentUserId);
 
-            requestModel.RealtyPhotos = await _photosService.AddPhotoToAdvert(uploads, currentUserId);
+            requestModel.RealtyPhotos = await _photosService.AddPhotoToAdvertAsync(uploads, currentUserId);
 
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
             var response = await _client.PostAsJsonAsync(_address + $"/api/FlatAdvert?currentUserId={currentUserId}", requestModel);

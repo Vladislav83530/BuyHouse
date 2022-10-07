@@ -133,6 +133,7 @@ namespace BuyHouse.API.Controllers
                 flatAdvertToUpdate.TotalArea = flatAdvert_.TotalArea;
                 flatAdvertToUpdate.LivingArea = flatAdvert_.LivingArea;
                 flatAdvertToUpdate.Floor = flatAdvert_.Floor;
+                flatAdvertToUpdate.TotalCountFloors = flatAdvert_.TotalCountFloors;
                 flatAdvertToUpdate.Heating = flatAdvert_.Heating;
                 flatAdvertToUpdate.YearBuilt = flatAdvert_.YearBuilt; 
                 flatAdvertToUpdate.RegistrationNumber = flatAdvert_.RegistrationNumber;

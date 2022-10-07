@@ -11,6 +11,8 @@ namespace BuyHouse.BLL.Services
     {
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly ApplicationDbContext _context;
+        private readonly string advertPhotosPath = "/Files/";
+        private readonly string userAvatars = "/Files/Avatars/";
         public PhotosService(IHostingEnvironment hostingEnviroment, ApplicationDbContext context)
         {
             _hostingEnvironment = hostingEnviroment;
@@ -23,12 +25,12 @@ namespace BuyHouse.BLL.Services
         /// <param name="uploads"></param>
         /// <param name="currentUserId"></param>
         /// <returns>DTO with photos</returns>
-        public async Task<IEnumerable<RealtyPhoto>> AddPhotoToAdvert(IFormFileCollection uploads, string currentUserId)
+        public async Task<IEnumerable<RealtyPhoto>> AddPhotoToAdvertAsync(IFormFileCollection uploads, string currentUserId)
         {
             List<RealtyPhoto> realtyPhotos = new List<RealtyPhoto>();
             foreach (var uploadedFile in uploads)
             {
-                string path = "/Files/" + currentUserId + uploadedFile.FileName;
+                string path = advertPhotosPath + currentUserId + uploadedFile.FileName;
                 using (var fileStream = new FileStream(_hostingEnvironment.WebRootPath + path, FileMode.Create))
                 {
                     await uploadedFile.CopyToAsync(fileStream);
@@ -47,11 +49,11 @@ namespace BuyHouse.BLL.Services
         /// <param name="currentUser"></param>
         /// <param name="currentUserId"></param>
         /// <returns></returns>
-        public async Task UpdateUserAvatarPhoto(IFormFile uploadedFile, UserAvatar currentUsersAvatar, string currentUserId)
+        public async Task UpdateUserAvatarPhotoAsync(IFormFile uploadedFile, UserAvatar currentUsersAvatar, string currentUserId)
         {
             if (uploadedFile != null && currentUsersAvatar != null)
             {
-                string path = "/Files/Avatars/" + currentUserId + uploadedFile.FileName;
+                string path = userAvatars + currentUserId + uploadedFile.FileName;
 
                 using (var fileStream = new FileStream(_hostingEnvironment.WebRootPath + path, FileMode.Create))
                 {

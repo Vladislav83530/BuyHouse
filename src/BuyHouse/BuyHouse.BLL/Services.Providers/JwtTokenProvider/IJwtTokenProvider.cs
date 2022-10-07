@@ -8,6 +8,6 @@ namespace BuyHouse.BLL.Services.Providers.JwtTokenProvider
 {
     public interface IJwtTokenProvider
     {
-        public Task<string> ProvideJwtToken(string? currentUserId);
+        public Task<string> ProvideJwtTokenAsync(string? currentUserId);
     }
 }

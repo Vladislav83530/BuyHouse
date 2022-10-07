@@ -17,7 +17,8 @@ namespace BuyHouse.WEB.Models.AdvertModel
         public double TotalArea { get; set; }
         [Display(Name = "Floor")]
         public uint Floor { get; set; }
-
+        [Display(Name = "TotalCountFloors")]
+        public uint TotalCountFloors { get; set; }
         /*Advert properties*/
         [Display(Name = "TotalPrice")]
         public uint TotalPrice { get; set; }

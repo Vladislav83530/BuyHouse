@@ -20,9 +20,9 @@ namespace BuyHouse.BLL.Services
         /// </summary>
         /// <param name="currentUserId"></param>
         /// <returns>Main information about user</returns>
-        public async Task<UserProfileDTO> GetUserProfileInfo(string? currentUserId)
+        public async Task<UserProfileDTO> GetUserProfileInfoAsync(string? currentUserId)
         {
-            var currentUser = await GetCurrentUserById(currentUserId);
+            var currentUser = await GetCurrentUserByIdAsync(currentUserId);
             var currentUserAvatar = await _context.UserAvatars.FirstOrDefaultAsync(avatar=>avatar.ApplicationUserId == currentUserId);
 
             UserProfileDTO userProfile = new UserProfileDTO
@@ -46,9 +46,9 @@ namespace BuyHouse.BLL.Services
         /// <param name="userInfo"></param>
         /// <param name="currentUserId"></param>
         /// <returns></returns>
-        public async Task UpdateUserInfo(UserProfileDTO userInfo, string currentUserId)
+        public async Task UpdateUserInfoAsync(UserProfileDTO userInfo, string currentUserId)
         {
-            var currentUser = await GetCurrentUserById(currentUserId);
+            var currentUser = await GetCurrentUserByIdAsync(currentUserId);
 
             currentUser.Name = userInfo.Name;
             currentUser.Surname = userInfo.Surname;
@@ -66,7 +66,7 @@ namespace BuyHouse.BLL.Services
         /// <param name="currentUserId"></param>
         /// <returns>current user full info</returns>
         /// <exception cref="Exception"></exception>
-        private async Task<ApplicationUser> GetCurrentUserById(string? currentUserId)
+        private async Task<ApplicationUser> GetCurrentUserByIdAsync(string? currentUserId)
         {
             if (String.IsNullOrEmpty(currentUserId))
                 throw new Exception("User Id can not be empty or null");

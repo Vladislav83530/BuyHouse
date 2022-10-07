@@ -1,4 +1,4 @@
-﻿@model BuyHouse.WEB.Models.ViewModels.IndexViewModel
+﻿@model BuyHouse.WEB.Models.ViewModels.IndexFilterViewModel
 @using BuyHouse.DAL.Entities.HelperEnum
 @using Microsoft.AspNetCore.Mvc.Localization
 
@@ -131,7 +131,7 @@
 					<p class="info_block">
 						<b>@Localizer["total area"]:</b> @item.TotalArea м<sup>2</sup><br>
 						<b>@Localizer["number of rooms"]:</b> @item.Rooms<br>
-						<b>@Localizer["floor"]:</b> @item.Floor
+						<b>@Localizer["floor"]:</b> @item.Floor @Localizer["out of"] @item.TotalCountFloors
 					<p class="description">@item.Description</p>
 					</p>
 					<hr>

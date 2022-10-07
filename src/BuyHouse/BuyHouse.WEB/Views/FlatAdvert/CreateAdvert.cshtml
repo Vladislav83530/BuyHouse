@@ -84,6 +84,10 @@
 					@Html.TextBoxFor(m => m.Floor, new { @class = "form-control", @type="number", @required="true" })
 					@Html.ValidationMessageFor(m => m.Floor,"", new{@class="validation_text"})<br />
 
+					@Html.LabelFor(m => m.TotalCountFloors, new{@class="input_lable"})
+					@Html.TextBoxFor(m => m.TotalCountFloors, new { @class = "form-control", @type="number", @required="true" })
+					@Html.ValidationMessageFor(m => m.TotalCountFloors,"", new{@class="validation_text"})<br />
+
 					@Html.LabelFor(m => m.Heating, new{@class="input_lable"})<br />
 					@Html.RadioButtonFor(m => m.Heating,@TypeOfHeating.Centralized, new{ @required="true", @class="radio_input"})
 					<lable>@Localizer["Centralized"]</lable><br />

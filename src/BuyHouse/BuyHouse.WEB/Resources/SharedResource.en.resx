@@ -197,6 +197,10 @@
     <value>Total area</value>
     <comment>Field name</comment>
   </data>
+  <data name="TotalCountFloors" xml:space="preserve">
+    <value>Total count of floors</value>
+    <comment>Field name</comment>
+  </data>
   <data name="TotalPrice" xml:space="preserve">
     <value>Price per object</value>
     <comment>Field name</comment>

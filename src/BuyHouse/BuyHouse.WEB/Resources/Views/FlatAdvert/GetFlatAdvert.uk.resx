@@ -171,6 +171,9 @@
   <data name="Monolith" xml:space="preserve">
     <value>Моноліт</value>
   </data>
+  <data name="out of" xml:space="preserve">
+    <value>з</value>
+  </data>
   <data name="Panel" xml:space="preserve">
     <value>Панель</value>
   </data>
@@ -197,6 +200,9 @@
   </data>
   <data name="Seller info" xml:space="preserve">
     <value>Інформація про продавця</value>
+  </data>
+  <data name="show" xml:space="preserve">
+    <value>показати</value>
   </data>
   <data name="total area" xml:space="preserve">
     <value>Загальна площа</value>

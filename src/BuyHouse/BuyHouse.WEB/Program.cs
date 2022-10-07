@@ -1,3 +1,4 @@
+using BuyHouse.BLL.Clients;
 using BuyHouse.BLL.Services;
 using BuyHouse.BLL.Services.Abstract;
 using BuyHouse.BLL.Services.Providers.JwtTokenProvider;
@@ -28,10 +29,11 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddScoped<IPhotosService, PhotosService>();
 
-builder.Services.AddScoped<IFlatAdvertService, FlatAdvertService>();
+builder.Services.AddScoped<IFlatAdvertFilterService, FlatAdvertFilterService>();
 builder.Services.AddScoped<IUserProfileService, UserProfileService>();
 
 builder.Services.AddScoped<BuyHouseAPIClient>();
+builder.Services.AddScoped<CurrencyConverterClient>();
 
 builder.Services.AddScoped<IJwtTokenProvider, JwtTokenProvider>();
 

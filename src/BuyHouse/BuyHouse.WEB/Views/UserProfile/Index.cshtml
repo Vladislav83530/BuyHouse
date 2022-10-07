@@ -61,7 +61,7 @@
 													</button>
 												</div>
 												<div class="modal-body">
-													<input type="file" name="uploadedFile" class="form-control" />
+													<input type="file" name="uploadedFile" class="form-control" accept="image/jpeg,image/png"/>
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-dark" data-dismiss="modal">@Localizer["Close"]</button>
@@ -126,6 +126,7 @@
 														</div>
 														<div class="col-sm-9">
 															<input class="form-control" asp-for="@Model.PhoneNumber" value="@Model.PhoneNumber" type="text" placeholder="Enter your phone number" />
+															@Html.ValidationMessageFor(m => m.PhoneNumber,"")
 														</div>
 													</div>
 													<hr>
