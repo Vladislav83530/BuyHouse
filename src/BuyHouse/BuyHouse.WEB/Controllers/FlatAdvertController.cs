@@ -133,5 +133,50 @@ namespace BuyHouse.WEB.Controllers
                 return RedirectToAction("Error", "Home", new { exception = ex.Message });
             }
         }
+
+        [HttpGet]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [Route("/[controller]/[action]/{flatAdvertId:int}")]
+        [Authorize]
+        public async Task<IActionResult> EditAdvert(int flatAdvertId)
+        {
+            if (flatAdvertId == null)
+                return RedirectToAction("Error", "Home");
+
+            try
+            {
+                FlatAdvertModel flatAdvertModel = new FlatAdvertModel();
+                var flatAdvert = await _client.GetFlatAdvertByIDAsync(flatAdvertId);
+                flatAdvertModel = _mapper.Map<FlatAdvert, FlatAdvertModel>(flatAdvert);
+                return View(flatAdvertModel);    
+            }
+            catch(Exception ex)
+            {
+                return RedirectToAction("Error", "Home", new { exception = ex.Message });
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> EditFlatAdvert(int flatAdvertId, FlatAdvertModel flatAdvertModel, IFormFileCollection uploads)
+        {
+            if (flatAdvertId == null)
+                return RedirectToAction("Error", "Home");
+
+            if (ModelState.IsValid)
+            {
+                string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value; ;
+                try
+                {
+                    FlatAdvert flatAdvert_ = await _client.UpdateFlatAdvertAsync(flatAdvertId, new CreateRequestModel { FlatAdvert = flatAdvertModel }, uploads, currentUserId);
+                    return RedirectToAction("GetFlatAdvert", new { flatAdvertId = flatAdvert_.Id });
+                }
+                catch (Exception ex)
+                {
+                    return RedirectToAction("Error", "Home", new { exception = ex.Message });
+                }
+            }
+            return RedirectToAction("Error", "Home", new { exception = _localizer["Error advert message"] });
+        }
     }
 }

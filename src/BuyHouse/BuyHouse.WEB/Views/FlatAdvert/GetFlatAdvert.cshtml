@@ -65,7 +65,7 @@
 			</p>
 			<p>
 				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
-				<b>@Localizer["Type of realty"]:</b> @Localizer[Model.FlatAdvert.Type]
+				<b>@Localizer["Type of realty"]:</b> @Localizer[Model.FlatAdvert.Type.ToString()]
 			</p>
 			<p>
 				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
@@ -97,10 +97,10 @@
 			</p><hr />
 			<p>
 				<img src="~/images/icons/description.png" class="mb-2" width="20" height="20" />
-				<b>@Localizer["description"]:</b> @Model.FlatAdvert.Description
+				<b>@Localizer["description"]:</b> @Html.Raw(Model.FlatAdvert.Description)
 			</p>
 			<hr />
-			<p>@Localizer["date of creating advert"]: @Model.FlatAdvert.CreationDate.Value.ToString("yyyy-MM-dd")</p>
+			<p>@Localizer["date of creating advert"]: @Model.FlatAdvert.CreationDate.?Value.ToString("yyyy-MM-dd")</p>
 		</div>
 	</div>
 </div>	

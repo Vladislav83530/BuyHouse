@@ -36,9 +36,13 @@
 }
 
 .img_block {
-    height: 2250px;
+    height: 2400px;
     background: url("../images/createFlat.jpg") center;
     border-radius: 25px;
+}
+
+.input_id{
+    display: none;
 }
 
 @media only screen and (max-width: 990px) {

@@ -72,5 +72,27 @@ namespace BuyHouse.WEB.Clients
             }
             throw new ArgumentNullException("Not found created advert");
         }
+
+        public async Task<FlatAdvert> UpdateFlatAdvertAsync(int flatAdvertId, CreateRequestModel requestModel, IFormFileCollection uploads, string? currentUserId)
+        {
+            if (currentUserId == null)
+                throw new ArgumentNullException("User Id can't be null");
+
+            var JwtToken = await _tokenProvider.ProvideJwtTokenAsync(currentUserId);
+
+            requestModel.RealtyPhotos = await _photosService.AddPhotoToAdvertAsync(uploads, currentUserId);
+
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
+            var json = JsonConvert.SerializeObject(requestModel);
+            var response = await _client.PutAsJsonAsync(_address + $"/api/FlatAdvert/{flatAdvertId}?currentUserId={currentUserId}", requestModel);
+
+            var content = await response.Content.ReadAsStringAsync();
+            if (content != null)
+            {
+                var result = JsonConvert.DeserializeObject<FlatAdvert>(content);
+                return result;
+            }
+            throw new ArgumentNullException("Not found edited advert");
+        }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using BuyHouse.DAL.Entities.HelperEnum;
 using System.ComponentModel.DataAnnotations;
-using TanvirArjel.CustomValidation.Attributes;
 
 namespace BuyHouse.WEB.Models.AdvertModel
 {
@@ -16,7 +15,7 @@ namespace BuyHouse.WEB.Models.AdvertModel
         public string? Description { get; set; }
         [Required(ErrorMessage = "RequiredField")]
         [Display(Name = "Type")]
-        public string? Type { get; set; }
+        public TypeOfRealty? Type { get; set; }
         [Required(ErrorMessage = "RequiredField")]
         [Display(Name = "Rooms")]
         [Range(0, uint.MaxValue, ErrorMessage = "RangeError")]
@@ -35,7 +34,6 @@ namespace BuyHouse.WEB.Models.AdvertModel
         [Required(ErrorMessage = "RequiredField")]
         [Display(Name = "Floor")]
         [Range(0, uint.MaxValue, ErrorMessage = "RangeError")]
-        [CompareTo(nameof(TotalCountFloors), ComparisonType.SmallerThan)]
         public uint Floor { get; set; }
         [Required(ErrorMessage = "RequiredField")]
         [Display(Name = "TotalCountFloors")]
@@ -43,7 +41,7 @@ namespace BuyHouse.WEB.Models.AdvertModel
         public uint TotalCountFloors { get; set; }
         [Required(ErrorMessage = "RequiredField")]
         [Display(Name = "Heating")]
-        public string? Heating { get; set; }
+        public TypeOfHeating Heating { get; set; }
         [Required(ErrorMessage = "RequiredField")]
         [Display(Name = "YearBuilt")]
         [Range(1970, 2026, ErrorMessage = "RangeYearBuiltError")]
@@ -66,9 +64,9 @@ namespace BuyHouse.WEB.Models.AdvertModel
         public Currency Currency { get; set; }
         [Required(ErrorMessage = "RequiredField")]
         [Display(Name = "TypePrice")]
-        public TypeOfPrice? TypePrice { get; set; }
+        public TypeOfPrice TypePrice { get; set; }
         [Display(Name = "CreationDate")]
-        public DateTime? CreationDate { get; set; }
+        public DateTime CreationDate { get; set; }
 
         /*Info for statistic*/
         public uint? LikeCount { get; set; }

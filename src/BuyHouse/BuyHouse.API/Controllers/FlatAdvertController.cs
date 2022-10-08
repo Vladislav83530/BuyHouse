@@ -79,6 +79,8 @@ namespace BuyHouse.API.Controllers
                         advert.TotalPrice = (ulong)(advert.TotalPrice * advert.TotalArea);
                     }
 
+                    advert.Description = advert.Description.Replace("\n", "<br/>");
+
                     await _context.FlatAdverts.AddAsync(advert);
                     await _context.SaveChangesAsync();
                     return Ok(advert);
@@ -98,7 +100,7 @@ namespace BuyHouse.API.Controllers
         /// <param name="requestModel"></param>
         /// <returns>updated flat advert</returns>
         [HttpPut("{Id:int}")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> UpdateFlatAdvert(int Id, CreateRequestModel requestModel, string currentUserId)
         {
             try
@@ -126,7 +128,11 @@ namespace BuyHouse.API.Controllers
                 flatAdvertToUpdate.MainInfo.HouseNumber = flatAdvert_.MainInfo.HouseNumber;
                 flatAdvertToUpdate.MainInfo.FlatNumber = flatAdvert_.MainInfo.FlatNumber;
                 flatAdvertToUpdate.MainInfo.RegistrationDate = flatAdvert_.MainInfo.RegistrationDate;
-                flatAdvertToUpdate.Photos = (ICollection<RealtyPhoto>)requestModel.RealtyPhotos;
+                ICollection<RealtyPhoto> Photos = flatAdvertToUpdate.Photos;
+                foreach (var photo in requestModel.RealtyPhotos)
+                    flatAdvertToUpdate.Photos.Add(photo);
+
+                Photos.Union(flatAdvertToUpdate.Photos).ToList();
                 flatAdvertToUpdate.Description = flatAdvert_.Description;
                 flatAdvertToUpdate.Type = flatAdvert_.Type;
                 flatAdvertToUpdate.TypeOfWalls = flatAdvert_.TypeOfWalls;
@@ -148,9 +154,9 @@ namespace BuyHouse.API.Controllers
                 await _context.SaveChangesAsync();
                 return Ok(flatAdvertToUpdate);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error updating data");
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message/*"Error updating data"*/);
             }
         }
 

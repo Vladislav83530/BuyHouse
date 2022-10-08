@@ -61,7 +61,7 @@
 					<hr>
 					<p>@item.CreationDate.Value.ToString("yyyy-MM-dd")</p>
 					<a class="btn btn-dark btn-md datails_btn" asp-action="GetFlatAdvert" asp-controller="FlatAdvert" asp-route-flatAdvertId="@item.Id">@Localizer["Details"]</a>
-					<a class="btn btn-dark btn-md datails_btn" asp-action="#" asp-controller="#" asp-route-flatAdvertId="@item.Id">@Localizer["Edit info"]</a>
+					<a class="btn btn-dark btn-md datails_btn" asp-action="EditAdvert" asp-controller="FlatAdvert" asp-route-flatAdvertId="@item.Id">@Localizer["Edit info"]</a>
 					<a class="btn btn-dark btn-md datails_btn" asp-action="#" asp-controller="#" asp-route-flatAdvertId="@item.Id">@Localizer["Delete"]</a>
 				</div>
 			</div>
