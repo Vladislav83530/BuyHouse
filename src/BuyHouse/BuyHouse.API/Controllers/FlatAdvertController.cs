@@ -4,6 +4,7 @@ using BuyHouse.DAL.EF;
 using BuyHouse.DAL.Entities;
 using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.DAL.Entities.HelperEnum;
+using BuyHouse.WEB.Models;
 using BuyHouse.WEB.Models.AdvertModel;
 using BuyHouse.WEB.Models.HttpClientModel;
 using Microsoft.AspNetCore.Authorization;
@@ -128,12 +129,11 @@ namespace BuyHouse.API.Controllers
                 flatAdvertToUpdate.MainInfo.HouseNumber = flatAdvert_.MainInfo.HouseNumber;
                 flatAdvertToUpdate.MainInfo.FlatNumber = flatAdvert_.MainInfo.FlatNumber;
                 flatAdvertToUpdate.MainInfo.RegistrationDate = flatAdvert_.MainInfo.RegistrationDate;
-                ICollection<RealtyPhoto> Photos = flatAdvertToUpdate.Photos;
-                foreach (var photo in requestModel.RealtyPhotos)
-                    flatAdvertToUpdate.Photos.Add(photo);
 
-                Photos.Union(flatAdvertToUpdate.Photos).ToList();
-                flatAdvertToUpdate.Description = flatAdvert_.Description;
+                foreach (var photo in requestModel.RealtyPhotos)
+                        flatAdvertToUpdate.Photos.Add(photo);               
+
+                flatAdvertToUpdate.Description = flatAdvert_.Description.Replace("\n", "<br/>");
                 flatAdvertToUpdate.Type = flatAdvert_.Type;
                 flatAdvertToUpdate.TypeOfWalls = flatAdvert_.TypeOfWalls;
                 flatAdvertToUpdate.TotalArea = flatAdvert_.TotalArea;
@@ -143,20 +143,25 @@ namespace BuyHouse.API.Controllers
                 flatAdvertToUpdate.Heating = flatAdvert_.Heating;
                 flatAdvertToUpdate.YearBuilt = flatAdvert_.YearBuilt; 
                 flatAdvertToUpdate.RegistrationNumber = flatAdvert_.RegistrationNumber;
-                flatAdvertToUpdate.TotalPrice = flatAdvert_.TotalPrice;
-                flatAdvertToUpdate.PricePerSquareMeter = flatAdvert_.PricePerSquareMeter;
+
+                if (flatAdvert_.TypePrice == TypeOfPrice.TotalPrice)
+                    flatAdvertToUpdate.PricePerSquareMeter = (ulong)(flatAdvert_.TotalPrice / flatAdvert_.TotalArea);
+                else
+                {
+                    flatAdvertToUpdate.PricePerSquareMeter = flatAdvert_.TotalPrice;
+                    flatAdvertToUpdate.TotalPrice = (ulong)(flatAdvert_.TotalPrice * flatAdvert_.TotalArea);
+                }
+
                 flatAdvertToUpdate.Currency = flatAdvert_.Currency;
                 flatAdvertToUpdate.TypePrice = flatAdvert_.TypePrice;
-                flatAdvertToUpdate.CreationDate = flatAdvert_.CreationDate;
-                flatAdvertToUpdate.LikeCount = flatAdvert_.LikeCount;
 
                 _context.FlatAdverts.Update(flatAdvertToUpdate);
                 await _context.SaveChangesAsync();
                 return Ok(flatAdvertToUpdate);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message/*"Error updating data"*/);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error updating data");
             }
         }
 

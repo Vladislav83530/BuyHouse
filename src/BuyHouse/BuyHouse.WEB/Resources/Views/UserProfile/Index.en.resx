@@ -129,6 +129,26 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="Enter your city" xml:space="preserve">
+    <value>Enter your city</value>
+    <comment>placeholder</comment>
+  </data>
+  <data name="Enter your name" xml:space="preserve">
+    <value>Enter your name</value>
+    <comment>placeholder</comment>
+  </data>
+  <data name="Enter your phone number" xml:space="preserve">
+    <value>Enter your phone number</value>
+    <comment>placeholder</comment>
+  </data>
+  <data name="Enter your region" xml:space="preserve">
+    <value>Enter your region</value>
+    <comment>placeholder</comment>
+  </data>
+  <data name="Enter your surname" xml:space="preserve">
+    <value>Enter your surname</value>
+    <comment>placeholder</comment>
+  </data>
   <data name="Full name" xml:space="preserve">
     <value>Full name</value>
   </data>

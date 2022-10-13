@@ -18,6 +18,7 @@ namespace BuyHouse.WEB.Controllers
         private readonly IFlatAdvertFilterService _flatAdvertService;
         private readonly IUserProfileService _userProfileService;
         private readonly BuyHouseAPIClient _client;
+        private readonly IPhotosService _photosService;
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<FlatAdvertController> _localizer;
 
@@ -25,13 +26,15 @@ namespace BuyHouse.WEB.Controllers
             IUserProfileService userProfileService,
             IMapper mapper,
             IStringLocalizer<FlatAdvertController> localizer, 
-            BuyHouseAPIClient  client)
+            BuyHouseAPIClient client,
+            IPhotosService photosService)
         {
             _flatAdvertService = flatAdertService;
             _userProfileService = userProfileService;
             _mapper = mapper;
             _localizer = localizer;
             _client = client;
+            _photosService = photosService;
         }
 
         /// <summary>
@@ -54,7 +57,7 @@ namespace BuyHouse.WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value; ;
+                string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 try
                 {
                     FlatAdvert flatAdvert_ = await _client.CreateFlatAdvertAsync(new CreateRequestModel { FlatAdvert = flatAdvertModel}, uploads, currentUserId);
@@ -134,6 +137,11 @@ namespace BuyHouse.WEB.Controllers
             }
         }
 
+        /// <summary>
+        /// Edit advert
+        /// </summary>
+        /// <param name="flatAdvertId"></param>
+        /// <returns>get view for editing advert</returns>
         [HttpGet]
         [ApiExplorerSettings(IgnoreApi = true)]
         [Route("/[controller]/[action]/{flatAdvertId:int}")]
@@ -156,6 +164,13 @@ namespace BuyHouse.WEB.Controllers
             }
         }
 
+        /// <summary>
+        /// edit advert
+        /// </summary>
+        /// <param name="flatAdvertId"></param>
+        /// <param name="flatAdvertModel"></param>
+        /// <param name="uploads"></param>
+        /// <returns>edited flat advert or error page</returns>
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> EditFlatAdvert(int flatAdvertId, FlatAdvertModel flatAdvertModel, IFormFileCollection uploads)
@@ -177,6 +192,23 @@ namespace BuyHouse.WEB.Controllers
                 }
             }
             return RedirectToAction("Error", "Home", new { exception = _localizer["Error advert message"] });
+        }
+
+        /// <summary>
+        /// Delete photos from advert
+        /// </summary>
+        /// <param name="photoId"></param>
+        /// <param name="flatAdvertId"></param>
+        /// <returns>json with advert and list of photo</returns>
+        [HttpGet]
+        public async Task<JsonResult> DeleteFlatAdvertPhoto(int photoId, int flatAdvertId)
+        {
+            string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            await _photosService.DeletePhotoFromAdvertAsync(currentUserId, flatAdvertId, photoId);
+            var advert = await _client.GetFlatAdvertByIDAsync(flatAdvertId);
+            var flatAdvertModel = _mapper.Map<FlatAdvert, FlatAdvertModel>(advert);
+            return Json(flatAdvertModel);
         }
     }
 }

@@ -56,7 +56,7 @@
 						<b>@Localizer["total area"]:</b> @item.TotalArea м<sup>2</sup><br>
 						<b>@Localizer["number of rooms"]:</b> @item.Rooms<br>
 						<b>@Localizer["floor"]:</b> @item.Floor
-					<p class="description">@item.Description</p>
+					<p class="description">@Html.Raw(item.Description)</p>
 					</p>
 					<hr>
 					<p>@item.CreationDate.Value.ToString("yyyy-MM-dd")</p>

@@ -129,6 +129,26 @@
   <data name="Email" xml:space="preserve">
     <value>Електронна пошта</value>
   </data>
+  <data name="Enter your city" xml:space="preserve">
+    <value>Введіть місто</value>
+    <comment>placeholder</comment>
+  </data>
+  <data name="Enter your name" xml:space="preserve">
+    <value>Введіть ім'я</value>
+    <comment>placeholder</comment>
+  </data>
+  <data name="Enter your phone number" xml:space="preserve">
+    <value>Введіть номер телефону</value>
+    <comment>placeholder</comment>
+  </data>
+  <data name="Enter your region" xml:space="preserve">
+    <value>Введіть область</value>
+    <comment>placeholder</comment>
+  </data>
+  <data name="Enter your surname" xml:space="preserve">
+    <value>Введіть прізвище</value>
+    <comment>placeholder</comment>
+  </data>
   <data name="Full name" xml:space="preserve">
     <value>Повне ім'я</value>
   </data>

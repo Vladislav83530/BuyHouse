@@ -66,5 +66,33 @@ namespace BuyHouse.BLL.Services
                 await _context.SaveChangesAsync();
             }
         }
+
+        /// <summary>
+        /// Delete photo from advert
+        /// </summary>
+        /// <param name="currentUserId"></param>
+        /// <param name="advertId"></param>
+        /// <param name="photoId"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task DeletePhotoFromAdvertAsync(string currentUserId,int advertId, int photoId)
+        {
+            if (currentUserId == null)
+                throw new Exception("Not found user");
+
+            var flatAdvert= _context.FlatAdverts.Where(x=>x.Id== advertId).First();
+
+            if (flatAdvert.UserID != currentUserId)
+                throw new Exception("Not found users advert");
+
+            foreach(var photo in flatAdvert.Photos)
+            {
+                if (photo.Id == photoId)
+                {
+                    flatAdvert.Photos.Remove(photo);
+                        await _context.SaveChangesAsync();
+                }
+            }         
+        }
     }
 }

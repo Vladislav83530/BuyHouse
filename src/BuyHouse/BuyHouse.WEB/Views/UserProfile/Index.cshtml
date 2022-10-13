@@ -89,7 +89,7 @@
 															<p class="mb-0">@Localizer["Name"]</p>
 														</div>
 														<div class="col-sm-9">
-															<input class="form-control" asp-for="@Model.Name" value="@Model.Name" type="text" placeholder="Enter your name" required />
+															<input class="form-control" asp-for="@Model.Name" value="@Model.Name" type="text" placeholder="@Localizer["Enter your name"]" required />
 														</div>
 													</div>
 													<hr>
@@ -98,7 +98,7 @@
 															<p class="mb-0">@Localizer["Surname"]</p>
 														</div>
 														<div class="col-sm-9">
-															<input class="form-control" asp-for="@Model.Surname" value="@Model.Surname" type="text" placeholder="Enter your surname" required />
+															<input class="form-control" asp-for="@Model.Surname" value="@Model.Surname" type="text" placeholder="@Localizer["Enter your surname"]" required />
 														</div>
 													</div>
 													<hr>
@@ -107,7 +107,7 @@
 															<p class="mb-0">@Localizer["Region"]</p>
 														</div>
 														<div class="col-sm-9">
-															<input class="form-control" asp-for="@Model.Region" value="@Model.Region" type="text" placeholder="Enter your region" />
+															<input class="form-control" asp-for="@Model.Region" value="@Model.Region" type="text" placeholder="@Localizer["Enter your region"]" />
 														</div>
 													</div>
 													<hr>
@@ -116,7 +116,7 @@
 															<p class="mb-0">@Localizer["City"]</p>
 														</div>
 														<div class="col-sm-9">
-															<input class="form-control" asp-for="@Model.City" value="@Model.City" type="text" placeholder="Enter your city" />
+															<input class="form-control" asp-for="@Model.City" value="@Model.City" type="text" placeholder="@Localizer["Enter your city"]" />
 														</div>
 													</div>
 													<hr>
@@ -125,7 +125,7 @@
 															<p class="mb-0">@Localizer["Phone number"]</p>
 														</div>
 														<div class="col-sm-9">
-															<input class="form-control" asp-for="@Model.PhoneNumber" value="@Model.PhoneNumber" type="text" placeholder="Enter your phone number" />
+															<input class="form-control" asp-for="@Model.PhoneNumber" value="@Model.PhoneNumber" type="text" placeholder="@Localizer["Enter your phone number"]" />
 															@Html.ValidationMessageFor(m => m.PhoneNumber,"")
 														</div>
 													</div>

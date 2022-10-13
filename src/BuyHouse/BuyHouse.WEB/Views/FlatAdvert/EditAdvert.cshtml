@@ -47,7 +47,7 @@
 
 					<h2 class="subtitle">@Localizer["Parameters"]</h2>
 					@Html.LabelFor(m => m.Description, new{@class="input_lable"})
-					@Html.TextAreaFor(m => m.Description, new { @class = "form-control", @required="true"  })
+					<textarea name="Description" class="form-control" required>@Model.Description.Replace("<br/>", "")</textarea>
 					@Html.ValidationMessageFor(m => m.Description,"", new{@class="validation_text"})<br />
 
 					@Html.LabelFor(m => m.Type, new{@class="input_lable"})<br />
@@ -136,7 +136,19 @@
 					<hr />
 					<h2 class="subtitle">@Localizer["Photo"]</h2>
 					<p>@Localizer["Upload photos message"]</p>
-					<input class="form-control" type="file" multiple name="uploads" required accept="image/jpeg,image/png" /><br>
+					<div class="row mt-3" id="image_test">
+						@foreach (var photo in Model.Photos)
+						{
+							<div class="photo-container" style="margin-right:8px; margin-bottom: 8px;">
+								<a type="button" class="btn btn-dark button_close btn-delete-advert" data-photoId="@photo.Id" data-flatAdvertId="@Model.Id">
+									<span aria-hidden="true">&times;</span>
+								</a>
+								<img src="@photo.Path" width="170" height="170" />
+							</div>
+						}
+					</div>
+
+					<input class="form-control" type="file" multiple name="uploads" accept="image/jpeg,image/png" /><br>
 					@Html.ValidationMessageFor(m => m.Photos,"", new{@class="validation_text"})<br />
 					<button type="submit" class="btn btn-lg btn-dark">@Localizer["Edit advert"]</button>
 				</form>
@@ -145,5 +157,42 @@
 			</div>
 		</div>
 	</div>
+	@section Scripts{
+		<script>
+			function DeleteAdvertPhoto() {
+				$(document).ready(function () {
+					$(".btn-delete-advert").on("click", function () {
+						var photoid = $(this).attr("data-photoId");
+						var advertid = $(this).attr("data-flatAdvertId");
+						var div_ = document.querySelector("#image_test");
+						var url = '@Url.Action("DeleteFlatAdvertPhoto", "FlatAdvert")' + '/' + '?photoId=' + photoid + '&flatAdvertId=' + advertid;
+						$.ajax({
+							type: 'GET',
+							url: url,
+							success: function (result) {
+								console.log(result);
+								div_.innerHTML = null;
+								result.photos.forEach(element => {
+
+									div_.insertAdjacentHTML('afterbegin', `<div class="photo-container" style="margin-right:8px; margin-bottom: 8px;">
+																				<a type="button" class="btn btn-dark button_close btn-delete-advert"  data-photoId="${element.id}" data-flatAdvertId="${result.id}">
+																					<span aria-hidden="true">&times;</span>
+																				</a>
+																				<img  src="${element.path}" width="170" height="170" />
+																			</div>`);
+									DeleteAdvertPhoto();
+								});
+							},
+							error: function (req, status) {
+								console.log(status);
+							}
+						});
+					});
+				})
+			}
+			DeleteAdvertPhoto();
+		</script>
+	}
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 </html>
