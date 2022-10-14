@@ -73,6 +73,15 @@ namespace BuyHouse.WEB.Clients
             throw new ArgumentNullException("Not found created advert");
         }
 
+        /// <summary>
+        /// Update flat advert
+        /// </summary>
+        /// <param name="flatAdvertId"></param>
+        /// <param name="requestModel"></param>
+        /// <param name="uploads"></param>
+        /// <param name="currentUserId"></param>
+        /// <returns>updated advert</returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public async Task<FlatAdvert> UpdateFlatAdvertAsync(int flatAdvertId, CreateRequestModel requestModel, IFormFileCollection uploads, string? currentUserId)
         {
             if (currentUserId == null)
@@ -83,7 +92,6 @@ namespace BuyHouse.WEB.Clients
             requestModel.RealtyPhotos = await _photosService.AddPhotoToAdvertAsync(uploads, currentUserId);
 
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
-            var json = JsonConvert.SerializeObject(requestModel);
             var response = await _client.PutAsJsonAsync(_address + $"/api/FlatAdvert/{flatAdvertId}?currentUserId={currentUserId}", requestModel);
 
             var content = await response.Content.ReadAsStringAsync();
@@ -93,6 +101,32 @@ namespace BuyHouse.WEB.Clients
                 return result;
             }
             throw new ArgumentNullException("Not found edited advert");
+        }
+
+        /// <summary>
+        /// Delete flat advert
+        /// </summary>
+        /// <param name="flatAdvertId"></param>
+        /// <param name="currentUserId"></param>
+        /// <returns>deleted flat advert</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public async Task<FlatAdvert> DeleteFlatAdvertAsync(int flatAdvertId, string currentUserId)
+        {
+            if (currentUserId == null)
+                throw new ArgumentNullException("User Id can't be null");
+
+            var JwtToken = await _tokenProvider.ProvideJwtTokenAsync(currentUserId);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
+            _request.RequestUri = new Uri(_address + $"/api/FlatAdvert/{flatAdvertId}?currentUserId={currentUserId}");
+
+            var response = await _client.DeleteAsync(_request.RequestUri);
+            var content = await response.Content.ReadAsStringAsync();
+            if (content != null)
+            {
+                var result = JsonConvert.DeserializeObject<FlatAdvert>(content);
+                return result;
+            }
+            throw new ArgumentNullException("Not found content");
         }
     }
 }

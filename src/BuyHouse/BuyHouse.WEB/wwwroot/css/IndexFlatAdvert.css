@@ -227,6 +227,10 @@ label {
     .typePrice_lable {
         width: 100%;
     }
+
+    .datails_btn {
+        width: 100%;
+    }
 }
 
 @media only screen and (max-width: 420px) {

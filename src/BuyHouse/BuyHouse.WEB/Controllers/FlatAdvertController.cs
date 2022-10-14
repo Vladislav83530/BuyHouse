@@ -200,15 +200,41 @@ namespace BuyHouse.WEB.Controllers
         /// <param name="photoId"></param>
         /// <param name="flatAdvertId"></param>
         /// <returns>json with advert and list of photo</returns>
+        [Authorize]
         [HttpGet]
         public async Task<JsonResult> DeleteFlatAdvertPhoto(int photoId, int flatAdvertId)
         {
             string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            await _photosService.DeletePhotoFromAdvertAsync(currentUserId, flatAdvertId, photoId);
             var advert = await _client.GetFlatAdvertByIDAsync(flatAdvertId);
             var flatAdvertModel = _mapper.Map<FlatAdvert, FlatAdvertModel>(advert);
+            if (flatAdvertModel.Photos.Count != 1)         
+                await _photosService.DeletePhotoFromAdvertAsync(currentUserId, flatAdvertId, photoId);
+            
             return Json(flatAdvertModel);
+        }
+
+        /// <summary>
+        /// Delete flat advert
+        /// </summary>
+        /// <param name="flatAdvertId"></param>
+        /// <returns>View with sellers adverts or error page</returns>
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> DeleteFlatAdvert(int flatAdvertId)
+        {
+            string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            try
+            {
+                var result = await _client.DeleteFlatAdvertAsync(flatAdvertId, currentUserId);
+                if (result != null)
+                    return RedirectToAction("GetSellersAdverts", "UserProfile");
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Error", "Home", new { exception = ex.Message });
+            }
         }
     }
 }

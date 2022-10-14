@@ -41,7 +41,7 @@
 					@Html.ValidationMessageFor(m => m.MainInfo.FlatNumber,"", new{@class="validation_text"})<br />
 
 					@Html.LabelFor(m => m.MainInfo.RegistrationDate, new{@class="input_lable"})
-					@Html.TextBoxFor(m => m.MainInfo.RegistrationDate, new { @class = "form-control", @type="date", @required="true"  })
+					@Html.TextBoxFor(m => m.MainInfo.RegistrationDate, new { @class = "form-control", @type="date", @required="true"})
 					@Html.ValidationMessageFor(m => m.MainInfo.RegistrationDate,"", new{@class="validation_text"})<br />
 					<hr />
 
