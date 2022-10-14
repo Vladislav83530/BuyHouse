@@ -10,22 +10,28 @@ namespace BuyHouse.WEB.Models.AdvertModel
         public ICollection<RealtyPhotoModel>? Photos { get; set; }
 
         /*Main flat parameters*/
-        [Required]
-        public int? Rooms { get; set; }
-        public double? TotalArea { get; set; }
-        [Required] 
-        public int? Floor { get; set; }
-
+        public string? Description { get; set; }
+        [Display(Name = "Rooms")]
+        public uint Rooms { get; set; }
+        [Display(Name = "TotalArea")]
+        public double TotalArea { get; set; }
+        [Display(Name = "Floor")]
+        public uint Floor { get; set; }
+        [Display(Name = "TotalCountFloors")]
+        public uint TotalCountFloors { get; set; }
         /*Advert properties*/
-        [Required]
-        public int? TotalPrice { get; set; }
-        public int? PricePerSquareMeter { get; set; }
-        [Required]
-        public Currency? Currency { get; set; }
-        [Required]
-        public TypeOfPrice? TypePrice { get; set; }
+        [Display(Name = "TotalPrice")]
+        public uint TotalPrice { get; set; }
+        [Display(Name = "PricePerSquareMeter")]
+        public uint PricePerSquareMeter { get; set; }
+        [Display(Name = "Currency")]
+        public Currency Currency { get; set; }
+        [Display(Name = "TypePrice")]
+        public TypeOfPrice TypePrice { get; set; }
+
+        public DateTime? CreationDate { get; set; }
 
         /*Info for statistic*/
-        public int? LikeCount { get; set; }
+        public uint LikeCount { get; set; }
     }
 }

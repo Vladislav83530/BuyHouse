@@ -67,9 +67,10 @@ namespace BuyHouse.DAL.EF
                 .WithOne(e => e.ApplicationUser)
                 .HasForeignKey(c => c.UserID);
 
-            builder.Entity<ApplicationUser>().HasData(
-                new ApplicationUser { Id = "0f8fad5b-d9cb-469f-a165-70867728950e", UserName="Tom",UserSurname="Petrenko", 
-                    Region="Lviv region", City="Lviv", Email="tom.petrenko@gmail.com" });
+            builder.Entity<ApplicationUser>()
+                .HasOne<UserAvatar>(u => u.UserAvatar)
+                .WithOne(c => c.ApplicationUser)
+                .HasForeignKey<UserAvatar>(c => c.ApplicationUserId);
         }
     }
 }

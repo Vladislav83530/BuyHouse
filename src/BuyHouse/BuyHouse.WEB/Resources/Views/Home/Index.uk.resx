@@ -138,15 +138,6 @@
   <data name="Rooms" xml:space="preserve">
     <value>Кімнати</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value>Купити</value>
-  </data>
-  <data name="String2" xml:space="preserve">
-    <value>Продати</value>
-  </data>
-  <data name="String3" xml:space="preserve">
-    <value>Головна</value>
-  </data>
   <data name="Total area" xml:space="preserve">
     <value>Загальна площа</value>
   </data>

@@ -1,0 +1,10 @@
+﻿.main_title {
+    font-size: 60px;
+    font-family: 'Kaushan Script', cursive;
+}
+
+.intro_text{
+    font-size: 20px;
+    font-weight: 500;
+    color: black;
+}

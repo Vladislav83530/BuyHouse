@@ -1,0 +1,66 @@
+﻿@model BuyHouse.WEB.Models.ViewModels.Auth.LoginViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - BuyHouse.WEB</title>
+	<link rel="stylesheet" href="~/css/Login-Register.css" />
+</head>
+<body>
+	<div class="main_container">
+		<div class="container mt-3 mb-3">
+			<div class="row" id="container_reg">
+				<form method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
+					<div class="row">
+						<div class="row">
+							<h1>@Localizer["Sign in"]</h1>
+						</div>
+						<div class="col-lg-12">
+							<div asp-validation-summary="ModelOnly"></div>
+							<div>
+								<label>@Localizer["Email"]</label><br />
+								<input class="form-control mb-1" asp-for="Email" />
+								<span asp-validation-for="Email"></span>
+							</div>
+							<div>
+								<label>@Localizer["Password"]</label><br />
+								<input class="form-control mb-1" asp-for="Password" />
+								<span asp-validation-for="Password"></span>
+							</div>
+							<label>@Localizer["Remember me"]?</label><br />
+							<div class="col-1">
+								<input class="mb-1 input_chek" asp-for="RememberMe" />
+							</div>
+						</div>
+						<div class="col-md-12 col-sm-12 col-12 col-xs-12 mt-2">
+							<input type="submit" class="btn btn-primary submit_btn" value=@Localizer["Sign up"] />
+						</div>
+					</div>
+				</form>
+				<div class="col-md-12">
+					<form asp-action="ExternalLogin" asp-controller="Account" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+						@foreach (var provider in Model.ExternalProviders)
+						{
+							<button class="btn btn-primary submitProv_btn" name="provider" value="@provider.Name" type="submit">
+								@if (provider.Name == "Google")
+								{
+									<img src="../images/icons/google.png" style="width: 25px; height: 25px;">
+								}
+								@if (provider.Name == "Facebook")
+								{
+									<img src="../images/icons/facebook.png" style="width: 25px; height: 25px;">
+								}
+								@provider.Name
+							</button>
+						}
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

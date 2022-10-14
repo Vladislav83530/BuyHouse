@@ -1,0 +1,55 @@
+﻿@model BuyHouse.WEB.Models.ViewModels.Auth.ExternalRegisterViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - BuyHouse.WEB</title>
+	<link rel="stylesheet" href="~/css/Login-Register.css" />
+</head>
+<body>
+	<div class="main_container">
+		<div class="container mt-3 mb-3">
+			<div class="row" id="container_reg">
+				<form method="post" asp-controller="Account" asp-action="ExternalRegister">
+					<div class="row">
+						<div class="row">
+							<h1>@Localizer["Sign up"]</h1>
+						</div>
+						<div class="col-lg-6">
+							<div class="valid" asp-validation-summary="ModelOnly"></div>
+							<div>
+								<label>@Localizer["UserName"]</label><br />
+								<input class="form-control mb-1" asp-for="Name" required />
+								<span class="valid" asp-validation-for="Name"></span>
+							</div>
+							<div>
+								<label>@Localizer["UserSurname"]</label><br />
+								<input class="form-control mb-1" asp-for="Surname" required />
+								<span class="valid" asp-validation-for="Surname"></span>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div>
+								<label>@Localizer["PhoneNumber"]</label><br />
+								<input class="form-control mb-1" asp-for="PhoneNumber" required />
+								<span class="valid" asp-validation-for="PhoneNumber"></span>
+							</div>
+							<div>
+								<label>@Localizer["Email"]</label><br />
+								<input class="form-control mb-1" asp-for="Email" required />
+								<span class="valid" asp-validation-for="Email"></span>
+							</div>
+						</div>
+						<div class="col-md-12 col-sm-12 col-12 col-xs-12 mt-3">
+							<input type="submit" class="btn btn-primary submit_btn" value=@Localizer["Sign up"] />
+						</div>
+					</div>
+				</form>		
+			</div>
+		</div>
+	</div>
+</body>
+</html>

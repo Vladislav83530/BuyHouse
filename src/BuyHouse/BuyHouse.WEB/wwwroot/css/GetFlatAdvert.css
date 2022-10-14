@@ -1,0 +1,131 @@
+﻿.slider_img{
+    width: 100%;
+    height: 600px;
+    border-radius: 25px;
+}
+
+.adress_title{
+    font-weight: 600;
+    font-size: 24px;
+}
+
+.param_block_advert{
+    font-size: 20px; 
+}
+
+.sellerInfo_title {
+    font-family: 'Kaushan Script', cursive;
+}
+
+.phone_block {
+    background-color: #FFD61D;
+    border-radius: 30px;
+    font-size: 22px;
+    font-weight: 600;
+    padding: 10px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.avatar_img {
+    width: 150px;
+    height: 150px;
+}
+
+.slider_block {
+    height: 600px;
+}
+
+@media only screen and (max-width: 1399px) {
+    .avatar_img {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .avatar_img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .sellerInfo_title {
+        font-size: 20px;
+    }
+
+    .slider_img {
+        width: 100%;
+        height: 500px;
+        border-radius: 25px;
+    }
+    
+    .slider_block {
+        height: 500px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .avatar_img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .sellerInfo_title {
+        font-size: 24px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .slider_img {
+        width: 100%;
+        height: 450px;
+        border-radius: 25px;
+    }
+
+    .slider_block {
+        height: 450px;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .avatar_img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .slider_block {
+        -moz-transform: scale(0.9, 0.9);
+        zoom: 0.9;
+        zoom: 90%;
+    }
+}
+
+@media only screen and (max-width: 470px) {
+    .avatar_img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .sellerInfo_title {
+        font-size: 18px;
+    }
+
+    .slider_block {
+        -moz-transform: scale(0.7, 0.7);
+        zoom: 0.7;
+        zoom: 70%;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .avatar_img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .slider_block {
+        -moz-transform: scale(0.6, 0.6);
+        zoom: 0.6;
+        zoom: 60%;
+    }
+}

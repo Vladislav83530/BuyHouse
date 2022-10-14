@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BuyHouse.BLL.Clients;
 using BuyHouse.BLL.Services.Abstract;
 using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.WEB.Models;
@@ -12,23 +13,24 @@ namespace BuyHouse.WEB.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly IFlatAdvertService _flatAdvertService;
+        private readonly IFlatAdvertFilterService _flatAdvertService;
         private readonly IMapper _mapper;
+        private readonly CurrencyConverterClient _client;
 
-        public HomeController(ILogger<HomeController> logger, IFlatAdvertService flatAdvertService, IMapper mapper)
+        public HomeController(IFlatAdvertFilterService flatAdvertService, IMapper mapper, CurrencyConverterClient client)
         {
-            _logger = logger;
             _flatAdvertService = flatAdvertService;
-            _mapper=mapper;
+            _mapper = mapper;
+            _client = client;
         }
 
         public async Task<IActionResult> Index()
         {
             try
             {
-                IEnumerable<FlatAdvert> flatAdverts_ =await _flatAdvertService.GetMostLikedFlatAdvert();
+                IEnumerable<FlatAdvert> flatAdverts_ = await _flatAdvertService.GetMostLikedFlatAdvertAsync();
                 List<FlatAdvertShortModel> flatAdverts = _mapper.Map<IEnumerable<FlatAdvert>, List<FlatAdvertShortModel>>(flatAdverts_);
+
                 HomeIndexViewModel vm = new HomeIndexViewModel
                 {
                     FlatAdverts = flatAdverts,
@@ -51,11 +53,6 @@ namespace BuyHouse.WEB.Controllers
             );
 
             return LocalRedirect(returnUrl);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -4,7 +4,7 @@ using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.WEB.Models;
 using BuyHouse.WEB.Models.AdvertModel;
 
-namespace BuyHouse.WEB.Controllers
+namespace BuyHouse.WEB
 {
     public class AutoMapper_WEB : Profile
     {

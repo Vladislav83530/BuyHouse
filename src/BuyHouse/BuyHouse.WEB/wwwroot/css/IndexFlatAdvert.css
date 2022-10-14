@@ -32,11 +32,11 @@
         color: white;
     }
 
-.currency_lable{
+.currency_lable {
     width: 140px;
 }
 
-.typePrice_lable{
+.typePrice_lable {
     width: 170px;
 }
 
@@ -44,8 +44,209 @@
     width: 140px;
 }
 
-label{
+label {
     font-family: 'MS Reference Sans Serif';
     font-size: 18px;
     font-weight: 600;
+}
+
+.btn_submitform {
+    background-color: #153351;
+    border-radius: 50px;
+    color: white;
+}
+
+.col2_filter {
+    margin-left: 80px;
+}
+
+.flex_div {
+    display: flex;
+}
+
+/*Advert style*/
+.grow:hover {
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+    -webkit-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 0px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.3), 0 1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.grow {
+    transition: all 0.3s ease;
+    -webkit-box-shadow: 0 5px 2px -3px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 5px 2px -3px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 2px -3px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    overflow: hidden;
+    border-radius: 20px;
+    border: 1px solid #E7EBE8;
+    padding: 10px;
+}
+
+.big_flatimg {
+    border-radius: 10px;
+    width: 310px;
+    height: 260px;
+}
+
+.small_photos {
+    display: flex;
+    margin-top: 5px;
+}
+
+.small_flatimg {
+    margin-right: 5px;
+    border-radius: 8px;
+    width: 100px;
+    height: 100px;
+}
+
+.photos_block {
+    margin-right: 10px;
+}
+
+.param_block_advert {
+    font-size: 22px;
+    margin-top: 10px;
+}
+
+.info_block {
+    font-size: 17px;
+}
+
+.datails_btn {
+    width: 200px;
+    background-color: #153351;
+}
+
+.description {
+    height: 72px;
+    overflow: hidden;
+}
+
+@media only screen and (max-width: 1400px) {
+    .grow {
+        -moz-transform: scale(0.8, 0.8);
+        zoom: 0.8;
+        zoom: 80%;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .col2_filter {
+        margin-left: 30px;
+    }
+
+    .radio-toolbar label {
+        padding: 5px 15px;
+    }
+
+    .grow {
+        -moz-transform: scale(0.7, 0.7);
+        zoom: 0.7;
+        zoom: 70%;
+    }
+}
+
+
+@media only screen and (max-width: 991px) {
+    .col2_filter {
+        margin-left: 0px;
+        margin-top: 10px;
+    }
+
+    .radio-toolbar label {
+        padding: 5px 25px;
+    }
+
+    .from-to-input {
+        width: 200px;
+    }
+
+    .typePrice_lable {
+        width: 210px;
+    }
+
+    .currency_lable {
+        width: 160px;
+    }
+
+    .col_price {
+        display: flex;
+    }
+
+    .price_lable {
+        margin-left: 10px;
+    }
+
+    .big_flatimg {
+        width: 100%;
+        height: auto;
+    }
+
+    .small_flatimg {
+        width: 33%;
+        height: auto;
+    }
+
+    .param_block_advert {
+        font-size: 25px;
+    }
+
+    .info_block {
+        font-size: 22px;
+    }
+
+    h3{
+        font-size: 35px;
+    }
+
+    .description{
+        font-size: 18px;
+    }
+
+    .datails_btn {
+        width: 300px;
+        height: 60px;
+        font-size: 18px;
+    }
+}
+
+@media only screen and (max-width: 580px) {
+    .from-to-input {
+        width: 140px;
+    }
+
+    .currency_lable {
+        width: 100%;
+    }
+
+    .typePrice_lable {
+        width: 100%;
+    }
+
+    .datails_btn {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .from-to-input {
+        width: 95px;
+    }
+
+    .radio-toolbar label {
+        padding: 5px 15px;
+    }
+
+    .param_block_advert {
+        font-size: 20px;
+    }
+
+    h3{
+        font-size: 25px;
+    }
 }

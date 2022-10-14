@@ -129,8 +129,14 @@
   <data name="currency" xml:space="preserve">
     <value>Валюта</value>
   </data>
+  <data name="Details" xml:space="preserve">
+    <value>Детальніше</value>
+  </data>
   <data name="Euro" xml:space="preserve">
-    <value>Євро</value>
+    <value>€</value>
+  </data>
+  <data name="Euro full name" xml:space="preserve">
+    <value>Євро €</value>
   </data>
   <data name="filter" xml:space="preserve">
     <value>Фільтр</value>
@@ -146,6 +152,12 @@
   </data>
   <data name="number of rooms" xml:space="preserve">
     <value>Кількість кімнат</value>
+  </data>
+  <data name="out of" xml:space="preserve">
+    <value>з</value>
+  </data>
+  <data name="per" xml:space="preserve">
+    <value>за</value>
   </data>
   <data name="per object" xml:space="preserve">
     <value>за об'єкт</value>
@@ -166,9 +178,15 @@
     <value>Загальна площа</value>
   </data>
   <data name="UAH" xml:space="preserve">
-    <value>Гривня</value>
+    <value>₴</value>
+  </data>
+  <data name="UAH full name" xml:space="preserve">
+    <value>Гривня ₴</value>
   </data>
   <data name="USD" xml:space="preserve">
-    <value>Долар</value>
+    <value>$</value>
+  </data>
+  <data name="USD full name" xml:space="preserve">
+    <value>Долар $</value>
   </data>
 </root>

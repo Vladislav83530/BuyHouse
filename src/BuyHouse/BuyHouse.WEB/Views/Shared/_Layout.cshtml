@@ -9,9 +9,8 @@
 	<title>@ViewData["Title"] - BuyHouse.WEB</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.2.0/zephyr/bootstrap.min.css" integrity="sha512-4hshmZC4nWxAKC1H3MJBd2uRv+gRBkcBODzZoj3Jzd0XrF+osekpAAI1W7ASmMTuSKzrq+3xDoTfNU2sbNK67w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Montserrat:400,700&amp;subset=cyrillic-ext" rel="stylesheet">
-	<link rel="stylesheet" href="~/css/HomeIndex.css" />
+	<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="~/css/Layout.css" />
-	<link rel="stylesheet" href="~/css/IndexFlatAdvert.css" />
 </head>
 <body>
 	<header>
@@ -43,23 +42,51 @@
 							</div>
 						</li>
 					</ul>
-						 @await Html.PartialAsync("_SelectLanguagePartial")
-				
+					@if (!User.Identity.IsAuthenticated)
+					{
+						<ul class="navbar-nav">
+							<li class="nav-item">
+								<a class="nav-link link" asp-controller="Account" asp-action="Register">@Localizer["Sign up"]</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link link" asp-controller="Account" asp-action="Login">@Localizer["Log in"]</a>
+							</li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link link" asp-action="Index" asp-controller="UserProfile">@Localizer["Office"]</a>
+							</li>
+						<form class="nav-item" asp-action="Logout" asp-controller="Account">
+							<ul class="navbar-nav">
+								<li class="nav-item">
+									<button type="submit" asp-action="Logout" asp-controller="Account" class="btn logout_btn">@Localizer["Log out"]</button>
+								</li>
+							</ul>
+						</form>
+						</ul>
+					}
+					@await Html.PartialAsync("_SelectLanguagePartial")			
 				</div>
 			</div>
 		</nav>
 	</header>
 
-	<main role="main" class="pb-3">
+	<main role="main">
 		@RenderBody()
 	</main>
-	<footer class="border-top footer text-muted" style="background-color: black;">
+	<footer class="border-top footer text-muted"style="background-color: black; ">
 		<div class="container">
 			&copy; 2022 - BuyHouse.WEB - Vladislav Petrov
 		</div>
 	</footer>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
-	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-	@await RenderSectionAsync("Scripts", required: false)
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/js/bootstrap.bundle.min.js" integrity="sha512-9GacT4119eY3AcosfWtHMsT5JyZudrexyEVzTBWV3viP/YfB9e2pEy3N7WXL3SV6ASXpTU0vzzSxsbfsuUH4sQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>  
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+	@await RenderSectionAsync("Scripts", required: false);
 </body>
 </html>

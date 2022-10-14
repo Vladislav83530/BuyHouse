@@ -129,10 +129,22 @@
   <data name="Houses" xml:space="preserve">
     <value>Houses</value>
   </data>
+  <data name="Log in" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="Log out" xml:space="preserve">
+    <value>Log out</value>
+  </data>
+  <data name="Office" xml:space="preserve">
+    <value>Office</value>
+  </data>
   <data name="Rooms" xml:space="preserve">
     <value>Rooms</value>
   </data>
   <data name="Sell" xml:space="preserve">
     <value>Sell</value>
+  </data>
+  <data name="Sign up" xml:space="preserve">
+    <value>Sign up</value>
   </data>
 </root>

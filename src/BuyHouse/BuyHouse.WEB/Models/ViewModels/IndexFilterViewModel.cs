@@ -3,7 +3,7 @@ using BuyHouse.WEB.Models.AdvertModel;
 
 namespace BuyHouse.WEB.Models.ViewModels
 {
-    public class IndexViewModel
+    public class IndexFilterViewModel
     {
         public IEnumerable<FlatAdvertShortModel> FlatAdverts { get; set; }
         public FlatAdvertFilter FlatAdvertFilter { get; set; }

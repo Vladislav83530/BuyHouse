@@ -1,0 +1,209 @@
+﻿@model BuyHouse.BLL.DTO.UserProfileDTO
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="~/css/IndexUserProfile.css" />
+</head>
+<body>
+	<br>
+	<!--TODO: AlerMessage in controller-->
+	@if (TempData["AlertMessage"] != null)
+	{
+		<div class="alert alert-success d-flex align-items-center">
+			<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill" /></svg>
+			<div>
+				<strong>Success! </strong>@TempData["AlertMessage"]
+			</div>
+		</div>
+	}
+	<section class="profile_bg">
+		<div class="container py-5">
+			<div class="row">
+
+				<div class="col-lg-5">
+
+					<div class="card mb-4">
+						<div class="card-body text-center">
+							<div class="container_avatar">
+								@if (Model.UserAvatar.Path != null)
+								{
+									<img src="@Model.UserAvatar.Path" alt="avatar" class="rounded-circle img-fluid" style='width: 150px; height: 150px;' />
+									<!-- Button trigger modal avatar-->
+									<button type="button" class="btn btn-primary avatar_btn" data-toggle="modal" data-target="#EditAvatarModal">✎</button>
+								}
+							</div>
+
+							<h5 class="my-3">@Model.Name @Model.Surname</h5>
+							@if (Model.Region != null && Model.City != null)
+							{
+								<p class="text-muted mb-4">
+									<img src="~/images/icons/map_point.png" width="20" height="20" class="mb-2" /> @Model.Region, @Model.City
+								</p>
+							}
+
+							<div class="d-flex justify-content-center mb-2">
+								<!-- Button trigger modal info-->
+								<button type="button" class="btn btn_editInfo" data-toggle="modal" data-target="#EditModal">@Localizer["Edit"]</button>
+								<!-- Modal edit avatar -->
+								<div class="modal fade" id="EditAvatarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<form asp-action="UpdateUsersAvatar" asp-controller="UserProfile" method="post" enctype="multipart/form-data">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">@Localizer["Update profile picture"]</h5>
+													<button type="button" class="btn close btn_close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<input type="file" name="uploadedFile" class="form-control" accept="image/jpeg,image/png"/>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-dark" data-dismiss="modal">@Localizer["Close"]</button>
+													<button type="submit" class="btn btn_primary">@Localizer["Save"]</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+
+								<!-- Modal edit info -->
+								<div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<form asp-action="UpdateUserInfo" asp-controller="UserProfile" method="post">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">@Localizer["Personal information"]</h5>
+													<button type="button" class="btn close btn_close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<div class="row">
+														<div class="col-sm-3">
+															<p class="mb-0">@Localizer["Name"]</p>
+														</div>
+														<div class="col-sm-9">
+															<input class="form-control" asp-for="@Model.Name" value="@Model.Name" type="text" placeholder="@Localizer["Enter your name"]" required />
+														</div>
+													</div>
+													<hr>
+													<div class="row">
+														<div class="col-sm-3">
+															<p class="mb-0">@Localizer["Surname"]</p>
+														</div>
+														<div class="col-sm-9">
+															<input class="form-control" asp-for="@Model.Surname" value="@Model.Surname" type="text" placeholder="@Localizer["Enter your surname"]" required />
+														</div>
+													</div>
+													<hr>
+													<div class="row">
+														<div class="col-sm-3">
+															<p class="mb-0">@Localizer["Region"]</p>
+														</div>
+														<div class="col-sm-9">
+															<input class="form-control" asp-for="@Model.Region" value="@Model.Region" type="text" placeholder="@Localizer["Enter your region"]" />
+														</div>
+													</div>
+													<hr>
+													<div class="row">
+														<div class="col-sm-3">
+															<p class="mb-0">@Localizer["City"]</p>
+														</div>
+														<div class="col-sm-9">
+															<input class="form-control" asp-for="@Model.City" value="@Model.City" type="text" placeholder="@Localizer["Enter your city"]" />
+														</div>
+													</div>
+													<hr>
+													<div class="row">
+														<div class="col-sm-3">
+															<p class="mb-0">@Localizer["Phone number"]</p>
+														</div>
+														<div class="col-sm-9">
+															<input class="form-control" asp-for="@Model.PhoneNumber" value="@Model.PhoneNumber" type="text" placeholder="@Localizer["Enter your phone number"]" />
+															@Html.ValidationMessageFor(m => m.PhoneNumber,"")
+														</div>
+													</div>
+													<hr>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-dark" data-dismiss="modal">@Localizer["Close"]</button>
+													<button type="submit" class="btn btn_primary">@Localizer["Save"]</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<!--User information block-->
+				<div class="col-lg-7 info_block">
+					<div class="card mb-4 card_profile">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-3">
+									<p class="mb-0 title_info">@Localizer["Full name"]</p>
+								</div>
+								<div class="col-sm-9">
+									<p class="text-muted mb-0">@Model.Name @Model.Surname</p>
+								</div>
+							</div><hr>
+							<div class="row">
+								<div class="col-sm-3">
+									<p class="mb-0 title_info">@Localizer["Email"]</p>
+								</div>
+								<div class="col-sm-9">
+									<p class="text-muted mb-0">@Model.Email</p>
+								</div>
+							</div><hr>
+							<div class="row">
+								<div class="col-sm-3">
+									<p class="mb-0 title_info">@Localizer["Phone number"]</p>
+								</div>
+								<div class="col-sm-9">
+									<p class="text-muted mb-0">@Model.PhoneNumber</p>
+								</div>
+							</div><hr>
+							<div class="row">
+								<div class="col-sm-3">
+									<p class="mb-0 title_info">@Localizer["Region"]</p>
+								</div>
+								<div class="col-sm-9">
+									<p class="text-muted mb-0">@Model.Region</p>
+								</div>
+							</div><hr>
+							<div class="row">
+								<div class="col-sm-3">
+									<p class="mb-0 title_info">@Localizer["City"]</p>
+								</div>
+								<div class="col-sm-9">
+									<p class="text-muted mb-0">@Model.City</p>
+								</div>
+							</div><hr>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="row">
+				<div class="col-lg-5">
+					<a class="btn btn-md btn-dark btn_myAdvert" asp-action="GetSellersAdverts" asp-controller="UserProfile">My adverts</a>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+</body>
+</html>

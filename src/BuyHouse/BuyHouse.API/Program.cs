@@ -1,5 +1,8 @@
+using BuyHouse.BLL.Services.Providers.DateTimeProvider;
+using BuyHouse.BLL.Services.Providers.JwtTokenProvider;
 using BuyHouse.DAL.EF;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +17,26 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IDateTimeProvider, DateTimeProvider>();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = "JwtBearer";
+    options.DefaultChallengeScheme = "JwtBearer";
+})?
+.AddJwtBearer("JwtBearer", jwtOptions =>
+{
+    jwtOptions.TokenValidationParameters = new TokenValidationParameters()
+    {
+        IssuerSigningKey = JwtTokenProvider.SIGNING_KEY,
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidIssuer = builder.Configuration.GetValue<string>("ValidIssuer"),
+        ValidAudience = builder.Configuration.GetValue<string>("ValidAudience"),
+        ValidateLifetime = true
+    };
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,10 +44,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+}  
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

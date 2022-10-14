@@ -9,7 +9,7 @@ namespace BuyHouse.DAL.Entities
         public string? City { get; set; }
         public string? Street { get; set; }
         public string? HouseNumber { get; set; }
-        public int? FlatNumber { get; set; }
-        public DateTime? RegistrationDate { get; set; }
+        public uint FlatNumber { get; set; }
+        public DateTime RegistrationDate { get; set; }
     }
 }

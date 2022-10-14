@@ -1,0 +1,42 @@
+﻿.container_avatar .avatar_btn {
+    position: absolute;
+    top: 36%;
+    left: 54%;
+    transform: translate(40%, 40%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #FFD61D;
+    color: white;
+    font-size: 12px;
+    padding: 10px 13px;
+    border: none;
+    cursor: pointer;
+    border-radius: 100%;
+}
+
+.btn_editInfo {
+    background-color: black;
+    width: 50%;
+    color: white;
+    font-family: sans-serif, Arial;
+    font-size: 16px;
+    border-radius: 50px;
+}
+
+.title_info {
+    color: black;
+    font-family: sans-serif, Arial;
+    font-size: 18px;
+}
+
+.btn_primary {
+    background-color: #FFD61D;
+}
+
+.btn_close{
+    background-color: black;
+    color: white;
+}
+
+.btn_myAdvert{
+    width: 100%;
+}

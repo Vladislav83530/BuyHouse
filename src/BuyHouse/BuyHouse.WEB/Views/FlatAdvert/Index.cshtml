@@ -1,136 +1,160 @@
-﻿@model BuyHouse.WEB.Models.ViewModels.IndexViewModel
+﻿@model BuyHouse.WEB.Models.ViewModels.IndexFilterViewModel
 @using BuyHouse.DAL.Entities.HelperEnum
 @using Microsoft.AspNetCore.Mvc.Localization
 
 @inject IViewLocalizer Localizer
 
 @addTagHelper *, BuyHouse.WEB
-<div class="container">
-	<form name="filterForm" method="post" asp-action="Index" asp-controller="FlatAdvert">
-		<div class="row">
-			<div class="col-lg-4 col-md-4 col-4">
-				<label>@Localizer["label pageSize"]: </label><br />
-				<div class="radio-toolbar">
-					<input class="pageSize" type="radio" id="size10" name="pageSize" value="10">
-					<label for="size10">10</label>
-					<input class="pageSize" type="radio" id="size20" name="pageSize" value="20">
-					<label for="size20">20</label>
-					<input class="pageSize" type="radio" id="size50" name="pageSize" value="50">
-					<label for="size50">50</label>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - Search</title>
+	<link rel="stylesheet" href="~/css/IndexFlatAdvert.css" />
+</head>
+<body>
+	<div class="container">
+		<form name="filterForm" method="post" asp-action="Index" asp-controller="FlatAdvert">
+			<div class="row mt-3 blue_block">
+				<div class="col-lg-5 col-md-12 order-1 oreder-md-2">
+					<label>@Localizer["label pageSize"]: </label><br />
+					<div class="radio-toolbar">
+						<input class="pageSize" type="radio" id="size10" name="pageSize" value="10">
+						<label for="size10">10</label>
+						<input class="pageSize" type="radio" id="size20" name="pageSize" value="20">
+						<label for="size20">20</label>
+						<input class="pageSize" type="radio" id="size50" name="pageSize" value="50">
+						<label for="size50">50</label>
+					</div>
+					<label class="mt-2">@Localizer["number of rooms"]: </label><br />
+					<div class="radio-toolbar">
+						<input class="countRooms" type="radio" id="countRoomsAll" name="filter.CountRooms" value="All">
+						<label for="countRoomsAll">@Localizer["all"]</label>
+
+						<input class="countRooms" type="radio" id="countRooms1" name="filter.CountRooms" value="1">
+						<label for="countRooms1">1</label>
+
+						<input class="countRooms" type="radio" id="countRooms2" name="filter.CountRooms" value="2">
+						<label for="countRooms2">2</label>
+
+						<input class="countRooms" type="radio" id="countRooms3" name="filter.CountRooms" value="3">
+						<label for="countRooms3">3</label>
+
+						<input class="countRooms" type="radio" id="countRooms4+" name="filter.CountRooms" value="4+">
+						<label for="countRooms4+">4+</label>
+					</div>
+
+					<label>@Localizer["total area"]: </label><br />
+					<div class="flex_div">
+						<label class="m-2">@Localizer["from"]: </label>
+						<input name="filter.MinTotalArea" id="inputMinMaxValue" value="@Model.FlatAdvertFilter.MinTotalArea" class="form-control from-to-input">
+						<label class="m-2">@Localizer["to"]: </label>
+						<input name="filter.MaxTotalArea" id="inputMinMaxValue" value="@Model.FlatAdvertFilter.MaxTotalArea" class="form-control from-to-input">
+					</div>
+					<label>@Localizer["floor"]: </label><br />
+					<div class="flex_div">
+						<label class="m-2">@Localizer["from"]: </label>
+						<input name="filter.MinFloor" id="inputMinMaxValue" value="@Model.FlatAdvertFilter.MinFloor" class="form-control from-to-input" />
+						<label class="m-2">@Localizer["to"]: </label>
+						<input name="filter.MaxFloor" id="inputMinMaxValue" value="@Model.FlatAdvertFilter.MaxFloor" class="form-control from-to-input" />
+					</div>
 				</div>
-				<label class="mt-2">@Localizer["number of rooms"]: </label><br />
-				<div class="radio-toolbar ">
-					<input class="countRooms" type="radio" id="countRoomsAll" name="filter.CountRooms" value="All">
-					<label for="countRoomsAll">@Localizer["all"]</label>
+				<div class="col-lg-6 col-md-12 order-md-1 oreder-2 col2_filter">
+					<label>@Localizer["city"]: </label>
+					<input name="filter.CityName" value="@Model.FlatAdvertFilter.CityName" class="form-control" />
 
-					<input class="countRooms" type="radio" id="countRooms1" name="filter.CountRooms" value="1">
-					<label for="countRooms1">1</label>
-
-					<input class="countRooms" type="radio" id="countRooms2" name="filter.CountRooms" value="2">
-					<label for="countRooms2">2</label>
-
-					<input class="countRooms" type="radio" id="countRooms3" name="filter.CountRooms" value="3">
-					<label for="countRooms3">3</label>
-
-					<input class="countRooms" type="radio" id="countRooms4+" name="filter.CountRooms" value="4+">
-					<label for="countRooms4+">4+</label>
-				</div>
-
-				<label>@Localizer["total area"]: </label><br />
-				<div class="mt-3" style="display:flex;">
-					<label class="m-2">@Localizer["from"]: </label>
-					<input name="filter.MinTotalArea" id="inputMinMaxValue" value="@Model.FlatAdvertFilter.MinTotalArea" class="form-control from-to-input">
-					<label class="m-2">@Localizer["to"]: </label>
-					<input name="filter.MaxTotalArea" id="inputMinMaxValue" value="@Model.FlatAdvertFilter.MaxTotalArea" class="form-control from-to-input">
-				</div>
-				<label>@Localizer["floor"]: </label><br />
-				<div style="display:flex;">
-					<label class="m-2">@Localizer["from"]: </label>
-					<input name="filter.MinFloor" id="inputMinMaxValue" value="@Model.FlatAdvertFilter.MinFloor" class="form-control from-to-input" />
-					<label class="m-2">@Localizer["to"]: </label>
-					<input name="filter.MaxFloor" id="inputMinMaxValue" value="@Model.FlatAdvertFilter.MaxFloor" class="form-control from-to-input" />
-				</div>
-			</div>
-			<div class="col-lg-6 col-md-6 col-6">
-				<label>@Localizer["city"]: </label>
-				<input name="filter.CityName" value="@Model.FlatAdvertFilter.CityName" class="form-control" />
-
-				<div class="row mt-4">
-					<div class="col-md-4">
+					<div class="row mt-2">
 						<label>@Localizer["price"]: </label><br />
-						<label>@Localizer["from"]: </label>
-						<input id="inputMinMaxValue" name="filter.MinPrice" class="form-control from-to-input" value="@Model.FlatAdvertFilter.MinPrice" />
-						<label>@Localizer["to"]: </label>
-						<input id="inputMinMaxValue" name="filter.MaxPrice" class="form-control from-to-input" value="@Model.FlatAdvertFilter.MaxPrice" />
-					</div>
-					<div class="col-md-4">
-						<label class="control-label">@Localizer["currency"]: </label><br />
-						<div class="radio-toolbar">
-							<input class="currency" type="radio" id="Any" name="filter.Currency" value="@Currency.Any">
-							<label for="Any" class="currency_lable mt-2">@Localizer["any"]</label>
-							<input class="currency" type="radio" id="USD" name="filter.Currency" value="@Currency.USD">
-							<label for="USD" class="currency_lable mt-2">@Localizer["USD"] $</label>
-							<input class="currency" type="radio" id="Euro" name="filter.Currency" value="@Currency.Euro">
-							<label for="Euro" class="currency_lable mt-2">@Localizer["Euro"] €</label>
-							<input class="currency" type="radio" id="UAH" name="filter.Currency" value="@Currency.UAH">
-							<label for="UAH" class="currency_lable mt-2">@Localizer["UAH"] ₴</label>
+						<div class="col-lg-4 col-md-12 col_price">
+							<label class="price_lable">@Localizer["from"]: </label>
+							<input id="inputMinMaxValue" name="filter.MinPrice" class="form-control from-to-input" value="@Model.FlatAdvertFilter.MinPrice" />
+							<label class="price_lable">@Localizer["to"]: </label>
+							<input id="inputMinMaxValue" name="filter.MaxPrice" class="form-control from-to-input" value="@Model.FlatAdvertFilter.MaxPrice" />
 						</div>
-					</div>
-					<div class="col-md-4">
-						<label class="control-label">@Localizer["price per"]: </label><br />
-						<div class="radio-toolbar">
-							<input class="typeOfPrice" type="radio" id="TotalPrice" name="filter.TypeOfPrice" value="@TypeOfPrice.TotalPrice">
-							<label for="TotalPrice" class="mt-2 typePrice_lable">@Localizer["per object"]</label>
-							<input class="typeOfPrice" type="radio" id="PerSquareMeter" name="filter.TypeOfPrice" value="@TypeOfPrice.PerSquareMeter">
-							<label for="PerSquareMeter" class="mt-2 typePrice_lable">@Localizer["per square meter"]</label>
+						<div class="col-lg-4 col-md-12">
+							<label class="control-label">@Localizer["currency"]: </label><br />
+							<div class="radio-toolbar">
+								<input class="currency" type="radio" id="Any" name="filter.Currency" value="@Currency.Any">
+								<label for="Any" class="currency_lable mt-2">@Localizer["any"]</label>
+								<input class="currency" type="radio" id="USD" name="filter.Currency" value="@Currency.USD">
+								<label for="USD" class="currency_lable mt-2">@Localizer["USD full name"]</label>
+								<input class="currency" type="radio" id="Euro" name="filter.Currency" value="@Currency.Euro">
+								<label for="Euro" class="currency_lable mt-2">@Localizer["Euro full name"]</label>
+								<input class="currency" type="radio" id="UAH" name="filter.Currency" value="@Currency.UAH">
+								<label for="UAH" class="currency_lable mt-2">@Localizer["UAH full name"]</label>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-12">
+							<label class="control-label">@Localizer["price per"]: </label><br />
+							<div class="radio-toolbar">
+								<input class="typeOfPrice" type="radio" id="TotalPrice" name="filter.TypeOfPrice" value="@TypeOfPrice.TotalPrice">
+								<label for="TotalPrice" class="mt-2 typePrice_lable">@Localizer["per object"]</label>
+								<input class="typeOfPrice" type="radio" id="PerSquareMeter" name="filter.TypeOfPrice" value="@TypeOfPrice.PerSquareMeter">
+								<label for="PerSquareMeter" class="mt-2 typePrice_lable">@Localizer["per square meter"]</label>
+							</div>
 						</div>
 					</div>
 				</div>
+				<input type="submit" value="@Localizer["filter"]" class="btn btn_submitform btn-lg mt-2 mb-2 order-3" />
 			</div>
-			<input type="submit" value="@Localizer["filter"]" class="btn btn-success mt-5" />
-		</div>
-	</form>
+		</form>
 
-	@foreach (var item in Model.FlatAdverts)
-
-	{
-		<div class="row mt-5" style="border: 3px solid blue; padding: 10px;">
-			<div class="col-md-7">
-				<p>Регіон: @item.MainInfo.Region</p>
-				<p>Місто: @item.MainInfo.City</p>
-				<p>Вулиця: @item.MainInfo.Street, @item.MainInfo.HouseNumber </p>
-				<p>Загальна площа: @item.TotalArea</p>
-				<p>Кількість кімнат: @item.Rooms</p><hr>
-				<p id="totalPrice">Ціна: @item.TotalPrice @item.Currency за об'єкт</p>
-				<p id="pricePerSquareMeter">@item.PricePerSquareMeter @item.Currency за кв. метр</p>
-				<hr>
-				<p>User Name: some name</p>
-				<p>User email: some email</p>
-				<p>User phone: some phone</p>
-				<a asp-action="GetFlatAdvert" asp-controller="FlatAdvert" asp-route-flatAdvertId="@item.Id">Details</a>
+		@foreach (var item in Model.FlatAdverts)
+		{
+			<div class="row mt-5 grow">
+				<div class="col-lg-3 photos_block col-md-12">
+					<img src="@item.Photos.FirstOrDefault().Path" class="big_flatimg">
+					<div class="small_photos">
+						@{
+							int ind = 1;
+						}
+						@foreach (var photo in item.Photos)
+						{
+							ind++;
+							if (@item.Photos.FirstOrDefault().Path == photo.Path)
+								continue;
+							<img src="@photo.Path" class="small_flatimg">
+							if (ind >= 5)
+								break;
+						}
+					</div>
+				</div>
+				<div class="col-lg-8 col-md-12">
+					<p class="param_block_advert">
+						<img src="~/images/icons/money.png" class="mb-2" width="20" height="20" />
+						<span id="totalPrice">@item.TotalPrice</span> @Localizer[item.Currency.ToString()]
+						@Localizer["price"] @Localizer["per object"]
+						(<span id="pricePerSquareMeter">@item.PricePerSquareMeter</span> @Localizer[item.Currency.ToString()] @Localizer["per"] м<sup>2</sup>)
+					</p>
+					<h3>@item.MainInfo.City, @item.MainInfo.Street, @item.MainInfo.HouseNumber</h3>
+					<p class="info_block">
+						<b>@Localizer["total area"]:</b> @item.TotalArea м<sup>2</sup><br>
+						<b>@Localizer["number of rooms"]:</b> @item.Rooms<br>
+						<b>@Localizer["floor"]:</b> @item.Floor @Localizer["out of"] @item.TotalCountFloors
+					<p class="description">@Html.Raw(item.Description)</p>
+					</p>
+					<hr>
+					<p>@item.CreationDate.Value.ToString("yyyy-MM-dd")</p>
+					<a class="btn btn-dark btn-md datails_btn" href="~/FlatAdvert/@item.Id">@Localizer["Details"]</a>
+				</div>
 			</div>
-			<div class="col-md-5">
-				@foreach (var photo in item.Photos)
-				{
-					<img src="@photo.Path" width="100" height="100">
-				}
-			</div>
-		</div>
-		<br />
-		<hr />
-	}
+		}
 
-	<page-link page-model="Model.PageViewModel" page-action="Index"
-			   page-url-filter.CityName="@Model.FlatAdvertFilter.CityName"
-			   page-url-filter.CountRooms="@Model.FlatAdvertFilter.CountRooms"
-			   page-url-filter.MinPrice="@Model.FlatAdvertFilter.MinPrice"
-			   page-url-filter.MaxPrice="@Model.FlatAdvertFilter.MaxPrice"
-			   page-url-filter.TypeOfPrice="@Model.FlatAdvertFilter.TypeOfPrice"
-			   page-url-filter.Currency="@Model.FlatAdvertFilter.Currency"
-			   page-url-filter.MinTotalArea="@Model.FlatAdvertFilter.MinTotalArea"
-			   page-url-filter.MaxTotalArea="@Model.FlatAdvertFilter.MaxTotalArea"
-			   page-url-filter.MinFloor="@Model.FlatAdvertFilter.MinFloor"
-			   page-url-filter.MaxFloor="@Model.FlatAdvertFilter.MaxFloor">
-	</page-link>
-</div>
-<script src="~/js/FilterScript.js"></script>
+		<page-link class="mt-2" page-model="Model.PageViewModel" page-action="Index"
+				   page-url-filter.CityName="@Model.FlatAdvertFilter.CityName"
+				   page-url-filter.CountRooms="@Model.FlatAdvertFilter.CountRooms"
+				   page-url-filter.MinPrice="@Model.FlatAdvertFilter.MinPrice"
+				   page-url-filter.MaxPrice="@Model.FlatAdvertFilter.MaxPrice"
+				   page-url-filter.TypeOfPrice="@Model.FlatAdvertFilter.TypeOfPrice"
+				   page-url-filter.Currency="@Model.FlatAdvertFilter.Currency"
+				   page-url-filter.MinTotalArea="@Model.FlatAdvertFilter.MinTotalArea"
+				   page-url-filter.MaxTotalArea="@Model.FlatAdvertFilter.MaxTotalArea"
+				   page-url-filter.MinFloor="@Model.FlatAdvertFilter.MinFloor"
+				   page-url-filter.MaxFloor="@Model.FlatAdvertFilter.MaxFloor"
+				   page-url-pageSize="@Model.PageViewModel.PageSize">
+		</page-link>
+	</div>
+	<script src="~/js/FilterScript.js"></script>
+</body>
+</html>

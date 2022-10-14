@@ -5,7 +5,8 @@ namespace BuyHouse.DAL.Entities.ApplicationUserEntities
 {
     public class ApplicationUser : IdentityUser
     {
-        public string? UserSurname { get; set; }
+        public string? Name { get; set; }
+        public string? Surname { get; set; }
         public string? Region { get; set; }
         public string? City { get; set; }
         public ICollection<FlatAdvert>? FlatAdverts { get; set; }
