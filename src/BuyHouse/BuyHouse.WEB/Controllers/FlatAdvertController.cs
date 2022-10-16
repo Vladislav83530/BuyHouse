@@ -4,7 +4,6 @@ using BuyHouse.BLL.Services.Abstract;
 using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.WEB.Clients;
 using BuyHouse.WEB.Models.AdvertModel;
-using BuyHouse.WEB.Models.HttpClientModel;
 using BuyHouse.WEB.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -53,14 +52,14 @@ namespace BuyHouse.WEB.Controllers
         /// <returns>Created advert</returns>
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CreateAdvertPost( FlatAdvertModel flatAdvertModel, IFormFileCollection uploads)
+        public async Task<IActionResult> CreateAdvertPost(FlatAdvertModel flatAdvertModel, IFormFileCollection uploads)
         {
             if (ModelState.IsValid)
             {
                 string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 try
                 {
-                    FlatAdvert flatAdvert_ = await _client.CreateFlatAdvertAsync(new CreateRequestModel { FlatAdvert = flatAdvertModel}, uploads, currentUserId);
+                    FlatAdvert flatAdvert_ = await _client.CreateFlatAdvertAsync(flatAdvertModel, uploads, currentUserId);
                     return RedirectToAction("GetFlatAdvert", new { flatAdvertId = flatAdvert_.Id });
                 }
                 catch (Exception ex)
@@ -183,7 +182,7 @@ namespace BuyHouse.WEB.Controllers
                 string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value; ;
                 try
                 {
-                    FlatAdvert flatAdvert_ = await _client.UpdateFlatAdvertAsync(flatAdvertId, new CreateRequestModel { FlatAdvert = flatAdvertModel }, uploads, currentUserId);
+                    FlatAdvert flatAdvert_ = await _client.UpdateFlatAdvertAsync(flatAdvertId, flatAdvertModel, uploads, currentUserId);
                     return RedirectToAction("GetFlatAdvert", new { flatAdvertId = flatAdvert_.Id });
                 }
                 catch (Exception ex)

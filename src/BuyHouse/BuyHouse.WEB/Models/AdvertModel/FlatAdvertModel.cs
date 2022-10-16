@@ -55,10 +55,10 @@ namespace BuyHouse.WEB.Models.AdvertModel
         [Required(ErrorMessage = "RequiredField")]
         [Display(Name = "TotalPrice")]
         [Range(0, ulong.MaxValue, ErrorMessage = "RangeError")]
-        public ulong? TotalPrice { get; set; }
+        public ulong TotalPrice { get; set; }
         [Display(Name = "PricePerSquareMeter")]
         [Range(0, ulong.MaxValue, ErrorMessage = "RangeError")]
-        public ulong? PricePerSquareMeter { get; set; }
+        public ulong PricePerSquareMeter { get; set; }
         [Required(ErrorMessage = "RequiredField")]
         [Display(Name = "Currency")]
         public Currency Currency { get; set; }
@@ -69,6 +69,6 @@ namespace BuyHouse.WEB.Models.AdvertModel
         public DateTime CreationDate { get; set; }
 
         /*Info for statistic*/
-        public uint? LikeCount { get; set; }
+        public uint LikeCount { get; set; }
     }
 }

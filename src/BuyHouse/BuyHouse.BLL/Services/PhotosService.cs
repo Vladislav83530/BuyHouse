@@ -25,7 +25,7 @@ namespace BuyHouse.BLL.Services
         /// <param name="uploads"></param>
         /// <param name="currentUserId"></param>
         /// <returns>DTO with photos</returns>
-        public async Task<IEnumerable<RealtyPhoto>> AddPhotoToAdvertAsync(IFormFileCollection uploads, string currentUserId)
+        public async Task<ICollection<RealtyPhoto>> AddPhotoToAdvertAsync(IFormFileCollection uploads, string currentUserId)
         {
             List<RealtyPhoto> realtyPhotos = new List<RealtyPhoto>();
             foreach (var uploadedFile in uploads)
