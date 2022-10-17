@@ -149,9 +149,21 @@
     <value>House number</value>
     <comment>Field name</comment>
   </data>
+  <data name="IncorrectAddress" xml:space="preserve">
+    <value>Incorrect address</value>
+    <comment>Error message</comment>
+  </data>
+  <data name="IncorrectPhoneNumber" xml:space="preserve">
+    <value>Incorrect phone number. Enter format (+380XXXXXXXXX)</value>
+    <comment>Error message</comment>
+  </data>
   <data name="LivingArea" xml:space="preserve">
     <value>Living area</value>
     <comment>Field name</comment>
+  </data>
+  <data name="PasswordError" xml:space="preserve">
+    <value>Passwords don't match</value>
+    <comment>Error message</comment>
   </data>
   <data name="PricePerSquareMeter" xml:space="preserve">
     <value>per square meter</value>

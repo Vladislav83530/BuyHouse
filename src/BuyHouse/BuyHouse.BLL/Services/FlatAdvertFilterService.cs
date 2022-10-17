@@ -55,8 +55,8 @@ namespace BuyHouse.BLL.Services
                 }
             }
 
-            ulong minPriceFormUSDToUAH, minPriceFormUSDToEUR, minPriceFormEURToUSD, minPriceFormEURToUAH, minPriceFormUAHToUSD, minPriceFormUAHToEUR;
-            ulong maxPriceFormUSDToUAH, maxPriceFormUSDToEUR, maxPriceFormEURToUSD, maxPriceFormEURToUAH, maxPriceFormUAHToUSD, maxPriceFormUAHToEUR;
+            Task<ulong> minPriceFormUSDToUAH, minPriceFormUSDToEUR, minPriceFormEURToUSD, minPriceFormEURToUAH, minPriceFormUAHToUSD, minPriceFormUAHToEUR;
+            Task<ulong> maxPriceFormUSDToUAH, maxPriceFormUSDToEUR, maxPriceFormEURToUSD, maxPriceFormEURToUAH, maxPriceFormUAHToUSD, maxPriceFormUAHToEUR;
 
             if (filter.Currency != null)
             {
@@ -71,38 +71,41 @@ namespace BuyHouse.BLL.Services
                         flatAdverts = await FilterByPriceAsync(flatAdverts, filter.TypeOfPrice, filter.MinPrice, filter.MaxPrice);
                         break;
                     case "USD":
-                        minPriceFormUSDToEUR = await _clientCurrencyConverter.ConvertCurrecyAsync("USD", "EUR", filter.MinPrice);
-                        minPriceFormUSDToUAH = await _clientCurrencyConverter.ConvertCurrecyAsync("USD", "UAH", filter.MinPrice);
-                        maxPriceFormUSDToEUR = await _clientCurrencyConverter.ConvertCurrecyAsync("USD", "EUR", filter.MaxPrice);
-                        maxPriceFormUSDToUAH = await _clientCurrencyConverter.ConvertCurrecyAsync("USD", "UAH", filter.MaxPrice);
+                        minPriceFormUSDToEUR =  _clientCurrencyConverter.ConvertCurrecyAsync("USD", "EUR", filter.MinPrice);
+                        minPriceFormUSDToUAH =  _clientCurrencyConverter.ConvertCurrecyAsync("USD", "UAH", filter.MinPrice);
+                        maxPriceFormUSDToEUR =  _clientCurrencyConverter.ConvertCurrecyAsync("USD", "EUR", filter.MaxPrice);
+                        maxPriceFormUSDToUAH =  _clientCurrencyConverter.ConvertCurrecyAsync("USD", "UAH", filter.MaxPrice);
+                        await Task.WhenAll(minPriceFormUSDToEUR, minPriceFormUSDToUAH, maxPriceFormUSDToEUR, maxPriceFormUSDToUAH);
 
-                        flatAdvertEUR = await FilterByPriceAsync(flatAdvertEUR, filter.TypeOfPrice, minPriceFormUSDToEUR, maxPriceFormUSDToEUR);
-                        flatAdvertUAH = await FilterByPriceAsync(flatAdvertUAH, filter.TypeOfPrice, minPriceFormUSDToUAH, maxPriceFormUSDToUAH);
+                        flatAdvertEUR = await FilterByPriceAsync(flatAdvertEUR, filter.TypeOfPrice, minPriceFormUSDToEUR.Result, maxPriceFormUSDToEUR.Result);
+                        flatAdvertUAH = await FilterByPriceAsync(flatAdvertUAH, filter.TypeOfPrice, minPriceFormUSDToUAH.Result, maxPriceFormUSDToUAH.Result);
                         flatAdvertUSD = await FilterByPriceAsync(flatAdvertUSD, filter.TypeOfPrice, filter.MinPrice, filter.MaxPrice);
 
                         flatAdverts = flatAdvertEUR.Union(flatAdvertUAH).Union(flatAdvertUSD);
                         break;
                     case "Euro":
-                        minPriceFormEURToUSD = await _clientCurrencyConverter.ConvertCurrecyAsync("EUR", "USD", filter.MinPrice);
-                        minPriceFormEURToUAH = await _clientCurrencyConverter.ConvertCurrecyAsync("EUR", "UAH", filter.MinPrice);
-                        maxPriceFormEURToUSD = await _clientCurrencyConverter.ConvertCurrecyAsync("EUR", "USD", filter.MaxPrice);
-                        maxPriceFormEURToUAH = await _clientCurrencyConverter.ConvertCurrecyAsync("EUR", "UAH", filter.MaxPrice);
+                        minPriceFormEURToUSD =  _clientCurrencyConverter.ConvertCurrecyAsync("EUR", "USD", filter.MinPrice);
+                        minPriceFormEURToUAH =  _clientCurrencyConverter.ConvertCurrecyAsync("EUR", "UAH", filter.MinPrice);
+                        maxPriceFormEURToUSD = _clientCurrencyConverter.ConvertCurrecyAsync("EUR", "USD", filter.MaxPrice);
+                        maxPriceFormEURToUAH =  _clientCurrencyConverter.ConvertCurrecyAsync("EUR", "UAH", filter.MaxPrice);
+                        await Task.WhenAll(minPriceFormEURToUSD, minPriceFormEURToUAH, maxPriceFormEURToUSD, maxPriceFormEURToUAH);
 
-                        flatAdvertUSD = await FilterByPriceAsync(flatAdvertUSD, filter.TypeOfPrice, minPriceFormEURToUSD, maxPriceFormEURToUSD);
-                        flatAdvertUAH = await FilterByPriceAsync(flatAdvertUAH, filter.TypeOfPrice, minPriceFormEURToUAH, maxPriceFormEURToUAH);
+                        flatAdvertUSD = await FilterByPriceAsync(flatAdvertUSD, filter.TypeOfPrice, minPriceFormEURToUSD.Result, maxPriceFormEURToUSD.Result);
+                        flatAdvertUAH = await FilterByPriceAsync(flatAdvertUAH, filter.TypeOfPrice, minPriceFormEURToUAH.Result, maxPriceFormEURToUAH.Result);
                         flatAdvertEUR = await FilterByPriceAsync(flatAdvertEUR, filter.TypeOfPrice, filter.MinPrice, filter.MaxPrice);
 
                         flatAdverts = flatAdvertEUR.Union(flatAdvertUAH).Union(flatAdvertUSD);
                         break;
                     case "UAH":
 
-                        minPriceFormUAHToUSD = await _clientCurrencyConverter.ConvertCurrecyAsync("UAH", "USD", filter.MinPrice);
-                        minPriceFormUAHToEUR = await _clientCurrencyConverter.ConvertCurrecyAsync("UAH", "EUR", filter.MinPrice);
-                        maxPriceFormUAHToUSD = await _clientCurrencyConverter.ConvertCurrecyAsync("UAH", "USD", filter.MaxPrice);
-                        maxPriceFormUAHToEUR = await _clientCurrencyConverter.ConvertCurrecyAsync("UAH", "EUR", filter.MaxPrice);
+                        minPriceFormUAHToUSD =  _clientCurrencyConverter.ConvertCurrecyAsync("UAH", "USD", filter.MinPrice);
+                        minPriceFormUAHToEUR =  _clientCurrencyConverter.ConvertCurrecyAsync("UAH", "EUR", filter.MinPrice);
+                        maxPriceFormUAHToUSD =  _clientCurrencyConverter.ConvertCurrecyAsync("UAH", "USD", filter.MaxPrice);
+                        maxPriceFormUAHToEUR =  _clientCurrencyConverter.ConvertCurrecyAsync("UAH", "EUR", filter.MaxPrice);
+                        await Task.WhenAll(minPriceFormUAHToUSD, minPriceFormUAHToEUR, maxPriceFormUAHToUSD, maxPriceFormUAHToEUR);
 
-                        flatAdvertUSD = await FilterByPriceAsync(flatAdvertUSD, filter.TypeOfPrice, minPriceFormUAHToUSD, maxPriceFormUAHToUSD);
-                        flatAdvertEUR = await FilterByPriceAsync(flatAdvertEUR, filter.TypeOfPrice, minPriceFormUAHToEUR, maxPriceFormUAHToEUR);
+                        flatAdvertUSD = await FilterByPriceAsync(flatAdvertUSD, filter.TypeOfPrice, minPriceFormUAHToUSD.Result, maxPriceFormUAHToUSD.Result);
+                        flatAdvertEUR = await FilterByPriceAsync(flatAdvertEUR, filter.TypeOfPrice, minPriceFormUAHToEUR.Result, maxPriceFormUAHToEUR.Result);
                         flatAdvertUAH = await FilterByPriceAsync(flatAdvertUAH, filter.TypeOfPrice, filter.MinPrice, filter.MaxPrice);
 
                         flatAdverts = flatAdvertEUR.Union(flatAdvertUAH).Union(flatAdvertUSD);
@@ -153,7 +156,8 @@ namespace BuyHouse.BLL.Services
         /// <returns>list of most liked flat advert</returns>
         public async Task<IEnumerable<FlatAdvert>> GetMostLikedFlatAdvertAsync()
         {
-            IEnumerable<FlatAdvert> flatAdverts = await _context.FlatAdverts.OrderBy(p => p.LikeCount).Take(3).ToListAsync();
+            const int numberOfAdvert = 3;
+            IEnumerable<FlatAdvert> flatAdverts = await _context.FlatAdverts.OrderByDescending(p => p.LikeCount).Take(numberOfAdvert).ToListAsync();
             return flatAdverts;
         }
 

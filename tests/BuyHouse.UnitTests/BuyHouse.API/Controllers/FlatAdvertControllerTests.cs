@@ -13,11 +13,11 @@ using FlatAdvertController = BuyHouse.API.Controllers.FlatAdvertController;
 namespace BuyHouse.UnitTests.BuyHouse.API.Controllers
 {
     [TestFixture]
-    public class FlatAdvertControllerTests
+    internal class FlatAdvertControllerTests
     {
-        public ApplicationDbContext _dbContext;
-        public IDateTimeProvider _dateTimeProvider;
-        public IMapper _mapper;
+        private ApplicationDbContext _dbContext;
+        private IDateTimeProvider _dateTimeProvider;
+        private IMapper _mapper;
 
 
         [SetUp]
@@ -126,7 +126,7 @@ namespace BuyHouse.UnitTests.BuyHouse.API.Controllers
         {
             //Arrange
             var controller = new FlatAdvertController(_dbContext, _mapper, null);
-            var advert = RandomGeneratorData.GenerateUncorrectData();
+            var advert = RandomGeneratorData.GenerateCorrectData();
             var currentUserId = Guid.NewGuid().ToString();
 
             //Act
@@ -139,7 +139,7 @@ namespace BuyHouse.UnitTests.BuyHouse.API.Controllers
         #endregion
 
         #region UpdateFlarAdvert
-        [TestCase(5, "7e2d1201-b812-40c9-abea-39c1e89154be", 400)]
+        [TestCase(999, "7e2d1201-b812-40c9-abea-39c1e89154be", 400)]
         [TestCase(1, "7e2d1201-b812-40c9-abea-39c1e89154be", 200)]
         [TestCase(1, "TestString", 400)]
         public async Task UpdateFlatAdvert_CorrectUpdateDataAndVariousAdvertIdOrUserId_ReturnstOkOrBadRequest(int id, string currentUserId, int expected)
@@ -166,8 +166,8 @@ namespace BuyHouse.UnitTests.BuyHouse.API.Controllers
             var controller = new FlatAdvertController(_dbContext, _mapper, _dateTimeProvider);
             var advert = RandomGeneratorData.GenerateForUpdatetData();
             var currentUserId = "7e2d1201-b812-40c9-abea-39c1e89154be";
-            advert.Id = 5;
-            var id = 5;
+            advert.Id = 999;
+            var id = 999;
 
             //Act
             var result = await controller.UpdateFlatAdvert(id, advert, currentUserId) as ObjectResult;
@@ -184,7 +184,7 @@ namespace BuyHouse.UnitTests.BuyHouse.API.Controllers
             var controller = new FlatAdvertController(_dbContext, _mapper, _dateTimeProvider);
             FlatAdvertModel advert = null;
             var currentUserId = "7e2d1201-b812-40c9-abea-39c1e89154be";
-            var id = 5;
+            var id = 999;
 
             //Act
             var result = await controller.UpdateFlatAdvert(id, advert, currentUserId) as ObjectResult;

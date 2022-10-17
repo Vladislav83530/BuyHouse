@@ -149,9 +149,21 @@
     <value>Номер будинку</value>
     <comment>Field name</comment>
   </data>
+  <data name="IncorrectAddress" xml:space="preserve">
+    <value>Невірний адрес</value>
+    <comment>Error message</comment>
+  </data>
+  <data name="IncorrectPhoneNumber" xml:space="preserve">
+    <value>Невірний номер телефону, введіть у форматі (+380XXXXXXXXX)</value>
+    <comment>Error message</comment>
+  </data>
   <data name="LivingArea" xml:space="preserve">
     <value>Житлова площа</value>
     <comment>Field name</comment>
+  </data>
+  <data name="PasswordError" xml:space="preserve">
+    <value>Пароль не співпадає</value>
+    <comment>Error message</comment>
   </data>
   <data name="PricePerSquareMeter" xml:space="preserve">
     <value>за кв. метер</value>
@@ -199,6 +211,7 @@
   </data>
   <data name="TotalCountFloors" xml:space="preserve">
     <value>Поверховість</value>
+    <comment>Field name</comment>
   </data>
   <data name="TotalPrice" xml:space="preserve">
     <value>Ціна за об'єкт</value>

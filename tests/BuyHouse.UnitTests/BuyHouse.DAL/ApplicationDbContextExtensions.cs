@@ -94,6 +94,44 @@ namespace BuyHouse.UnitTests.BuyHouse.DAL
                     Region = "Kyiv region",
                     City = "Kyiv",
                     Street = "Some street",
+                    HouseNumber = "785a",
+                    FlatNumber = 81,
+                    RegistrationDate = Convert.ToDateTime("10/12/2011 00:00:00"),
+                },
+                Photos = new Collection<RealtyPhoto>()
+                {
+                    new RealtyPhoto{ Id=10, Name="photo1", Path="/Files/7e2d1201-b812-40c9-abea-39c1e89154bephoto1.jpg"},
+                    new RealtyPhoto{ Id=11, Name="photo2", Path="/Files/7e2d1201-b812-40c9-abea-39c1e89154bephoto4.jpg"},
+                    new RealtyPhoto{ Id=12, Name="photo3", Path="/Files/7e2d1201-b812-40c9-abea-39c1e89154bephoto5.jpg"},
+                },
+                Description = "Some description1",
+                Type = TypeOfRealty.Secondary,
+                Rooms = 1,
+                TypeOfWalls = TypeOfWalls.Monolith,
+                TotalArea = 100,
+                LivingArea = 80,
+                Floor = 14,
+                TotalCountFloors = 14,
+                Heating = TypeOfHeating.Individual,
+                YearBuilt = 2005,
+                RegistrationNumber = "2547814547852",
+                TotalPrice = 120000,
+                PricePerSquareMeter = 120,
+                Currency = Currency.USD,
+                TypePrice = TypeOfPrice.TotalPrice,
+                CreationDate = DateTime.UtcNow,
+                LikeCount = 74,
+                UserID = "7e2d1201-b812-40c9-abea-39c1e89154be"
+            });
+
+            dbContext.FlatAdverts.Add(new FlatAdvert
+            {
+                Id = 4,
+                MainInfo = new RealtyMainInfo
+                {
+                    Region = "Kherson region",
+                    City = "Kherson",
+                    Street = "Some street",
                     HouseNumber = "80a",
                     FlatNumber = 80,
                     RegistrationDate = Convert.ToDateTime("10/12/2011 00:00:00"),
@@ -116,11 +154,49 @@ namespace BuyHouse.UnitTests.BuyHouse.DAL
                 YearBuilt = 2005,
                 RegistrationNumber = "2547814547852",
                 TotalPrice = 40000,
-                PricePerSquareMeter = 400,
+                PricePerSquareMeter = 40,
                 Currency = Currency.USD,
                 TypePrice = TypeOfPrice.TotalPrice,
                 CreationDate = DateTime.UtcNow,
                 LikeCount = 14,
+                UserID = "7e2d1201-b812-40c9-abea-39c1e89154be"
+            });
+
+            dbContext.FlatAdverts.Add(new FlatAdvert
+            {
+                Id = 5,
+                MainInfo = new RealtyMainInfo
+                {
+                    Region = "Lviv region",
+                    City = "Lviv",
+                    Street = "Some street",
+                    HouseNumber = "74c",
+                    FlatNumber = 80,
+                    RegistrationDate = Convert.ToDateTime("10/12/2014 00:00:00"),
+                },
+                Photos = new Collection<RealtyPhoto>()
+                {
+                    new RealtyPhoto{ Id=13, Name="photo1", Path="/Files/7e2d1201-b812-40c9-abea-39c1e89154bephoto1.jpg"},
+                    new RealtyPhoto{ Id=14, Name="photo2", Path="/Files/7e2d1201-b812-40c9-abea-39c1e89154bephoto4.jpg"},
+                    new RealtyPhoto{ Id=15, Name="photo3", Path="/Files/7e2d1201-b812-40c9-abea-39c1e89154bephoto5.jpg"},
+                },
+                Description = "Some description1",
+                Type = TypeOfRealty.Secondary,
+                Rooms = 1,
+                TypeOfWalls = TypeOfWalls.Brick,
+                TotalArea = 200,
+                LivingArea = 160,
+                Floor = 2,
+                TotalCountFloors = 5,
+                Heating = TypeOfHeating.Individual,
+                YearBuilt = 2005,
+                RegistrationNumber = "2547814547852",
+                TotalPrice = 30000,
+                PricePerSquareMeter = 30,
+                Currency = Currency.Euro,
+                TypePrice = TypeOfPrice.TotalPrice,
+                CreationDate = DateTime.UtcNow,
+                LikeCount = 54,
                 UserID = "7e2d1201-b812-40c9-abea-39c1e89154be"
             });
 

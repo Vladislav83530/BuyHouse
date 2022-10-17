@@ -4,6 +4,7 @@ using BuyHouse.DAL.Entities;
 using BuyHouse.DAL.Entities.ApplicationUserEntities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace BuyHouse.BLL.Services
 {
@@ -80,7 +81,7 @@ namespace BuyHouse.BLL.Services
             if (currentUserId == null)
                 throw new Exception("Not found user");
 
-            var flatAdvert= _context.FlatAdverts.Where(x=>x.Id== advertId).First();
+            var flatAdvert= await _context.FlatAdverts.Where(x=>x.Id== advertId).FirstAsync();
 
             if (flatAdvert.UserID != currentUserId)
                 throw new Exception("Not found users advert");
