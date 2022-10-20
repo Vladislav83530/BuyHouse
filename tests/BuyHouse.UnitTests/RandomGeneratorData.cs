@@ -22,7 +22,7 @@ namespace BuyHouse.UnitTests
                 .RuleFor(c => c.Path, f => f.Internet.UrlWithPath());
 
             var advert = new Faker<FlatAdvertModel>()
-                .RuleFor(c => c.Id, f => f.Random.Number(4, 100))
+                .RuleFor(c => c.Id, f => f.Random.Number(16, 100))
                 .RuleFor(c => c.MainInfo, f => advertMainInfo.Generate())
                 .RuleFor(c => c.TotalPrice, f => f.Random.ULong())
                 .RuleFor(c => c.Photos, f => photo.Generate(4).ToList())

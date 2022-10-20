@@ -15,7 +15,7 @@
 </head>
 <body>
 	<div class="container">
-		<form name="filterForm" method="post" asp-action="Index" asp-controller="FlatAdvert">
+		<form name="filterForm" method="post" asp-action="Index" asp-controller="HouseAdvert">
 			<div class="row mt-3 blue_block">
 				<div class="col-lg-5 col-md-12 order-1 oreder-md-2">
 					<label>@Localizer["label pageSize"]: </label><br />
@@ -48,29 +48,29 @@
 					<label>@Localizer["total area"]: </label><br />
 					<div class="flex_div">
 						<label class="m-2">@Localizer["from"]: </label>
-						<input name="filter.MinTotalArea" id="inputMinMaxValue" value="@Model.FlatAdvertFilter.MinTotalArea" class="form-control from-to-input">
+						<input name="filter.MinTotalArea" id="inputMinMaxValue" value="@Model.HouseAdvertFilter.MinTotalArea" class="form-control from-to-input">
 						<label class="m-2">@Localizer["to"]: </label>
-						<input name="filter.MaxTotalArea" id="inputMinMaxValue" value="@Model.FlatAdvertFilter.MaxTotalArea" class="form-control from-to-input">
+						<input name="filter.MaxTotalArea" id="inputMinMaxValue" value="@Model.HouseAdvertFilter.MaxTotalArea" class="form-control from-to-input">
 					</div>
-					<label>@Localizer["floor"]: </label><br />
+					<label>@Localizer["Land area"]: </label><br />
 					<div class="flex_div">
 						<label class="m-2">@Localizer["from"]: </label>
-						<input name="filter.MinFloor" id="inputMinMaxValue" value="@Model.FlatAdvertFilter.MinFloor" class="form-control from-to-input" />
+						<input name="filter.MinLandArea" id="inputMinMaxValue" value="@Model.HouseAdvertFilter.MinLandArea" class="form-control from-to-input" />
 						<label class="m-2">@Localizer["to"]: </label>
-						<input name="filter.MaxFloor" id="inputMinMaxValue" value="@Model.FlatAdvertFilter.MaxFloor" class="form-control from-to-input" />
+						<input name="filter.MaxLandArea" id="inputMinMaxValue" value="@Model.HouseAdvertFilter.MaxLandArea" class="form-control from-to-input" />
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-12 order-md-1 oreder-2 col2_filter">
 					<label>@Localizer["city"]: </label>
-					<input name="filter.CityName" value="@Model.FlatAdvertFilter.CityName" class="form-control" />
+					<input name="filter.CityName" value="@Model.HouseAdvertFilter.CityName" class="form-control" />
 
 					<div class="row mt-2">
 						<label>@Localizer["price"]: </label><br />
 						<div class="col-lg-4 col-md-12 col_price">
 							<label class="price_lable">@Localizer["from"]: </label>
-							<input id="inputMinMaxValue" name="filter.MinPrice" class="form-control from-to-input" value="@Model.FlatAdvertFilter.MinPrice" />
+							<input id="inputMinMaxValue" name="filter.MinPrice" class="form-control from-to-input" value="@Model.HouseAdvertFilter.MinPrice" />
 							<label class="price_lable">@Localizer["to"]: </label>
-							<input id="inputMinMaxValue" name="filter.MaxPrice" class="form-control from-to-input" value="@Model.FlatAdvertFilter.MaxPrice" />
+							<input id="inputMinMaxValue" name="filter.MaxPrice" class="form-control from-to-input" value="@Model.HouseAdvertFilter.MaxPrice" />
 						</div>
 						<div class="col-lg-4 col-md-12">
 							<label class="control-label">@Localizer["currency"]: </label><br />
@@ -100,7 +100,7 @@
 			</div>
 		</form>
 
-		@foreach (var item in Model.FlatAdverts)
+		@foreach (var item in Model.HouseAdverts)
 		{
 			<div class="row mt-5 grow">
 				<div class="col-lg-3 photos_block col-md-12">
@@ -130,28 +130,29 @@
 					<h3>@item.MainInfo.City, @item.MainInfo.Street, @item.MainInfo.HouseNumber</h3>
 					<p class="info_block">
 						<b>@Localizer["total area"]:</b> @item.TotalArea м<sup>2</sup><br>
+						<b>@Localizer["land area"]:</b> @item.LandArea м<sup>2</sup><br>
 						<b>@Localizer["number of rooms"]:</b> @item.Rooms<br>
-						<b>@Localizer["floor"]:</b> @item.Floor @Localizer["out of"] @item.TotalCountFloors
+						<b>@Localizer["CountOfFloor"]:</b> @item.TotalCountFloors
 					<p class="description">@Html.Raw(item.Description)</p>
 					</p>
 					<hr>
 					<p>@item.CreationDate.Value.ToString("yyyy-MM-dd")</p>
-					<a class="btn btn-dark btn-md datails_btn" href="~/FlatAdvert/@item.Id">@Localizer["Details"]</a>
+					<a class="btn btn-dark btn-md datails_btn" href="~/HouseAdvert/@item.Id">@Localizer["Details"]</a>
 				</div>
 			</div>
 		}
 
 		<page-link class="mt-2" page-model="Model.PageViewModel" page-action="Index"
-				   page-url-filter.CityName="@Model.FlatAdvertFilter.CityName"
-				   page-url-filter.CountRooms="@Model.FlatAdvertFilter.CountRooms"
-				   page-url-filter.MinPrice="@Model.FlatAdvertFilter.MinPrice"
-				   page-url-filter.MaxPrice="@Model.FlatAdvertFilter.MaxPrice"
-				   page-url-filter.TypeOfPrice="@Model.FlatAdvertFilter.TypeOfPrice"
-				   page-url-filter.Currency="@Model.FlatAdvertFilter.Currency"
-				   page-url-filter.MinTotalArea="@Model.FlatAdvertFilter.MinTotalArea"
-				   page-url-filter.MaxTotalArea="@Model.FlatAdvertFilter.MaxTotalArea"
-				   page-url-filter.MinFloor="@Model.FlatAdvertFilter.MinFloor"
-				   page-url-filter.MaxFloor="@Model.FlatAdvertFilter.MaxFloor"
+				   page-url-filter.CityName="@Model.HouseAdvertFilter.CityName"
+				   page-url-filter.CountRooms="@Model.HouseAdvertFilter.CountRooms"
+				   page-url-filter.MinPrice="@Model.HouseAdvertFilter.MinPrice"
+				   page-url-filter.MaxPrice="@Model.HouseAdvertFilter.MaxPrice"
+				   page-url-filter.TypeOfPrice="@Model.HouseAdvertFilter.TypeOfPrice"
+				   page-url-filter.Currency="@Model.HouseAdvertFilter.Currency"
+				   page-url-filter.MinTotalArea="@Model.HouseAdvertFilter.MinTotalArea"
+				   page-url-filter.MaxTotalArea="@Model.HouseAdvertFilter.MaxTotalArea"
+				   page-url-filter.MinFloor="@Model.HouseAdvertFilter.MinLandArea"
+				   page-url-filter.MaxFloor="@Model.HouseAdvertFilter.MaxLandArea"
 				   page-url-pageSize="@Model.PageViewModel.PageSize">
 		</page-link>
 	</div>

@@ -31,6 +31,7 @@ namespace BuyHouse.WEB.Clients
             _mapper = mapper;
         }
 
+        #region Flat Advert
         /// <summary>
         /// Get flat advert (client method)
         /// </summary>
@@ -133,5 +134,112 @@ namespace BuyHouse.WEB.Clients
             }
             throw new ArgumentNullException("Not found content");
         }
+        #endregion
+
+        #region House Advert
+        /// <summary>
+        /// Get house advert
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns>House advert</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public async Task<HouseAdvert> GetHouseAdvertByIdAsync(int Id)
+        {
+            _request.RequestUri = new Uri(_address + $"/api/HouseAdvert/{Id}");
+            var response = await _client.SendAsync(_request);
+            var content = await response.Content.ReadAsStringAsync();
+            if (content != null)
+            {
+                var result = JsonConvert.DeserializeObject<HouseAdvert>(content);
+                return result;
+            }
+            throw new ArgumentNullException("Not found content");
+        }
+
+        /// <summary>
+        /// Create house advert (client method)
+        /// </summary>
+        /// <param name="houseAdvert"></param>
+        /// <param name="uploads"></param>
+        /// <param name="currentUserId"></param>
+        /// <returns>House advert</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public async Task<HouseAdvert> CreateHouseAdvertAsync(HouseAdvertModel houseAdvert, IFormFileCollection uploads, string? currentUserId)
+        {
+            if (currentUserId == null)
+                throw new ArgumentNullException("User Id can't be null");
+
+            var JwtToken = await _tokenProvider.ProvideJwtTokenAsync(currentUserId);
+
+            houseAdvert.Photos = _mapper.Map<ICollection<RealtyPhoto>, ICollection<RealtyPhotoModel>>(await _photosService.AddPhotoToAdvertAsync(uploads, currentUserId));
+
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
+            var response = await _client.PostAsJsonAsync(_address + $"/api/HouseAdvert?currentUserId={currentUserId}", houseAdvert);
+
+            var content = await response.Content.ReadAsStringAsync();
+            if (content != null)
+            {
+                var result = JsonConvert.DeserializeObject<HouseAdvert>(content);
+                return result;
+            }
+            throw new ArgumentNullException("Not found created advert");
+        }
+
+        /// <summary>
+        /// Update house advert
+        /// </summary>
+        /// <param name="houseAdvertId"></param>
+        /// <param name="houseAdvert"></param>
+        /// <param name="uploads"></param>
+        /// <param name="currentUserId"></param>
+        /// <returns>updated advert</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public async Task<HouseAdvert> UpdateHouseAdvertAsync(int houseAdvertId, HouseAdvertModel houseAdvert, IFormFileCollection uploads, string? currentUserId)
+        {
+            if (currentUserId == null)
+                throw new ArgumentNullException("User Id can't be null");
+
+            var JwtToken = await _tokenProvider.ProvideJwtTokenAsync(currentUserId);
+
+            houseAdvert.Photos = _mapper.Map<ICollection<RealtyPhoto>, ICollection<RealtyPhotoModel>>(await _photosService.AddPhotoToAdvertAsync(uploads, currentUserId));
+
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
+            var response = await _client.PutAsJsonAsync(_address + $"/api/HouseAdvert/{houseAdvertId}?currentUserId={currentUserId}", houseAdvert);
+
+            var content = await response.Content.ReadAsStringAsync();
+            if (content != null)
+            {
+                var result = JsonConvert.DeserializeObject<HouseAdvert>(content);
+                return result;
+            }
+            throw new ArgumentNullException("Not found edited advert");
+        }
+
+        /// <summary>
+        /// Delete house advert
+        /// </summary>
+        /// <param name="houseAdvertId"></param>
+        /// <param name="currentUserId"></param>
+        /// <returns>deleted house advert</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public async Task<HouseAdvert> DeleteHouseAdvertAsync(int houseAdvertId, string currentUserId)
+        {
+            if (currentUserId == null)
+                throw new ArgumentNullException("User Id can't be null");
+
+            var JwtToken = await _tokenProvider.ProvideJwtTokenAsync(currentUserId);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
+            _request.RequestUri = new Uri(_address + $"/api/HouseAdvert/{houseAdvertId}?currentUserId={currentUserId}");
+
+            var response = await _client.DeleteAsync(_request.RequestUri);
+            var content = await response.Content.ReadAsStringAsync();
+            if (content != null)
+            {
+                var result = JsonConvert.DeserializeObject<HouseAdvert>(content);
+                return result;
+            }
+            throw new ArgumentNullException("Not found content");
+        }
+        #endregion
     }
 }

@@ -135,6 +135,9 @@
   <data name="Information for user" xml:space="preserve">
     <value>All your ads are posted here. You can view, edit or delete them. Please provide only accurate and correct information for your adverts. Only in this case will your ad be able to attract the attention of the client. And remember, the more photos, the better. We wish you good sales and good mood!</value>
   </data>
+  <data name="land area" xml:space="preserve">
+    <value>Land area</value>
+  </data>
   <data name="number of rooms" xml:space="preserve">
     <value>Number of rooms</value>
   </data>

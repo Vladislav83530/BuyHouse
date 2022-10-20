@@ -8,3 +8,17 @@
     font-weight: 500;
     color: black;
 }
+
+.hidden-div {
+    display: none;
+}
+
+.labelRealty{
+    font-size: 45px;
+}
+
+.chekbox_realty {
+    width: 50px;
+    height: 50px;
+    margin-right: 5px;
+}

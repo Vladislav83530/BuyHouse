@@ -14,14 +14,15 @@ namespace BuyHouse.WEB.Controllers
     public class HomeController : Controller
     {
         private readonly IFlatAdvertFilterService _flatAdvertService;
-        private readonly IMapper _mapper;
-        private readonly CurrencyConverterClient _client;
+        private readonly IHouseAdvertFilterService _houseAdvertFilterService;
 
-        public HomeController(IFlatAdvertFilterService flatAdvertService, IMapper mapper, CurrencyConverterClient client)
+        private readonly IMapper _mapper;
+
+        public HomeController(IFlatAdvertFilterService flatAdvertService, IMapper mapper, IHouseAdvertFilterService houseAdvertFilterService)
         {
             _flatAdvertService = flatAdvertService;
             _mapper = mapper;
-            _client = client;
+            _houseAdvertFilterService = houseAdvertFilterService;   
         }
 
         public async Task<IActionResult> Index()
@@ -31,9 +32,13 @@ namespace BuyHouse.WEB.Controllers
                 IEnumerable<FlatAdvert> flatAdverts_ = await _flatAdvertService.GetMostLikedFlatAdvertAsync();
                 List<FlatAdvertShortModel> flatAdverts = _mapper.Map<IEnumerable<FlatAdvert>, List<FlatAdvertShortModel>>(flatAdverts_);
 
+                IEnumerable<HouseAdvert> houseAdverts_ = await _houseAdvertFilterService.GetMostLikedHouseAdvertAsync();
+                List<HouseAdvertShortModel> houseAdverts = _mapper.Map<IEnumerable<HouseAdvert>, List<HouseAdvertShortModel>>(houseAdverts_);
+
                 HomeIndexViewModel vm = new HomeIndexViewModel
                 {
                     FlatAdverts = flatAdverts,
+                    HouseAdverts =houseAdverts,
                 };
                 return View(vm);
             }

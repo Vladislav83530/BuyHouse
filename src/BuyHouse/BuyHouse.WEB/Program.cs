@@ -29,6 +29,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<IPhotosService, PhotosService>();
 
 builder.Services.AddScoped<IFlatAdvertFilterService, FlatAdvertFilterService>();
+builder.Services.AddScoped<IHouseAdvertFilterService, HouseAdvertFilterService>();
 builder.Services.AddScoped<IUserProfileService, UserProfileService>();
 
 builder.Services.AddScoped<BuyHouseAPIClient>();

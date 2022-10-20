@@ -10,7 +10,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>@ViewData["Title"] - Seller`s adverts</title>
-	<link rel="stylesheet" href="~/css/IndexFlatAdvert.css" />
+	<link rel="stylesheet" href="~/css/IndexAdvert.css" />
 	<link rel="stylesheet" href="~/css/GetSellersAdverts.css" />
 </head>
 <body>
@@ -18,54 +18,121 @@
 		<h1 class="main_title">@Localizer["Your adverts"]</h1><hr />
 		<div class="row">
 			<div class="col-lg-5">
-			<p class="intro_text">@Localizer["Information for user"]</p>
+				<p class="intro_text">@Localizer["Information for user"]</p>
 			</div>
 			<div class="col-lg-7">
-				<img src="~/images/house_key.png" width="100%"/>
+				<img src="~/images/house_key.png" width="100%" />
 			</div>
 		</div>
-		@foreach (var item in Model.FlatAdverts)
-		{
-			<div class="row mt-5 grow">
-				<div class="col-lg-3 photos_block col-md-12">
-					<img src="@item.Photos.FirstOrDefault().Path" class="big_flatimg">
-					<div class="small_photos">
-						@{
-							int ind = 1;
-						}
-						@foreach (var photo in item.Photos)
-						{
-							ind++;
-							if (@item.Photos.FirstOrDefault().Path == photo.Path)
-								continue;
-							<img src="@photo.Path" class="small_flatimg">
-							if (ind >= 5)
-								break;
-						}
+		<div class="form-group row">
+			<div class="form-check col-lg-4">
+				<input type="checkbox" class="form-check-input  chekbox_realty" id="chkFlat">
+				<label class="form-check-label labelRealty" for="chk"><img src="~/images/icons/flat.png" width="100" height="100" />Flats</label>
+			</div>
+
+			<div class="form-check col-lg-4">
+				<input type="checkbox" class="form-check-input chekbox_realty" id="chkHouse">
+				<label class="form-check-label labelRealty" for="chk"> <img src="~/images/icons/home.png" width="100" height="100" />Houses</label>
+			</div>
+
+			<div class="form-check col-lg-4">
+				<input type="checkbox" class="form-check-input  chekbox_realty" id="chkRoom">
+				<label class="form-check-label labelRealty" for="chk"><img src="~/images/icons/room.png" width="100" height="100" />Rooms</label>
+			</div>
+		</div>
+		<div class="form-group blockFlat hidden-div">
+			@foreach (var item in Model.FlatAdverts)
+			{
+				<div class="row mt-5 grow">
+					<div class="col-lg-3 photos_block col-md-12">
+						<img src="@item.Photos.FirstOrDefault().Path" class="big_flatimg">
+						<div class="small_photos">
+							@{
+								int ind = 1;
+							}
+							@foreach (var photo in item.Photos)
+							{
+								ind++;
+								if (@item.Photos.FirstOrDefault().Path == photo.Path)
+									continue;
+								<img src="@photo.Path" class="small_flatimg">
+								if (ind >= 5)
+									break;
+							}
+						</div>
+					</div>
+					<div class="col-lg-8 col-md-12">
+						<p class="param_block_advert">
+							<img src="~/images/icons/money.png" class="mb-2" width="20" height="20" />
+							<span id="totalPrice">@item.TotalPrice</span> @Localizer[item.Currency.ToString()]
+							@Localizer["price"] @Localizer["per object"]
+							(<span id="pricePerSquareMeter">@item.PricePerSquareMeter</span> @Localizer[item.Currency.ToString()] @Localizer["per"] м<sup>2</sup>)
+						</p>
+						<h3>@item.MainInfo.City, @item.MainInfo.Street, @item.MainInfo.HouseNumber</h3>
+						<p class="info_block">
+							<b>@Localizer["total area"]:</b> @item.TotalArea м<sup>2</sup><br>
+							<b>@Localizer["number of rooms"]:</b> @item.Rooms<br>
+							<b>@Localizer["floor"]:</b> @item.Floor
+						<p class="description">@Html.Raw(item.Description)</p>
+						</p>
+						<hr>
+						<p>@item.CreationDate.Value.ToString("yyyy-MM-dd")</p>
+						<a class="btn btn-dark btn-md datails_btn mb-2" asp-action="GetFlatAdvert" asp-controller="FlatAdvert" asp-route-flatAdvertId="@item.Id">@Localizer["Details"]</a>
+						<a class="btn btn-dark btn-md datails_btn mb-2" asp-action="EditAdvert" asp-controller="FlatAdvert" asp-route-flatAdvertId="@item.Id">@Localizer["Edit info"]</a>
+						<a class="btn btn-dark btn-md datails_btn mb-2" asp-action="DeleteFlatAdvert" asp-controller="FlatAdvert" asp-route-flatAdvertId="@item.Id">@Localizer["Delete"]</a>
 					</div>
 				</div>
-				<div class="col-lg-8 col-md-12">
-					<p class="param_block_advert">
-						<img src="~/images/icons/money.png" class="mb-2" width="20" height="20" />
-						<span id="totalPrice">@item.TotalPrice</span> @Localizer[item.Currency.ToString()]
-						@Localizer["price"] @Localizer["per object"]
-						(<span id="pricePerSquareMeter">@item.PricePerSquareMeter</span> @Localizer[item.Currency.ToString()] @Localizer["per"] м<sup>2</sup>)
-					</p>
-					<h3>@item.MainInfo.City, @item.MainInfo.Street, @item.MainInfo.HouseNumber</h3>
-					<p class="info_block">
-						<b>@Localizer["total area"]:</b> @item.TotalArea м<sup>2</sup><br>
-						<b>@Localizer["number of rooms"]:</b> @item.Rooms<br>
-						<b>@Localizer["floor"]:</b> @item.Floor
-					<p class="description">@Html.Raw(item.Description)</p>
-					</p>
-					<hr>
-					<p>@item.CreationDate.Value.ToString("yyyy-MM-dd")</p>
-					<a class="btn btn-dark btn-md datails_btn mb-2" asp-action="GetFlatAdvert" asp-controller="FlatAdvert" asp-route-flatAdvertId="@item.Id">@Localizer["Details"]</a>
-					<a class="btn btn-dark btn-md datails_btn mb-2" asp-action="EditAdvert" asp-controller="FlatAdvert" asp-route-flatAdvertId="@item.Id">@Localizer["Edit info"]</a>
-					<a class="btn btn-dark btn-md datails_btn mb-2" asp-action="DeleteFlatAdvert" asp-controller="FlatAdvert" asp-route-flatAdvertId="@item.Id">@Localizer["Delete"]</a>
+			}
+		</div>
+		<div class="form-group blockHouse hidden-div">
+			@foreach (var item in Model.HouseAdverts)
+			{
+				<div class="row mt-5 grow">
+					<div class="col-lg-3 photos_block col-md-12">
+						<img src="@item.Photos.FirstOrDefault().Path" class="big_flatimg">
+						<div class="small_photos">
+							@{
+								int ind = 1;
+							}
+							@foreach (var photo in item.Photos)
+							{
+								ind++;
+								if (@item.Photos.FirstOrDefault().Path == photo.Path)
+									continue;
+								<img src="@photo.Path" class="small_flatimg">
+								if (ind >= 5)
+									break;
+							}
+						</div>
+					</div>
+					<div class="col-lg-8 col-md-12">
+						<p class="param_block_advert">
+							<img src="~/images/icons/money.png" class="mb-2" width="20" height="20" />
+							<span id="totalPrice">@item.TotalPrice</span> @Localizer[item.Currency.ToString()]
+							@Localizer["price"] @Localizer["per object"]
+							(<span id="pricePerSquareMeter">@item.PricePerSquareMeter</span> @Localizer[item.Currency.ToString()] @Localizer["per"] м<sup>2</sup>)
+						</p>
+						<h3>@item.MainInfo.City, @item.MainInfo.Street, @item.MainInfo.HouseNumber</h3>
+						<p class="info_block">
+							<b>@Localizer["total area"]:</b> @item.TotalArea м<sup>2</sup><br>
+							<b>@Localizer["land area"]:</b> @item.LandArea м<sup>2</sup><br>
+							<b>@Localizer["number of rooms"]:</b> @item.Rooms<br>
+							<b>@Localizer["floor"]:</b> @item.TotalCountFloors
+						</p>
+						<p class="description">@Html.Raw(item.Description)</p>
+						<hr>
+						<p>@item.CreationDate.Value.ToString("yyyy-MM-dd")</p>
+						<a class="btn btn-dark btn-md datails_btn mb-2" asp-action="GetHouseAdvert" asp-controller="HouseAdvert" asp-route-houseAdvertId="@item.Id">@Localizer["Details"]</a>
+						<a class="btn btn-dark btn-md datails_btn mb-2" asp-action="EditAdvert" asp-controller="HouseAdvert" asp-route-houseAdvertId="@item.Id">@Localizer["Edit info"]</a>
+						<a class="btn btn-dark btn-md datails_btn mb-2" asp-action="DeleteHouseAdvert" asp-controller="HouseAdvert" asp-route-houseAdvertId="@item.Id">@Localizer["Delete"]</a>
+					</div>
 				</div>
-			</div>
-		}	
+			}
+		</div>
+		<div class="form-group blockRoom hidden-div">
+			<div style="width: 100px; height: 100px; background-color: red;"></div>
+		</div>		
 	</div>
+	<script src="~/js/ShowSellersAdvertsScript.js"></script>
 </body>
 </html>

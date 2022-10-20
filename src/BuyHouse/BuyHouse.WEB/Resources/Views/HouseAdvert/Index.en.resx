@@ -117,23 +117,82 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="All" xml:space="preserve">
+  <data name="all" xml:space="preserve">
     <value>All</value>
   </data>
-  <data name="Any" xml:space="preserve">
+  <data name="any" xml:space="preserve">
     <value>Any</value>
-    <comment>currency</comment>
   </data>
-  <data name="create alert message" xml:space="preserve">
-    <value>Your advert was created succesfully! </value>
+  <data name="city" xml:space="preserve">
+    <value>City</value>
   </data>
-  <data name="Error advert message" xml:space="preserve">
-    <value>Invalid flat advertising</value>
+  <data name="CountOfFloor" xml:space="preserve">
+    <value>Count of floors</value>
   </data>
-  <data name="Per object" xml:space="preserve">
+  <data name="currency" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Euro" xml:space="preserve">
+    <value>€</value>
+  </data>
+  <data name="Euro full name" xml:space="preserve">
+    <value>Euro €</value>
+  </data>
+  <data name="filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="floor" xml:space="preserve">
+    <value>Floor</value>
+  </data>
+  <data name="from" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="label pageSize" xml:space="preserve">
+    <value>Number of ads per page</value>
+  </data>
+  <data name="land area" xml:space="preserve">
+    <value>Land area</value>
+  </data>
+  <data name="number of rooms" xml:space="preserve">
+    <value>Number of rooms</value>
+  </data>
+  <data name="out of" xml:space="preserve">
+    <value>out of</value>
+  </data>
+  <data name="per" xml:space="preserve">
+    <value>per</value>
+  </data>
+  <data name="per object" xml:space="preserve">
     <value>per object</value>
   </data>
-  <data name="Per square meter" xml:space="preserve">
+  <data name="per square meter" xml:space="preserve">
     <value>per square meter</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="price per" xml:space="preserve">
+    <value>Price per</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="total area" xml:space="preserve">
+    <value>Total area</value>
+  </data>
+  <data name="UAH" xml:space="preserve">
+    <value>₴</value>
+  </data>
+  <data name="UAH full name" xml:space="preserve">
+    <value>Hryvnia ₴</value>
+  </data>
+  <data name="USD" xml:space="preserve">
+    <value>$</value>
+  </data>
+  <data name="USD full name" xml:space="preserve">
+    <value>Dollar $</value>
   </data>
 </root>

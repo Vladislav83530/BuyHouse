@@ -1,6 +1,7 @@
 ﻿using BuyHouse.BLL.Services.Abstract;
 using BuyHouse.DAL.EF;
 using BuyHouse.DAL.Entities;
+using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.DAL.Entities.ApplicationUserEntities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -76,7 +77,7 @@ namespace BuyHouse.BLL.Services
         /// <param name="photoId"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public async Task DeletePhotoFromAdvertAsync(string currentUserId,int advertId, int photoId)
+        public async Task<FlatAdvert> DeletePhotoFromFlatAdvertAsync(string currentUserId,int advertId, int photoId)
         {
             if (currentUserId == null)
                 throw new Exception("Not found user");
@@ -93,7 +94,37 @@ namespace BuyHouse.BLL.Services
                     flatAdvert.Photos.Remove(photo);
                         await _context.SaveChangesAsync();
                 }
-            }         
+            }
+            return flatAdvert;
+        }
+
+        /// <summary>
+        /// Delete photo from advert
+        /// </summary>
+        /// <param name="currentUserId"></param>
+        /// <param name="advertId"></param>
+        /// <param name="photoId"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<HouseAdvert> DeletePhotoFromHouseAdvertAsync(string currentUserId, int advertId, int photoId)
+        {
+            if (currentUserId == null)
+                throw new Exception("Not found user");
+
+            var houseAdvert = await _context.HouseAdverts.Where(x => x.Id == advertId).FirstAsync();
+
+            if (houseAdvert.UserID != currentUserId)
+                throw new Exception("Not found users advert");
+
+            foreach (var photo in houseAdvert.Photos)
+            {
+                if (photo.Id == photoId)
+                {
+                    houseAdvert.Photos.Remove(photo);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            return houseAdvert;
         }
     }
 }

@@ -117,23 +117,118 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="All" xml:space="preserve">
-    <value>All</value>
+  <data name="AeratedСoncrete" xml:space="preserve">
+    <value>Газобетон</value>
   </data>
-  <data name="Any" xml:space="preserve">
-    <value>Any</value>
-    <comment>currency</comment>
+  <data name="BlockBrick" xml:space="preserve">
+    <value>Блочно-цегляний</value>
   </data>
-  <data name="create alert message" xml:space="preserve">
-    <value>Your advert was created succesfully! </value>
+  <data name="Brick" xml:space="preserve">
+    <value>Цегла</value>
   </data>
-  <data name="Error advert message" xml:space="preserve">
-    <value>Invalid flat advertising</value>
+  <data name="Centralized" xml:space="preserve">
+    <value>Централізоване</value>
   </data>
-  <data name="Per object" xml:space="preserve">
-    <value>per object</value>
+  <data name="Create advert" xml:space="preserve">
+    <value>Створити оголошення</value>
   </data>
-  <data name="Per square meter" xml:space="preserve">
-    <value>per square meter</value>
+  <data name="Create your advert" xml:space="preserve">
+    <value>Створіть своє оголошення</value>
+  </data>
+  <data name="date of creating advert" xml:space="preserve">
+    <value>Дата створення оголошення</value>
+  </data>
+  <data name="description" xml:space="preserve">
+    <value>Опис</value>
+  </data>
+  <data name="Euro" xml:space="preserve">
+    <value>€</value>
+  </data>
+  <data name="Ferroconcrete" xml:space="preserve">
+    <value>Зілозобетон</value>
+  </data>
+  <data name="floor" xml:space="preserve">
+    <value>Поверх</value>
+  </data>
+  <data name="FoamBlock" xml:space="preserve">
+    <value>Піноблок</value>
+  </data>
+  <data name="Frame" xml:space="preserve">
+    <value>Каркасний</value>
+  </data>
+  <data name="heating" xml:space="preserve">
+    <value>Опалення</value>
+  </data>
+  <data name="Individual" xml:space="preserve">
+    <value>Індивідуальне</value>
+  </data>
+  <data name="land area" xml:space="preserve">
+    <value>Площа ділянки</value>
+  </data>
+  <data name="living area" xml:space="preserve">
+    <value>Житлова площа</value>
+  </data>
+  <data name="MainInfo" xml:space="preserve">
+    <value>Основна інформація</value>
+  </data>
+  <data name="Monolith" xml:space="preserve">
+    <value>Моноліт</value>
+  </data>
+  <data name="out of" xml:space="preserve">
+    <value>з</value>
+  </data>
+  <data name="Panel" xml:space="preserve">
+    <value>Панель</value>
+  </data>
+  <data name="per" xml:space="preserve">
+    <value>за</value>
+  </data>
+  <data name="per object" xml:space="preserve">
+    <value>за об'єкт</value>
+  </data>
+  <data name="per square meter" xml:space="preserve">
+    <value>за кв. метер</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Ціна</value>
+  </data>
+  <data name="Primary" xml:space="preserve">
+    <value>Первинне житло</value>
+  </data>
+  <data name="rooms" xml:space="preserve">
+    <value>Кількість кімнат</value>
+  </data>
+  <data name="Secondary" xml:space="preserve">
+    <value>Вторинне</value>
+  </data>
+  <data name="Seller info" xml:space="preserve">
+    <value>Інформація про продавця</value>
+  </data>
+  <data name="show" xml:space="preserve">
+    <value>показати</value>
+  </data>
+  <data name="total area" xml:space="preserve">
+    <value>Загальна площа</value>
+  </data>
+  <data name="Type of realty" xml:space="preserve">
+    <value>Тип нерухомості</value>
+  </data>
+  <data name="type of walls" xml:space="preserve">
+    <value>Тип стін</value>
+  </data>
+  <data name="UAH" xml:space="preserve">
+    <value>₴</value>
+  </data>
+  <data name="USD" xml:space="preserve">
+    <value>$</value>
+  </data>
+  <data name="WithoutHeating" xml:space="preserve">
+    <value>Без опалення</value>
+  </data>
+  <data name="year built" xml:space="preserve">
+    <value>Рік побудови</value>
+  </data>
+  <data name="Сombined" xml:space="preserve">
+    <value>Комбіноване</value>
   </data>
 </root>

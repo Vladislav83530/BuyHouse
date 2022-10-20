@@ -117,23 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="All" xml:space="preserve">
-    <value>All</value>
-  </data>
-  <data name="Any" xml:space="preserve">
-    <value>Any</value>
-    <comment>currency</comment>
-  </data>
-  <data name="create alert message" xml:space="preserve">
-    <value>Your advert was created succesfully! </value>
-  </data>
   <data name="Error advert message" xml:space="preserve">
     <value>Invalid flat advertising</value>
-  </data>
-  <data name="Per object" xml:space="preserve">
-    <value>per object</value>
-  </data>
-  <data name="Per square meter" xml:space="preserve">
-    <value>per square meter</value>
   </data>
 </root>

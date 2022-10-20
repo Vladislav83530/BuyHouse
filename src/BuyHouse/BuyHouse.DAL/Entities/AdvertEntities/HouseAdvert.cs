@@ -9,15 +9,15 @@ namespace BuyHouse.DAL.Entities.AdvertEntities
         public RealtyMainInfo? MainInfo { get; set; }
         public ICollection<RealtyPhoto>? Photos { get; set; }
 
-        /*Main flat parameters*/
+        /*Main house parameters*/
         public string? Description { get; set; }
         public TypeOfRealty? Type { get; set; }
         public uint Rooms { get; set; }
-        public string? TypeOfWalls { get; set; }
+        public TypeOfWalls? TypeOfWalls { get; set; }
         public double TotalArea { get; set; }
         public double LandArea { get; set; }
         public double LivingArea { get; set; }
-        public uint Floor { get; set; }
+        public uint TotalCountFloors { get; set; }
         public TypeOfHeating Heating { get; set; }
         public uint YearBuilt { get; set; }
         public string? RegistrationNumber { get; set; }

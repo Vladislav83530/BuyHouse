@@ -21,13 +21,15 @@ namespace BuyHouse.WEB.Controllers
         private readonly IStringLocalizer<UserProfileController> _localizer;
         private readonly IFlatAdvertFilterService _flatAdvertService;
         private readonly IMapper _mapper;
+        private readonly IHouseAdvertFilterService _houseAdvertFilterService;
 
         public UserProfileController(IUserProfileService userProfile, 
             IPhotosService photoService, 
             ApplicationDbContext context,
             IStringLocalizer<UserProfileController> localizer,
             IFlatAdvertFilterService flatAdvertService, 
-            IMapper mapper)
+            IMapper mapper,
+            IHouseAdvertFilterService houseAdvertFilterService)
         {
             _userProfile = userProfile;
             _photoService = photoService;
@@ -35,6 +37,7 @@ namespace BuyHouse.WEB.Controllers
             _localizer = localizer;
             _flatAdvertService = flatAdvertService;
             _mapper = mapper;
+            _houseAdvertFilterService = houseAdvertFilterService;
         }
 
         /// <summary>
@@ -133,7 +136,11 @@ namespace BuyHouse.WEB.Controllers
             {
                 IEnumerable<FlatAdvert> flatAdverts = await _flatAdvertService.GetSellersFlatAdvertsAsync(currentUserId);
                 IEnumerable<FlatAdvertShortModel> flatAdvertShortModels = _mapper.Map<IEnumerable<FlatAdvert>, List<FlatAdvertShortModel>>(flatAdverts);
-                return View(new SellersAdvertsViewModel { FlatAdverts = flatAdvertShortModels });
+
+                IEnumerable<HouseAdvert> houseAdverts = await _houseAdvertFilterService.GetSellersHouseAdvertsAsync(currentUserId);
+                IEnumerable<HouseAdvertShortModel> houseAdvertShortModels = _mapper.Map<IEnumerable<HouseAdvert>, List<HouseAdvertShortModel>>(houseAdverts);
+
+                return View(new SellersAdvertsViewModel { FlatAdverts = flatAdvertShortModels, HouseAdverts =houseAdvertShortModels });
             }
             catch (Exception ex)
             {

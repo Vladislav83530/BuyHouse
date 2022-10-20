@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BuyHouse.BLL.DTO;
 using BuyHouse.BLL.Services.Abstract;
+using BuyHouse.DAL.Entities;
 using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.WEB.Clients;
 using BuyHouse.WEB.Models.AdvertModel;
@@ -206,10 +207,13 @@ namespace BuyHouse.WEB.Controllers
             string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var advert = await _client.GetFlatAdvertByIDAsync(flatAdvertId);
             var flatAdvertModel = _mapper.Map<FlatAdvert, FlatAdvertModel>(advert);
-            if (flatAdvertModel.Photos.Count != 1)         
-                await _photosService.DeletePhotoFromAdvertAsync(currentUserId, flatAdvertId, photoId);
-            
-            return Json(flatAdvertModel);
+            if (flatAdvertModel.Photos.Count != 1)
+            {
+                FlatAdvert flatAdvert = await _photosService.DeletePhotoFromFlatAdvertAsync(currentUserId, flatAdvertId, photoId);
+                return Json(flatAdvert);
+            }
+            else
+               return Json(advert);
         }
 
         /// <summary>

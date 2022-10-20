@@ -1,4 +1,4 @@
-﻿@model BuyHouse.WEB.Models.AdvertModel.FlatAdvertModel
+﻿@model BuyHouse.WEB.Models.AdvertModel.HouseAdvertModel
 @using BuyHouse.DAL.Entities.HelperEnum
 @using Microsoft.AspNetCore.Mvc.Localization
 
@@ -14,12 +14,10 @@
 <body>
 	<div class="container pt-3 pb-3">
 		<div class="row">
-			<h1 class="main_title">@Localizer["Edit your advert"]: </h1><hr />
+			<h1 class="main_title">@Localizer["Create your advert"]: </h1><hr />
 			<div class="col-lg-7 col-12 col-xs-12 col-md-12 order-md-2 order-2 order-lg-1 form_block">
-				<form method="post" asp-action="EditFlatAdvert" asp-controller="FlatAdvert" asp-route-flatAdvertId="@Model.Id" enctype="multipart/form-data">
+				<form method="post" asp-action="CreateAdvertPost" asp-controller="HouseAdvert" enctype="multipart/form-data">
 					<h2 class="subtitle">@Localizer["MainInfo"]</h2>
-					@Html.TextBoxFor(m => m.Id, new { @class = "form-control input_id", required="true"})
-
 					@Html.LabelFor(m => m.MainInfo.Region, new{@class="input_lable"})
 					@Html.TextBoxFor(m => m.MainInfo.Region, new { @class = "form-control input_text", required="true"})
 					@Html.ValidationMessageFor(m => m.MainInfo.Region,"", new{@class="validation_text"})<br />
@@ -36,18 +34,14 @@
 					@Html.TextBoxFor(m => m.MainInfo.HouseNumber, new { @class = "form-control", @required="true"  })
 					@Html.ValidationMessageFor(m => m.MainInfo.HouseNumber,"", new{@class="validation_text"})<br />
 
-					@Html.LabelFor(m => m.MainInfo.FlatNumber, new{@class="input_lable"})
-					@Html.TextBoxFor(m => m.MainInfo.FlatNumber, new { @class = "form-control", @type="number", @required="true"  })
-					@Html.ValidationMessageFor(m => m.MainInfo.FlatNumber,"", new{@class="validation_text"})<br />
-
 					@Html.LabelFor(m => m.MainInfo.RegistrationDate, new{@class="input_lable"})
-					@Html.TextBoxFor(m => m.MainInfo.RegistrationDate, new { @class = "form-control", @type="date", @required="true"})
+					@Html.TextBoxFor(m => m.MainInfo.RegistrationDate, new { @class = "form-control", @type="date", @required="true"  })
 					@Html.ValidationMessageFor(m => m.MainInfo.RegistrationDate,"", new{@class="validation_text"})<br />
 					<hr />
 
 					<h2 class="subtitle">@Localizer["Parameters"]</h2>
 					@Html.LabelFor(m => m.Description, new{@class="input_lable"})
-					<textarea name="Description" class="form-control" required>@Model.Description.Replace("<br/>", "")</textarea>
+					@Html.TextAreaFor(m => m.Description, new { @class = "form-control", @required="true"  })
 					@Html.ValidationMessageFor(m => m.Description,"", new{@class="validation_text"})<br />
 
 					@Html.LabelFor(m => m.Type, new{@class="input_lable"})<br />
@@ -82,9 +76,9 @@
 					@Html.TextBoxFor(m => m.LivingArea, new { @class = "form-control", @required="true" })
 					@Html.ValidationMessageFor(m => m.LivingArea,"", new{@class="validation_text"})<br />
 
-					@Html.LabelFor(m => m.Floor, new{@class="input_lable"})
-					@Html.TextBoxFor(m => m.Floor, new { @class = "form-control", @type="number", @required="true"})
-					@Html.ValidationMessageFor(m => m.Floor,"", new{@class="validation_text"})<br />
+					@Html.LabelFor(m => m.LandArea, new{@class="input_lable"})
+					@Html.TextBoxFor(m => m.LandArea, new { @class = "form-control", @required="true" })
+					@Html.ValidationMessageFor(m => m.LandArea,"", new{@class="validation_text"})<br />
 
 					@Html.LabelFor(m => m.TotalCountFloors, new{@class="input_lable"})
 					@Html.TextBoxFor(m => m.TotalCountFloors, new { @class = "form-control", @type="number", @required="true" })
@@ -108,6 +102,10 @@
 					@Html.LabelFor(m => m.RegistrationNumber, new{@class="input_lable"})
 					@Html.TextBoxFor(m => m.RegistrationNumber, new { @class = "form-control", @required="true"})
 					@Html.ValidationMessageFor(m => m.RegistrationNumber,"", new{@class="validation_text"})<br />
+
+					@Html.LabelFor(m => m.CadastralNumber, new{@class="input_lable"})
+					@Html.TextBoxFor(m => m.CadastralNumber, new { @class = "form-control", @required="true"})
+					@Html.ValidationMessageFor(m => m.CadastralNumber,"", new{@class="validation_text"})<br />
 
 					<div class="row">
 						<div class="col-md-10">
@@ -136,62 +134,14 @@
 					<hr />
 					<h2 class="subtitle">@Localizer["Photo"]</h2>
 					<p>@Localizer["Upload photos message"]</p>
-					<div class="row mt-3" id="image_test">
-						@foreach (var photo in Model.Photos)
-						{
-							<div class="photo-container" style="margin-right:8px; margin-bottom: 8px;">
-								<a type="button" class="btn btn-dark button_close btn-delete-advert" data-photoId="@photo.Id" data-flatAdvertId="@Model.Id">
-									<span aria-hidden="true">&times;</span>
-								</a>
-								<img src="@photo.Path" width="170" height="170" />
-							</div>
-						}
-					</div>
-
-					<input class="form-control" type="file" multiple name="uploads" accept="image/jpeg,image/png" /><br>
+					<input class="form-control" type="file" multiple name="uploads" required accept="image/jpeg,image/png" /><br>
 					@Html.ValidationMessageFor(m => m.Photos,"", new{@class="validation_text"})<br />
-					<button type="submit" class="btn btn-lg btn-dark">@Localizer["Edit advert"]</button>
+					<button type="submit" class="btn btn-lg btn-dark">@Localizer["Create advert"]</button>
 				</form>
 			</div>
 			<div class="col-lg-4 img_block col-md-12 order-lg-2 order-md-1 order-1 ">
 			</div>
 		</div>
 	</div>
-	@section Scripts{
-		<script>
-			function DeleteAdvertPhoto() {
-				$(document).ready(function () {
-					$(".btn-delete-advert").on("click", function () {
-						var photoid = $(this).attr("data-photoId");
-						var advertid = $(this).attr("data-flatAdvertId");
-						var div_ = document.querySelector("#image_test");
-						var url = '@Url.Action("DeleteFlatAdvertPhoto", "FlatAdvert")' + '/' + '?photoId=' + photoid + '&flatAdvertId=' + advertid;
-						$.ajax({
-							type: 'GET',
-							url: url,
-							success: function (result) {
-								div_.innerHTML = null;
-								result.photos.forEach(element => {
-
-									div_.insertAdjacentHTML('afterbegin', `<div class="photo-container" style="margin-right:8px; margin-bottom: 8px;">
-																				<a type="button" class="btn btn-dark button_close btn-delete-advert"  data-photoId="${element.id}" data-flatAdvertId="${result.id}">
-																					<span aria-hidden="true">&times;</span>
-																				</a>
-																				<img  src="${element.path}" width="170" height="170" />
-																			</div>`);
-									DeleteAdvertPhoto();
-								});
-							},
-							error: function (req, status) {
-								console.log(status);
-							}
-						});
-					});
-				})
-			}
-			DeleteAdvertPhoto();
-		</script>
-	}
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 </html>
