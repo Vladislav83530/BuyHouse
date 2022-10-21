@@ -1,8 +1,10 @@
 using BuyHouse.BLL.Clients;
+using BuyHouse.BLL.DTO;
 using BuyHouse.BLL.Services;
 using BuyHouse.BLL.Services.Abstract;
 using BuyHouse.BLL.Services.Providers.JwtTokenProvider;
 using BuyHouse.DAL.EF;
+using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.DAL.Entities.ApplicationUserEntities;
 using BuyHouse.WEB;
 using BuyHouse.WEB.Clients;
@@ -28,8 +30,9 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddScoped<IPhotosService, PhotosService>();
 
-builder.Services.AddScoped<IFlatAdvertFilterService, FlatAdvertFilterService>();
-builder.Services.AddScoped<IHouseAdvertFilterService, HouseAdvertFilterService>();
+builder.Services.AddScoped<IAdvertFilterService<FlatAdvert, FlatAdvertFilter>, FlatAdvertFilterService>();
+builder.Services.AddScoped<IAdvertFilterService<HouseAdvert, HouseAdvertFilter>, HouseAdvertFilterService>();
+builder.Services.AddScoped<IAdvertFilterService<RoomAdvert, RoomAdvertFilter>, RoomAdvertFilterService>();
 builder.Services.AddScoped<IUserProfileService, UserProfileService>();
 
 builder.Services.AddScoped<BuyHouseAPIClient>();

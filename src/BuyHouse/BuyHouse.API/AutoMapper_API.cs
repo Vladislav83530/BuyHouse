@@ -16,6 +16,9 @@ namespace BuyHouse.WEB.Controllers
             CreateMap<HouseAdvert, HouseAdvertModel>();
             CreateMap<HouseAdvertModel, HouseAdvert>();
 
+            CreateMap<RoomAdvert, RoomAdvertModel>();
+            CreateMap<RoomAdvertModel, RoomAdvert>();
+
             CreateMap<RealtyMainInfo, RealtyMainInfoModel>();
             CreateMap<RealtyMainInfoModel, RealtyMainInfo>();
 

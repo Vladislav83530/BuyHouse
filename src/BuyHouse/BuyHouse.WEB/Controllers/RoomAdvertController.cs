@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BuyHouse.BLL.DTO;
+using BuyHouse.BLL.Services;
 using BuyHouse.BLL.Services.Abstract;
 using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.WEB.Clients;
@@ -12,27 +13,27 @@ using System.Security.Claims;
 
 namespace BuyHouse.WEB.Controllers
 {
-    public class HouseAdvertController : Controller
+    public class RoomAdvertController : Controller
     {
         private readonly BuyHouseAPIClient _client;
-        private readonly IStringLocalizer<HouseAdvertController> _localizer;
+        private readonly IStringLocalizer<RoomAdvertController> _localizer;
         private readonly IMapper _mapper;
         private readonly IUserProfileService _userProfileService;
-        private readonly IAdvertFilterService<HouseAdvert, HouseAdvertFilter> _houseAdvertFilterService;
+        private readonly IAdvertFilterService<RoomAdvert, RoomAdvertFilter> _roomAdvertFilterService;
         private readonly IPhotosService _photosService;
 
-        public HouseAdvertController(BuyHouseAPIClient client, 
-            IStringLocalizer<HouseAdvertController> localizer,
+        public RoomAdvertController(BuyHouseAPIClient client,
+            IStringLocalizer<RoomAdvertController> localizer,
             IMapper mapper,
             IUserProfileService userProfileService,
-            IAdvertFilterService<HouseAdvert, HouseAdvertFilter> houseAdvertFilterService,
+            IAdvertFilterService<RoomAdvert, RoomAdvertFilter> roomAdvertFilterService,
             IPhotosService photosService)
         {
             _client = client;
             _localizer = localizer;
             _mapper = mapper;
             _userProfileService = userProfileService;
-            _houseAdvertFilterService = houseAdvertFilterService;
+            _roomAdvertFilterService = roomAdvertFilterService;
             _photosService = photosService;
         }
 
@@ -45,22 +46,22 @@ namespace BuyHouse.WEB.Controllers
         public IActionResult CreateAdvert() => View();
 
         /// <summary>
-        /// Create house advert
+        /// Create room advert
         /// </summary>
-        /// <param name="houseAdvert"></param>
+        /// <param name="roomAdvert"></param>
         /// <param name="uploads"></param>
-        /// <returns>Created house advert</returns>
+        /// <returns>Created room advert</returns>
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CreateAdvertPost(HouseAdvertModel houseAdvert, IFormFileCollection uploads)
+        public async Task<IActionResult> CreateAdvertPost(RoomAdvertModel roomAdvert, IFormFileCollection uploads)
         {
             if (ModelState.IsValid)
             {
                 string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 try
                 {
-                    HouseAdvert houseAdvert_ = await _client.CreateHouseAdvertAsync(houseAdvert, uploads, currentUserId);
-                    return RedirectToAction("GetHouseAdvert", new { houseAdvertId = houseAdvert_.Id });
+                    RoomAdvert roomAdvert_ = await _client.CreateRoomAdvertAsync(roomAdvert, uploads, currentUserId);
+                    return RedirectToAction("GetRoomAdvert", new { roomAdvertId = roomAdvert_.Id });
                 }
                 catch (Exception ex)
                 {
@@ -71,29 +72,29 @@ namespace BuyHouse.WEB.Controllers
         }
 
         /// <summary>
-        /// Get info about house
+        /// Get info about room 
         /// </summary>
-        /// <param name="houseAdvertId"></param>
-        /// <returns>House advert</returns>
+        /// <param name="roomAdvertId"></param>
+        /// <returns>Room advert</returns>
         [HttpGet]
         [ApiExplorerSettings(IgnoreApi = true)]
-        [Route("/[controller]/{houseAdvertId:int}")]
-        public async Task<IActionResult> GetHouseAdvert(int houseAdvertId)
+        [Route("/[controller]/{roomAdvertId:int}")]
+        public async Task<IActionResult> GetRoomAdvert(int roomAdvertId)
         {
-            if (houseAdvertId == null)
+            if (roomAdvertId == null)
                 return RedirectToAction("Error", "Home");
 
             try
             {
-                HouseAdvertModel houseAdvertModel = new HouseAdvertModel();
-                var houseAdvert = await _client.GetHouseAdvertByIdAsync(houseAdvertId);
+                RoomAdvertModel roomAdvertModel = new RoomAdvertModel();
+                var roomAdvert = await _client.GetRoomAdvertByIdAsync(roomAdvertId);
 
-                var userProfile = await _userProfileService.GetUserProfileInfoAsync(houseAdvert.UserID);
+                var userProfile = await _userProfileService.GetUserProfileInfoAsync(roomAdvert.UserID);
 
-                houseAdvertModel = _mapper.Map<HouseAdvert, HouseAdvertModel>(houseAdvert);
-                GetAdvertViewModel<HouseAdvertModel> vm = new GetAdvertViewModel<HouseAdvertModel>
+                roomAdvertModel = _mapper.Map<RoomAdvert, RoomAdvertModel>(roomAdvert);
+                GetAdvertViewModel<RoomAdvertModel> vm = new GetAdvertViewModel<RoomAdvertModel>
                 {
-                    Advert = houseAdvertModel,
+                    Advert = roomAdvertModel,
                     UserProfile = userProfile
                 };
                 return View(vm);
@@ -105,28 +106,28 @@ namespace BuyHouse.WEB.Controllers
         }
 
         /// <summary>
-        /// Serch page for house advert
+        /// Search room adverts
         /// </summary>
         /// <param name="filter"></param>
         /// <param name="pageSize"></param>
         /// <param name="page"></param>
-        /// <returns>House adverts by parameters</returns>
+        /// <returns>View with filtered adverts</returns>
         [HttpGet]
         [HttpPost]
-        public async Task<IActionResult> Index(HouseAdvertFilter filter, int pageSize, int page = 1)
+        public async Task<IActionResult> Index(RoomAdvertFilter filter, int pageSize, int page = 1)
         {
             try
             {
-                ResponseAdvertDTO<HouseAdvert> responseHouseAdvertDTO = await _houseAdvertFilterService
+                ResponseAdvertDTO<RoomAdvert> responseRoomAdvertDTO = await _roomAdvertFilterService
                     .GetAdvertByParametersAsync(filter, pageSize, page);
 
-                var houseAdvertShortModels = _mapper.Map<IEnumerable<HouseAdvert>, List<HouseAdvertShortModel>>(responseHouseAdvertDTO.Adverts);
+                var roomAdvertShortModels = _mapper.Map<IEnumerable<RoomAdvert>, List<RoomAdvertShortModel>>(responseRoomAdvertDTO.Adverts);
 
-                IndexFilterViewModel<HouseAdvertShortModel, HouseAdvertFilter> vm = new IndexFilterViewModel<HouseAdvertShortModel, HouseAdvertFilter>()
+                IndexFilterViewModel<RoomAdvertShortModel, RoomAdvertFilter> vm = new IndexFilterViewModel<RoomAdvertShortModel, RoomAdvertFilter>()
                 {
-                    RealtyAdverts = houseAdvertShortModels,
+                    RealtyAdverts = roomAdvertShortModels,
                     RealtyAdvertFilter = filter,
-                    PageViewModel = new PageViewModel(responseHouseAdvertDTO.Count, page, responseHouseAdvertDTO.PageSize)
+                    PageViewModel = new PageViewModel(responseRoomAdvertDTO.Count, page, responseRoomAdvertDTO.PageSize)
                 };
                 return View(vm);
             }
@@ -139,23 +140,23 @@ namespace BuyHouse.WEB.Controllers
         /// <summary>
         /// Edit advert
         /// </summary>
-        /// <param name="houseAdvertId"></param>
+        /// <param name="roomAdvertId"></param>
         /// <returns>get view for editing advert</returns>
         [HttpGet]
         [ApiExplorerSettings(IgnoreApi = true)]
-        [Route("/[controller]/[action]/{houseAdvertId:int}")]
+        [Route("/[controller]/[action]/{roomAdvertId:int}")]
         [Authorize]
-        public async Task<IActionResult> EditAdvert(int houseAdvertId)
+        public async Task<IActionResult> EditAdvert(int roomAdvertId)
         {
-            if (houseAdvertId == null)
+            if (roomAdvertId == null)
                 return RedirectToAction("Error", "Home");
 
             try
             {
-                HouseAdvertModel houseAdvertModel = new HouseAdvertModel();
-                var houseAdvert = await _client.GetHouseAdvertByIdAsync(houseAdvertId);
-                houseAdvertModel = _mapper.Map<HouseAdvert, HouseAdvertModel>(houseAdvert);
-                return View(houseAdvertModel);
+                RoomAdvertModel roomAdvertModel = new RoomAdvertModel();
+                var roomAdvert = await _client.GetRoomAdvertByIdAsync(roomAdvertId);
+                roomAdvertModel = _mapper.Map<RoomAdvert, RoomAdvertModel>(roomAdvert);
+                return View(roomAdvertModel);
             }
             catch (Exception ex)
             {
@@ -166,15 +167,15 @@ namespace BuyHouse.WEB.Controllers
         /// <summary>
         /// edit advert
         /// </summary>
-        /// <param name="houseAdvertId"></param>
-        /// <param name="houseAdvertModel"></param>
+        /// <param name="roomAdvertId"></param>
+        /// <param name="roomAdvertModel"></param>
         /// <param name="uploads"></param>
-        /// <returns>edited house advert or error page</returns>
+        /// <returns>edited room advert or error page</returns>
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> EditHouseAdvert(int houseAdvertId, HouseAdvertModel houseAdvertModel, IFormFileCollection uploads)
+        public async Task<IActionResult> EditRoomAdvert(int roomAdvertId, RoomAdvertModel roomAdvertModel, IFormFileCollection uploads)
         {
-            if (houseAdvertId == null)
+            if (roomAdvertId == null)
                 return RedirectToAction("Error", "Home");
 
             if (ModelState.IsValid)
@@ -182,8 +183,8 @@ namespace BuyHouse.WEB.Controllers
                 string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value; ;
                 try
                 {
-                    HouseAdvert houseAdvert_ = await _client.UpdateHouseAdvertAsync(houseAdvertId, houseAdvertModel, uploads, currentUserId);
-                    return RedirectToAction("GetHouseAdvert", new { houseAdvertId = houseAdvert_.Id });
+                    RoomAdvert roomAdvert_ = await _client.UpdateRoomAdvertAsync(roomAdvertId, roomAdvertModel, uploads, currentUserId);
+                    return RedirectToAction("GetRoomAdvert", new { roomAdvertId = roomAdvert_.Id });
                 }
                 catch (Exception ex)
                 {
@@ -197,38 +198,38 @@ namespace BuyHouse.WEB.Controllers
         /// Delete photos from advert
         /// </summary>
         /// <param name="photoId"></param>
-        /// <param name="flatAdvertId"></param>
+        /// <param name="roomAdvertId"></param>
         /// <returns>json with advert and list of photo</returns>
         [Authorize]
         [HttpGet]
-        public async Task<JsonResult> DeleteHouseAdvertPhoto(int photoId, int houseAdvertId)
+        public async Task<JsonResult> DeleteRoomAdvertPhoto(int photoId, int roomAdvertId)
         {
             string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var advert = await _client.GetHouseAdvertByIdAsync(houseAdvertId);
-            var houseAdvertModel = _mapper.Map<HouseAdvert, HouseAdvertModel>(advert);
-            if (houseAdvertModel.Photos.Count != 1)
+            var advert = await _client.GetRoomAdvertByIdAsync(roomAdvertId);
+            var roomAdvertModel = _mapper.Map<RoomAdvert, RoomAdvertModel>(advert);
+            if (roomAdvertModel.Photos.Count != 1)
             {
-                HouseAdvert flatAdvert = await _photosService.DeletePhotoFromHouseAdvertAsync(currentUserId, houseAdvertId, photoId);
-                return Json(flatAdvert);
+                RoomAdvert roomAdvert = await _photosService.DeletePhotoFromRoomAdvertAsync(currentUserId, roomAdvertId, photoId);
+                return Json(roomAdvert);
             }
             else
                 return Json(advert);
         }
 
         /// <summary>
-        /// Delete house advert
+        /// Delete room advert
         /// </summary>
-        /// <param name="houseAdvertId"></param>
+        /// <param name="roomAdvertId"></param>
         /// <returns>View with sellers adverts or error page</returns>
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> DeleteHouseAdvert(int houseAdvertId)
+        public async Task<IActionResult> DeleteRoomAdvert(int roomAdvertId)
         {
             string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             try
             {
-                var result = await _client.DeleteHouseAdvertAsync(houseAdvertId, currentUserId);
+                var result = await _client.DeleteRoomAdvertAsync(roomAdvertId, currentUserId);
                 if (result != null)
                     return RedirectToAction("GetSellersAdverts", "UserProfile");
                 return BadRequest();

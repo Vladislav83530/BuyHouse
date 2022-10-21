@@ -15,6 +15,7 @@ namespace BuyHouse.DAL.Entities.AdvertEntities
         public double TotalArea { get; set; }
         public double LivingArea { get; set; }
         public uint Floor { get; set; }
+        public uint TotalCountFloors { get; set; }
         public TypeOfHeating Heating { get; set; }
         public string? RegistrationNumber { get; set; }
 

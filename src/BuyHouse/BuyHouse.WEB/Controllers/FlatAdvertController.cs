@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using BuyHouse.BLL.DTO;
 using BuyHouse.BLL.Services.Abstract;
-using BuyHouse.DAL.Entities;
 using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.WEB.Clients;
 using BuyHouse.WEB.Models.AdvertModel;
@@ -15,14 +14,14 @@ namespace BuyHouse.WEB.Controllers
 {
     public class FlatAdvertController : Controller
     {
-        private readonly IFlatAdvertFilterService _flatAdvertService;
+        private readonly IAdvertFilterService<FlatAdvert, FlatAdvertFilter> _flatAdvertService;
         private readonly IUserProfileService _userProfileService;
         private readonly BuyHouseAPIClient _client;
         private readonly IPhotosService _photosService;
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<FlatAdvertController> _localizer;
 
-        public FlatAdvertController(IFlatAdvertFilterService flatAdertService, 
+        public FlatAdvertController(IAdvertFilterService<FlatAdvert, FlatAdvertFilter> flatAdertService, 
             IUserProfileService userProfileService,
             IMapper mapper,
             IStringLocalizer<FlatAdvertController> localizer, 
@@ -84,15 +83,15 @@ namespace BuyHouse.WEB.Controllers
         {
             try
             {
-                ResponseFlatAdvertDTO responseFlatAdvertDTO = await _flatAdvertService
-                    .GetFlatAdvertByParametersAsync(filter, pageSize, page);
+                ResponseAdvertDTO<FlatAdvert> responseFlatAdvertDTO = await _flatAdvertService
+                    .GetAdvertByParametersAsync(filter, pageSize, page);
 
-                var flatAdvertShortModels = _mapper.Map<IEnumerable<FlatAdvert>, List<FlatAdvertShortModel>>(responseFlatAdvertDTO.FlatAdverts);
+                var flatAdvertShortModels = _mapper.Map<IEnumerable<FlatAdvert>, List<FlatAdvertShortModel>>(responseFlatAdvertDTO.Adverts);
 
-                IndexFilterViewModel vm = new IndexFilterViewModel()
+                IndexFilterViewModel<FlatAdvertShortModel, FlatAdvertFilter> vm = new IndexFilterViewModel<FlatAdvertShortModel, FlatAdvertFilter>()
                 {
-                    FlatAdverts = flatAdvertShortModels,
-                    FlatAdvertFilter = filter,
+                    RealtyAdverts = flatAdvertShortModels,
+                    RealtyAdvertFilter = filter,
                     PageViewModel = new PageViewModel(responseFlatAdvertDTO.Count, page, responseFlatAdvertDTO.PageSize)
                 };
                 return View(vm);
@@ -124,9 +123,9 @@ namespace BuyHouse.WEB.Controllers
                 var userProfile = await _userProfileService.GetUserProfileInfoAsync(flatAdvert.UserID);
 
                 flatAdvertModel =  _mapper.Map<FlatAdvert, FlatAdvertModel>(flatAdvert);
-                GetFlatAdvertViewModel vm = new GetFlatAdvertViewModel
+                GetAdvertViewModel<FlatAdvertModel> vm = new GetAdvertViewModel<FlatAdvertModel>
                 {
-                    FlatAdvert = flatAdvertModel,
+                    Advert = flatAdvertModel,
                     UserProfile = userProfile
                 };
                 return View(vm);

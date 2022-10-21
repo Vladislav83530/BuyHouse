@@ -241,5 +241,110 @@ namespace BuyHouse.WEB.Clients
             throw new ArgumentNullException("Not found content");
         }
         #endregion
+
+        #region Room Advert
+        /// <summary>
+        /// Get room advert (client method)
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns>Room advert</returns>
+        public async Task<RoomAdvert> GetRoomAdvertByIdAsync(int? Id)
+        {
+            _request.RequestUri = new Uri(_address + $"/api/RoomAdvert/{Id}");
+            var response = await _client.SendAsync(_request);
+            var content = await response.Content.ReadAsStringAsync();
+            if (content != null)
+            {
+                var result = JsonConvert.DeserializeObject<RoomAdvert>(content);
+                return result;
+            }
+            throw new ArgumentNullException("Not found content");
+        }
+
+        /// <summary>
+        /// Create room advert (client method)
+        /// </summary>
+        /// <param name="roomAdvert"></param>
+        /// <param name="uploads"></param>
+        /// <param name="currentUserId"></param>
+        /// <returns>Created room advert</returns>
+        public async Task<RoomAdvert> CreateRoomAdvertAsync(RoomAdvertModel roomAdvert, IFormFileCollection uploads, string? currentUserId)
+        {
+
+            if (currentUserId == null)
+                throw new ArgumentNullException("User Id can't be null");
+
+            var JwtToken = await _tokenProvider.ProvideJwtTokenAsync(currentUserId);
+
+            roomAdvert.Photos = _mapper.Map<ICollection<RealtyPhoto>, ICollection<RealtyPhotoModel>>(await _photosService.AddPhotoToAdvertAsync(uploads, currentUserId));
+
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
+            var response = await _client.PostAsJsonAsync(_address + $"/api/RoomAdvert?currentUserId={currentUserId}", roomAdvert);
+
+            var content = await response.Content.ReadAsStringAsync();
+            if (content != null)
+            {
+                var result = JsonConvert.DeserializeObject<RoomAdvert>(content);
+                return result;
+            }
+            throw new ArgumentNullException("Not found created advert");
+        }
+
+        /// <summary>
+        /// Update room advert
+        /// </summary>
+        /// <param name="roomAdvertId"></param>
+        /// <param name="roomAdvert"></param>
+        /// <param name="uploads"></param>
+        /// <param name="currentUserId"></param>
+        /// <returns>updated advert</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public async Task<RoomAdvert> UpdateRoomAdvertAsync(int roomAdvertId, RoomAdvertModel roomAdvert, IFormFileCollection uploads, string? currentUserId)
+        {
+            if (currentUserId == null)
+                throw new ArgumentNullException("User Id can't be null");
+
+            var JwtToken = await _tokenProvider.ProvideJwtTokenAsync(currentUserId);
+
+            roomAdvert.Photos = _mapper.Map<ICollection<RealtyPhoto>, ICollection<RealtyPhotoModel>>(await _photosService.AddPhotoToAdvertAsync(uploads, currentUserId));
+
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
+            var response = await _client.PutAsJsonAsync(_address + $"/api/RoomAdvert/{roomAdvertId}?currentUserId={currentUserId}", roomAdvert);
+
+            var content = await response.Content.ReadAsStringAsync();
+            if (content != null)
+            {
+                var result = JsonConvert.DeserializeObject<RoomAdvert>(content);
+                return result;
+            }
+            throw new ArgumentNullException("Not found edited advert");
+        }
+
+        /// <summary>
+        /// Delete room advert
+        /// </summary>
+        /// <param name="roomAdvertId"></param>
+        /// <param name="currentUserId"></param>
+        /// <returns>deleted room advert</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public async Task<RoomAdvert> DeleteRoomAdvertAsync(int roomAdvertId, string currentUserId)
+        {
+            if (currentUserId == null)
+                throw new ArgumentNullException("User Id can't be null");
+
+            var JwtToken = await _tokenProvider.ProvideJwtTokenAsync(currentUserId);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
+            _request.RequestUri = new Uri(_address + $"/api/RoomAdvert/{roomAdvertId}?currentUserId={currentUserId}");
+
+            var response = await _client.DeleteAsync(_request.RequestUri);
+            var content = await response.Content.ReadAsStringAsync();
+            if (content != null)
+            {
+                var result = JsonConvert.DeserializeObject<RoomAdvert>(content);
+                return result;
+            }
+            throw new ArgumentNullException("Not found content");
+        }
+        #endregion
     }
 }

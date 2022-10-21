@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BuyHouse.BLL.DTO;
+using BuyHouse.BLL.Services;
 using BuyHouse.BLL.Services.Abstract;
 using BuyHouse.DAL.EF;
 using BuyHouse.DAL.Entities.AdvertEntities;
@@ -19,17 +20,19 @@ namespace BuyHouse.WEB.Controllers
         private readonly IPhotosService _photoService;
         private readonly ApplicationDbContext _context;
         private readonly IStringLocalizer<UserProfileController> _localizer;
-        private readonly IFlatAdvertFilterService _flatAdvertService;
+        private readonly IAdvertFilterService<FlatAdvert, FlatAdvertFilter> _flatAdvertService;
         private readonly IMapper _mapper;
-        private readonly IHouseAdvertFilterService _houseAdvertFilterService;
+        private readonly IAdvertFilterService<HouseAdvert, HouseAdvertFilter> _houseAdvertFilterService;
+        private readonly IAdvertFilterService<RoomAdvert, RoomAdvertFilter> _roomAdvertFilterService;
 
         public UserProfileController(IUserProfileService userProfile, 
             IPhotosService photoService, 
             ApplicationDbContext context,
             IStringLocalizer<UserProfileController> localizer,
-            IFlatAdvertFilterService flatAdvertService, 
+            IAdvertFilterService<FlatAdvert, FlatAdvertFilter> flatAdvertService, 
             IMapper mapper,
-            IHouseAdvertFilterService houseAdvertFilterService)
+            IAdvertFilterService<HouseAdvert, HouseAdvertFilter> houseAdvertFilterService,
+            IAdvertFilterService<RoomAdvert, RoomAdvertFilter> roomAdvertFilterService)
         {
             _userProfile = userProfile;
             _photoService = photoService;
@@ -38,6 +41,7 @@ namespace BuyHouse.WEB.Controllers
             _flatAdvertService = flatAdvertService;
             _mapper = mapper;
             _houseAdvertFilterService = houseAdvertFilterService;
+            _roomAdvertFilterService = roomAdvertFilterService;
         }
 
         /// <summary>
@@ -134,13 +138,16 @@ namespace BuyHouse.WEB.Controllers
 
             try
             {
-                IEnumerable<FlatAdvert> flatAdverts = await _flatAdvertService.GetSellersFlatAdvertsAsync(currentUserId);
+                IEnumerable<FlatAdvert> flatAdverts = await _flatAdvertService.GetSellersAdvertsAsync(currentUserId);
                 IEnumerable<FlatAdvertShortModel> flatAdvertShortModels = _mapper.Map<IEnumerable<FlatAdvert>, List<FlatAdvertShortModel>>(flatAdverts);
 
-                IEnumerable<HouseAdvert> houseAdverts = await _houseAdvertFilterService.GetSellersHouseAdvertsAsync(currentUserId);
+                IEnumerable<HouseAdvert> houseAdverts = await _houseAdvertFilterService.GetSellersAdvertsAsync(currentUserId);
                 IEnumerable<HouseAdvertShortModel> houseAdvertShortModels = _mapper.Map<IEnumerable<HouseAdvert>, List<HouseAdvertShortModel>>(houseAdverts);
 
-                return View(new SellersAdvertsViewModel { FlatAdverts = flatAdvertShortModels, HouseAdverts =houseAdvertShortModels });
+                IEnumerable<RoomAdvert> roomAdverts = await _roomAdvertFilterService.GetSellersAdvertsAsync(currentUserId);
+                List<RoomAdvertShortModel> roomAdvertShortModels = _mapper.Map<IEnumerable<RoomAdvert>, List<RoomAdvertShortModel>>(roomAdverts);
+
+                return View(new SellersAdvertsViewModel { FlatAdverts = flatAdvertShortModels, HouseAdverts =houseAdvertShortModels, RoomAdverts = roomAdvertShortModels });
             }
             catch (Exception ex)
             {

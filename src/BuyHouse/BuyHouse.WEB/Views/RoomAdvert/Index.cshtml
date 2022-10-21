@@ -1,4 +1,4 @@
-﻿@model BuyHouse.WEB.Models.ViewModels.IndexFilterViewModel<HouseAdvertShortModel, HouseAdvertFilter>
+﻿@model BuyHouse.WEB.Models.ViewModels.IndexFilterViewModel<RoomAdvertShortModel, RoomAdvertFilter>
 @using BuyHouse.BLL.DTO
 @using BuyHouse.DAL.Entities.HelperEnum
 @using BuyHouse.WEB.Models.AdvertModel
@@ -17,7 +17,7 @@
 </head>
 <body>
 	<div class="container">
-		<form name="filterForm" method="post" asp-action="Index" asp-controller="HouseAdvert">
+		<form name="filterForm" method="post" asp-action="Index" asp-controller="RoomAdvert">
 			<div class="row mt-3 blue_block">
 				<div class="col-lg-5 col-md-12 order-1 oreder-md-2">
 					<label>@Localizer["label pageSize"]: </label><br />
@@ -29,23 +29,6 @@
 						<input class="pageSize" type="radio" id="size50" name="pageSize" value="50">
 						<label for="size50">50</label>
 					</div>
-					<label class="mt-2">@Localizer["number of rooms"]: </label><br />
-					<div class="radio-toolbar">
-						<input class="countRooms" type="radio" id="countRoomsAll" name="filter.CountRooms" value="All">
-						<label for="countRoomsAll">@Localizer["all"]</label>
-
-						<input class="countRooms" type="radio" id="countRooms1" name="filter.CountRooms" value="1">
-						<label for="countRooms1">1</label>
-
-						<input class="countRooms" type="radio" id="countRooms2" name="filter.CountRooms" value="2">
-						<label for="countRooms2">2</label>
-
-						<input class="countRooms" type="radio" id="countRooms3" name="filter.CountRooms" value="3">
-						<label for="countRooms3">3</label>
-
-						<input class="countRooms" type="radio" id="countRooms4+" name="filter.CountRooms" value="4+">
-						<label for="countRooms4+">4+</label>
-					</div>
 
 					<label>@Localizer["total area"]: </label><br />
 					<div class="flex_div">
@@ -54,12 +37,12 @@
 						<label class="m-2">@Localizer["to"]: </label>
 						<input name="filter.MaxTotalArea" id="inputMinMaxValue" value="@Model.RealtyAdvertFilter.MaxTotalArea" class="form-control from-to-input">
 					</div>
-					<label>@Localizer["land area"]: </label><br />
+					<label>@Localizer["floor"]: </label><br />
 					<div class="flex_div">
 						<label class="m-2">@Localizer["from"]: </label>
-						<input name="filter.MinLandArea" id="inputMinMaxValue" value="@Model.RealtyAdvertFilter.MinLandArea" class="form-control from-to-input" />
+						<input name="filter.MinFloor" id="inputMinMaxValue" value="@Model.RealtyAdvertFilter.MinFloor" class="form-control from-to-input" />
 						<label class="m-2">@Localizer["to"]: </label>
-						<input name="filter.MaxLandArea" id="inputMinMaxValue" value="@Model.RealtyAdvertFilter.MaxLandArea" class="form-control from-to-input" />
+						<input name="filter.MaxFloor" id="inputMinMaxValue" value="@Model.RealtyAdvertFilter.MaxFloor" class="form-control from-to-input" />
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-12 order-md-1 oreder-2 col2_filter">
@@ -132,29 +115,26 @@
 					<h3>@item.MainInfo.City, @item.MainInfo.Street, @item.MainInfo.HouseNumber</h3>
 					<p class="info_block">
 						<b>@Localizer["total area"]:</b> @item.TotalArea м<sup>2</sup><br>
-						<b>@Localizer["land area"]:</b> @item.LandArea м<sup>2</sup><br>
-						<b>@Localizer["number of rooms"]:</b> @item.Rooms<br>
-						<b>@Localizer["CountOfFloor"]:</b> @item.TotalCountFloors
+						<b>@Localizer["floor"]:</b> @item.Floor @Localizer["out of"] @item.TotalCountFloors
 					<p class="description">@Html.Raw(item.Description)</p>
 					</p>
 					<hr>
 					<p>@item.CreationDate.Value.ToString("yyyy-MM-dd")</p>
-					<a class="btn btn-dark btn-md datails_btn" href="~/HouseAdvert/@item.Id">@Localizer["Details"]</a>
+					<a class="btn btn-dark btn-md datails_btn" href="~/RoomAdvert/@item.Id">@Localizer["Details"]</a>
 				</div>
 			</div>
 		}
 
 		<page-link class="mt-2" page-model="Model.PageViewModel" page-action="Index"
 				   page-url-filter.CityName="@Model.RealtyAdvertFilter.CityName"
-				   page-url-filter.CountRooms="@Model.RealtyAdvertFilter.CountRooms"
 				   page-url-filter.MinPrice="@Model.RealtyAdvertFilter.MinPrice"
 				   page-url-filter.MaxPrice="@Model.RealtyAdvertFilter.MaxPrice"
 				   page-url-filter.TypeOfPrice="@Model.RealtyAdvertFilter.TypeOfPrice"
 				   page-url-filter.Currency="@Model.RealtyAdvertFilter.Currency"
 				   page-url-filter.MinTotalArea="@Model.RealtyAdvertFilter.MinTotalArea"
 				   page-url-filter.MaxTotalArea="@Model.RealtyAdvertFilter.MaxTotalArea"
-				   page-url-filter.MinFloor="@Model.RealtyAdvertFilter.MinLandArea"
-				   page-url-filter.MaxFloor="@Model.RealtyAdvertFilter.MaxLandArea"
+				   page-url-filter.MinFloor="@Model.RealtyAdvertFilter.MinFloor"
+				   page-url-filter.MaxFloor="@Model.RealtyAdvertFilter.MaxFloor"
 				   page-url-pageSize="@Model.PageViewModel.PageSize">
 		</page-link>
 	</div>

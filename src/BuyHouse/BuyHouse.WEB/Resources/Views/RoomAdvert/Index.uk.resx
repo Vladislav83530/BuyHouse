@@ -117,7 +117,73 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Error advert message" xml:space="preserve">
-    <value>Не вірні дані реклами</value>
+  <data name="all" xml:space="preserve">
+    <value>Усі</value>
+  </data>
+  <data name="any" xml:space="preserve">
+    <value>Будь-яка</value>
+  </data>
+  <data name="city" xml:space="preserve">
+    <value>Місто</value>
+  </data>
+  <data name="currency" xml:space="preserve">
+    <value>Валюта</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Детальніше</value>
+  </data>
+  <data name="Euro" xml:space="preserve">
+    <value>€</value>
+  </data>
+  <data name="Euro full name" xml:space="preserve">
+    <value>Євро €</value>
+  </data>
+  <data name="filter" xml:space="preserve">
+    <value>Фільтр</value>
+  </data>
+  <data name="floor" xml:space="preserve">
+    <value>Поверх</value>
+  </data>
+  <data name="from" xml:space="preserve">
+    <value>Від</value>
+  </data>
+  <data name="label pageSize" xml:space="preserve">
+    <value>Кількість оголошень на сторінці</value>
+  </data>
+  <data name="out of" xml:space="preserve">
+    <value>з</value>
+  </data>
+  <data name="per" xml:space="preserve">
+    <value>за</value>
+  </data>
+  <data name="per object" xml:space="preserve">
+    <value>за об'єкт</value>
+  </data>
+  <data name="per square meter" xml:space="preserve">
+    <value>за кв. метер</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Ціна</value>
+  </data>
+  <data name="price per" xml:space="preserve">
+    <value>Ціна за</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>До</value>
+  </data>
+  <data name="total area" xml:space="preserve">
+    <value>Загальна площа</value>
+  </data>
+  <data name="UAH" xml:space="preserve">
+    <value>₴</value>
+  </data>
+  <data name="UAH full name" xml:space="preserve">
+    <value>Гривня ₴</value>
+  </data>
+  <data name="USD" xml:space="preserve">
+    <value>$</value>
+  </data>
+  <data name="USD full name" xml:space="preserve">
+    <value>Долар $</value>
   </data>
 </root>

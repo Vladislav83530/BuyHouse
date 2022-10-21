@@ -117,7 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Error advert message" xml:space="preserve">
-    <value>Не вірні дані реклами</value>
+  <data name="Centralized" xml:space="preserve">
+    <value>Централізоване</value>
+  </data>
+  <data name="Edit advert" xml:space="preserve">
+    <value>Редагувати оголошення</value>
+  </data>
+  <data name="Edit your advert" xml:space="preserve">
+    <value>Редагуй своє оголошення</value>
+  </data>
+  <data name="Individual" xml:space="preserve">
+    <value>Індивідуальне</value>
+  </data>
+  <data name="MainInfo" xml:space="preserve">
+    <value>Основна інформація</value>
+  </data>
+  <data name="Parameters" xml:space="preserve">
+    <value>Параметри</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>Фото</value>
+  </data>
+  <data name="PricePerObject" xml:space="preserve">
+    <value>за об'єкт</value>
+  </data>
+  <data name="PricePerSquareMeter" xml:space="preserve">
+    <value>за кв. метер</value>
+  </data>
+  <data name="Primary" xml:space="preserve">
+    <value>Первинне житло</value>
+  </data>
+  <data name="Secondary" xml:space="preserve">
+    <value>Вторинне житло</value>
+  </data>
+  <data name="Upload photos message" xml:space="preserve">
+    <value>Завантажте декілька фотографій щоб отримати більше переглядів оголошення</value>
+  </data>
+  <data name="WithoutHeating" xml:space="preserve">
+    <value>Без опалення</value>
+  </data>
+  <data name="Сombined" xml:space="preserve">
+    <value>Комбіноване</value>
   </data>
 </root>

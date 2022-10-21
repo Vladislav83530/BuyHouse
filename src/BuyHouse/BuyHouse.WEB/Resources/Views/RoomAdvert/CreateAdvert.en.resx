@@ -117,7 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Error advert message" xml:space="preserve">
-    <value>Не вірні дані реклами</value>
+  <data name="Centralized" xml:space="preserve">
+    <value>Centralized</value>
+  </data>
+  <data name="Create advert" xml:space="preserve">
+    <value>Create advert</value>
+  </data>
+  <data name="Create your advert" xml:space="preserve">
+    <value>Create your advert</value>
+  </data>
+  <data name="Individual" xml:space="preserve">
+    <value>Individual</value>
+  </data>
+  <data name="MainInfo" xml:space="preserve">
+    <value>Main information</value>
+  </data>
+  <data name="Parameters" xml:space="preserve">
+    <value>Parameters</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>Photo</value>
+  </data>
+  <data name="PricePerObject" xml:space="preserve">
+    <value>per object</value>
+  </data>
+  <data name="PricePerSquareMeter" xml:space="preserve">
+    <value>per square meter</value>
+  </data>
+  <data name="Primary" xml:space="preserve">
+    <value>Primary</value>
+  </data>
+  <data name="Secondary" xml:space="preserve">
+    <value>Secondary</value>
+  </data>
+  <data name="Upload photos message" xml:space="preserve">
+    <value>Upload multiple photos to get more ad views</value>
+  </data>
+  <data name="WithoutHeating" xml:space="preserve">
+    <value>WithoutHeating</value>
+  </data>
+  <data name="Сombined" xml:space="preserve">
+    <value>Сombined</value>
   </data>
 </root>

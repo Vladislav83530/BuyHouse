@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BuyHouse.BLL.Services
 {
-    public class FlatAdvertFilterService : IFlatAdvertFilterService
+    public class FlatAdvertFilterService : IAdvertFilterService<FlatAdvert, FlatAdvertFilter>
     {
         private readonly ApplicationDbContext _context;
         private readonly CurrencyConverterClient _clientCurrencyConverter;
@@ -25,7 +25,7 @@ namespace BuyHouse.BLL.Services
         /// <param name="pageSize"></param>
         /// <param name="page"></param>
         /// <returns>filtered flat adverts</returns>
-        public async Task<ResponseFlatAdvertDTO> GetFlatAdvertByParametersAsync(FlatAdvertFilter filter, int pageSize, int page = 1)
+        public async Task<ResponseAdvertDTO<FlatAdvert>> GetAdvertByParametersAsync(FlatAdvertFilter filter, int pageSize, int page = 1)
         {
             if (pageSize == 0)
                 pageSize = 10;
@@ -140,10 +140,10 @@ namespace BuyHouse.BLL.Services
             var count = await flatAdverts.CountAsync();
             var flatAdverts_ = await flatAdverts.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
-            ResponseFlatAdvertDTO output = new ResponseFlatAdvertDTO()
+            ResponseAdvertDTO<FlatAdvert> output = new ResponseAdvertDTO<FlatAdvert>()
             {
                 Count = count,
-                FlatAdverts = flatAdverts_,
+                Adverts = flatAdverts_,
                 PageSize = pageSize
             };
 
@@ -154,7 +154,7 @@ namespace BuyHouse.BLL.Services
         /// Get most liked flat advert
         /// </summary>
         /// <returns>list of most liked flat advert</returns>
-        public async Task<IEnumerable<FlatAdvert>> GetMostLikedFlatAdvertAsync()
+        public async Task<IEnumerable<FlatAdvert>> GetMostLikedAdvertAsync()
         {
             const int numberOfAdvert = 3;
             IEnumerable<FlatAdvert> flatAdverts = await _context.FlatAdverts.OrderByDescending(p => p.LikeCount).Take(numberOfAdvert).ToListAsync();
@@ -167,7 +167,7 @@ namespace BuyHouse.BLL.Services
         /// <param name="currentUserId"></param>
         /// <returns>List of flat adverts</returns>
         /// <exception cref="Exception"></exception>
-        public async Task<IEnumerable<FlatAdvert>> GetSellersFlatAdvertsAsync(string? currentUserId)
+        public async Task<IEnumerable<FlatAdvert>> GetSellersAdvertsAsync(string? currentUserId)
         {
             if (String.IsNullOrEmpty(currentUserId))
                 throw new Exception("Current user Id can not be null or empty");

@@ -104,7 +104,7 @@ namespace BuyHouse.API.Controllers
             try
             {
                 if (Id != houseAdvert.Id)
-                    return BadRequest("Flat advert ID is mismatch");
+                    return BadRequest("House advert ID is mismatch");
 
                 if (string.IsNullOrEmpty(currentUserId))
                     return NotFound("Not found current user");
@@ -115,7 +115,7 @@ namespace BuyHouse.API.Controllers
                 var houseAdvertToUpdate = await _context.HouseAdverts.FindAsync(Id);
 
                 if (houseAdvertToUpdate == null)
-                    return NotFound($"Flat advert with Id = {Id} not found");
+                    return NotFound($"House advert with Id = {Id} not found");
 
                 if (houseAdvertToUpdate.UserID != currentUserId)
                     return BadRequest("This advert isn't belong current user");

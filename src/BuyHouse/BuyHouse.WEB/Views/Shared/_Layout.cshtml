@@ -30,7 +30,7 @@
 							<div class="dropdown-menu menu">
 								<a class="dropdown-item link dropdown_link" asp-action="Index" asp-controller="FlatAdvert">@Localizer["Apartments"]</a>
 								<a class="dropdown-item link dropdown_link" asp-action="Index" asp-controller="HouseAdvert">@Localizer["Houses"]</a>
-								<a class="dropdown-item link dropdown_link" href="#">@Localizer["Rooms"]</a>
+								<a class="dropdown-item link dropdown_link" asp-action="Index" asp-controller="RoomAdvert">@Localizer["Rooms"]</a>
 							</div>
 						</li>
 						<li class="nav-item dropdown">
@@ -38,7 +38,7 @@
 							<div class="dropdown-menu menu">
 								<a class="dropdown-item link dropdown_link" asp-action="CreateAdvert" asp-controller="FlatAdvert">@Localizer["Apartments"]</a>
 								<a class="dropdown-item link dropdown_link" asp-action="CreateAdvert" asp-controller="HouseAdvert">@Localizer["Houses"]</a>
-								<a class="dropdown-item link dropdown_link" href="#">@Localizer["Rooms"]</a>
+								<a class="dropdown-item link dropdown_link" asp-action="CreateAdvert" asp-controller="RoomAdvert">@Localizer["Rooms"]</a>
 							</div>
 						</li>
 					</ul>

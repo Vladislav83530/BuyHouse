@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BuyHouse.BLL.Services
 {
-    public class HouseAdvertFilterService : IHouseAdvertFilterService
+    public class HouseAdvertFilterService : IAdvertFilterService<HouseAdvert, HouseAdvertFilter>
     {
         private readonly ApplicationDbContext _context;
         private readonly CurrencyConverterClient _clientCurrencyConverter;
@@ -25,7 +25,7 @@ namespace BuyHouse.BLL.Services
         /// <param name="pageSize"></param>
         /// <param name="page"></param>
         /// <returns>filtered house adverts</returns>
-        public async Task<ResponseHouseAdvertDTO> GetHouseAdvertByParametersAsync(HouseAdvertFilter filter, int pageSize, int page = 1)
+        public async Task<ResponseAdvertDTO<HouseAdvert>> GetAdvertByParametersAsync(HouseAdvertFilter filter, int pageSize, int page = 1)
         {
             if (pageSize == 0)
                 pageSize = 10;
@@ -140,10 +140,10 @@ namespace BuyHouse.BLL.Services
             var count = await houseAdverts.CountAsync();
             var houseAdverts_ = await houseAdverts.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
-            ResponseHouseAdvertDTO output = new ResponseHouseAdvertDTO()
+            ResponseAdvertDTO<HouseAdvert> output = new ResponseAdvertDTO<HouseAdvert>()
             {
                 Count = count,
-                HouseAdverts = houseAdverts_,
+                Adverts = houseAdverts_,
                 PageSize = pageSize
             };
 
@@ -192,7 +192,7 @@ namespace BuyHouse.BLL.Services
         /// Get most liked house advert
         /// </summary>
         /// <returns>list of most liked flat advert</returns>
-        public async Task<IEnumerable<HouseAdvert>> GetMostLikedHouseAdvertAsync()
+        public async Task<IEnumerable<HouseAdvert>> GetMostLikedAdvertAsync()
         {
             const int numberOfAdvert = 3;
             IEnumerable<HouseAdvert> houseAdverts = await _context.HouseAdverts.OrderByDescending(p => p.LikeCount).Take(numberOfAdvert).ToListAsync();
@@ -205,7 +205,7 @@ namespace BuyHouse.BLL.Services
         /// <param name="currentUserId"></param>
         /// <returns>List of house adverts</returns>
         /// <exception cref="Exception"></exception>
-        public async Task<IEnumerable<HouseAdvert>> GetSellersHouseAdvertsAsync(string? currentUserId)
+        public async Task<IEnumerable<HouseAdvert>> GetSellersAdvertsAsync(string? currentUserId)
         {
             if (String.IsNullOrEmpty(currentUserId))
                 throw new Exception("Current user Id can not be null or empty");

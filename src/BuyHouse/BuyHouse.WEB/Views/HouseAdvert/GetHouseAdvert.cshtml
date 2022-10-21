@@ -1,4 +1,5 @@
-﻿@model BuyHouse.WEB.Models.ViewModels.GetHouseAdvertViewModel
+﻿@model BuyHouse.WEB.Models.ViewModels.GetAdvertViewModel<HouseAdvertModel>
+@using BuyHouse.WEB.Models.AdvertModel
 @using Microsoft.AspNetCore.Mvc.Localization
 
 @inject IViewLocalizer Localizer
@@ -8,7 +9,7 @@
 		<div class="col-lg-8">
 			<div id="carouselExampleFade" class="carousel slide carousel-fade slider_block" data-bs-ride="carousel">
 				<div class="carousel-inner">
-					@foreach (var photo in Model.HouseAdvert.Photos)
+					@foreach (var photo in Model.Advert.Photos)
 					{
 						<div class="carousel-item active">
 							<img src="@photo.Path" class="d-block slider_img">
@@ -55,56 +56,56 @@
 	</div>
 	<div class="row pt-3">
 		<div class="col-lg-8 col-md-12 blue_block p-4">
-			<h3 class="adress_title">@Model.HouseAdvert.MainInfo.Region, @Model.HouseAdvert.MainInfo.City, @Model.HouseAdvert.MainInfo.Street, @Model.HouseAdvert.MainInfo.HouseNumber</h3>
+			<h3 class="adress_title">@Model.Advert.MainInfo.Region, @Model.Advert.MainInfo.City, @Model.Advert.MainInfo.Street, @Model.Advert.MainInfo.HouseNumber</h3>
 			<hr />
 			<p class="param_block_advert">
 				<img src="~/images/icons/money.png" class="mb-2" width="20" height="20" />
-				<b>@Model.HouseAdvert.TotalPrice @Localizer[Model.HouseAdvert.Currency.ToString()]</b>
+				<b>@Model.Advert.TotalPrice @Localizer[Model.Advert.Currency.ToString()]</b>
 				@Localizer["price"] @Localizer["per object"]
-				(@Model.HouseAdvert.PricePerSquareMeter @Localizer[Model.HouseAdvert.Currency.ToString()] @Localizer["per"] м<sup>2</sup>)
+				(@Model.Advert.PricePerSquareMeter @Localizer[Model.Advert.Currency.ToString()] @Localizer["per"] м<sup>2</sup>)
 			</p>
 			<p>
 				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
-				<b>@Localizer["Type of realty"]:</b> @Localizer[Model.HouseAdvert.Type.ToString()]
+				<b>@Localizer["Type of realty"]:</b> @Localizer[Model.Advert.Type.ToString()]
 			</p>
 			<p>
 				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
-				<b>@Localizer["rooms"]:</b> @Model.HouseAdvert.Rooms
+				<b>@Localizer["rooms"]:</b> @Model.Advert.Rooms
 			</p>
 			<p>
 				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
-				<b>@Localizer["type of walls"]:</b> @Localizer[Model.HouseAdvert.TypeOfWalls.ToString()]
+				<b>@Localizer["type of walls"]:</b> @Localizer[Model.Advert.TypeOfWalls.ToString()]
 			</p>
 			<p>
 				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
-				<b>@Localizer["total area"]:</b> @Model.HouseAdvert.TotalArea
+				<b>@Localizer["total area"]:</b> @Model.Advert.TotalArea
 			</p>
 			<p>
 				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
-				<b>@Localizer["living area"]:</b> @Model.HouseAdvert.LivingArea
+				<b>@Localizer["living area"]:</b> @Model.Advert.LivingArea
 			</p>
 			<p>
 				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
-				<b>@Localizer["land area"]:</b> @Model.HouseAdvert.LandArea
+				<b>@Localizer["land area"]:</b> @Model.Advert.LandArea
 			</p>
 			<p>
 				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
-				<b>@Localizer["floor"]:</b>  @Model.HouseAdvert.TotalCountFloors
+				<b>@Localizer["floor"]:</b>  @Model.Advert.TotalCountFloors
 			</p>
 			<p>
 				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
-				<b>@Localizer["heating"]:</b> @Localizer[Model.HouseAdvert.Heating.ToString()]
+				<b>@Localizer["heating"]:</b> @Localizer[Model.Advert.Heating.ToString()]
 			</p>
 			<p>
 				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
-				<b>@Localizer["year built"]:</b> @Model.HouseAdvert.YearBuilt
+				<b>@Localizer["year built"]:</b> @Model.Advert.YearBuilt
 			</p><hr />
 			<p>
 				<img src="~/images/icons/description.png" class="mb-2" width="20" height="20" />
-				<b>@Localizer["description"]:</b> @Html.Raw(Model.HouseAdvert.Description)
+				<b>@Localizer["description"]:</b> @Html.Raw(Model.Advert.Description)
 			</p>
 			<hr />
-			<p>@Localizer["date of creating advert"]: @Model.HouseAdvert.CreationDate.ToString("yyyy-MM-dd")</p>
+			<p>@Localizer["date of creating advert"]: @Model.Advert.CreationDate.ToString("yyyy-MM-dd")</p>
 		</div>
 	</div>
 </div>	

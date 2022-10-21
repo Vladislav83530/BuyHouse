@@ -1,4 +1,4 @@
-﻿@model BuyHouse.WEB.Models.ViewModels.GetAdvertViewModel<FlatAdvertModel>
+﻿@model BuyHouse.WEB.Models.ViewModels.GetAdvertViewModel<RoomAdvertModel>
 @using BuyHouse.WEB.Models.AdvertModel
 @using Microsoft.AspNetCore.Mvc.Localization
 
@@ -29,17 +29,17 @@
 		<div class="col-lg-4 pt-md-3 pt-sm-3 pt-3">
 			<h2 class="sellerInfo_title">@Localizer["Seller info"]</h2><hr />
 			<div class="row">
-			<div class="col-lg-5 col-md-3 col-sm-4 col-4">
-				<div class="container_avatar">
-					<img src="@Model.UserProfile.UserAvatar.Path" alt="avatar" class="rounded-circle img-fluid avatar_img"/>
+				<div class="col-lg-5 col-md-3 col-sm-4 col-4">
+					<div class="container_avatar">
+						<img src="@Model.UserProfile.UserAvatar.Path" alt="avatar" class="rounded-circle img-fluid avatar_img" />
+					</div>
 				</div>
-			</div>
-			<div class="col-lg-7 col-md-9 col-sm-8 col-8">
-				<div class="pt-4">
-					<h2 class="sellerInfo_title">@Model.UserProfile.Name</h2>
-					<h2 class="sellerInfo_title">@Model.UserProfile.Surname</h2>
+				<div class="col-lg-7 col-md-9 col-sm-8 col-8">
+					<div class="pt-4">
+						<h2 class="sellerInfo_title">@Model.UserProfile.Name</h2>
+						<h2 class="sellerInfo_title">@Model.UserProfile.Surname</h2>
+					</div>
 				</div>
-			</div>
 			</div>
 			<div class="row">
 				@if (Model.UserProfile.PhoneNumber != null)
@@ -70,14 +70,6 @@
 			</p>
 			<p>
 				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
-				<b>@Localizer["rooms"]:</b> @Model.Advert.Rooms
-			</p>
-			<p>
-				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
-				<b>@Localizer["type of walls"]:</b> @Localizer[Model.Advert.TypeOfWalls.ToString()]
-			</p>
-			<p>
-				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
 				<b>@Localizer["total area"]:</b> @Model.Advert.TotalArea
 			</p>
 			<p>
@@ -91,10 +83,6 @@
 			<p>
 				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
 				<b>@Localizer["heating"]:</b> @Localizer[Model.Advert.Heating.ToString()]
-			</p>
-			<p>
-				<img src="~/images/icons/done.png" class="mb-2" width="20" height="20" />
-				<b>@Localizer["year built"]:</b> @Model.Advert.YearBuilt
 			</p><hr />
 			<p>
 				<img src="~/images/icons/description.png" class="mb-2" width="20" height="20" />
@@ -104,6 +92,6 @@
 			<p>@Localizer["date of creating advert"]: @Model.Advert.CreationDate.ToString("yyyy-MM-dd")</p>
 		</div>
 	</div>
-</div>	
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
- <script src="~/js/HidePhoneScript.js"></script>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="~/js/HidePhoneScript.js"></script>
