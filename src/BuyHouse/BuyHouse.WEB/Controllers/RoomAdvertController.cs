@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BuyHouse.BLL.DTO;
-using BuyHouse.BLL.Services;
 using BuyHouse.BLL.Services.Abstract;
 using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.WEB.Clients;
@@ -21,13 +20,15 @@ namespace BuyHouse.WEB.Controllers
         private readonly IUserProfileService _userProfileService;
         private readonly IAdvertFilterService<RoomAdvert, RoomAdvertFilter> _roomAdvertFilterService;
         private readonly IPhotosService _photosService;
+        private readonly ILikeAdvertService _likeAdvertService;
 
         public RoomAdvertController(BuyHouseAPIClient client,
             IStringLocalizer<RoomAdvertController> localizer,
             IMapper mapper,
             IUserProfileService userProfileService,
             IAdvertFilterService<RoomAdvert, RoomAdvertFilter> roomAdvertFilterService,
-            IPhotosService photosService)
+            IPhotosService photosService,
+            ILikeAdvertService likeAdvertService)
         {
             _client = client;
             _localizer = localizer;
@@ -35,6 +36,7 @@ namespace BuyHouse.WEB.Controllers
             _userProfileService = userProfileService;
             _roomAdvertFilterService = roomAdvertFilterService;
             _photosService = photosService;
+            _likeAdvertService = likeAdvertService;
         }
 
         /// <summary>
@@ -238,6 +240,20 @@ namespace BuyHouse.WEB.Controllers
             {
                 return RedirectToAction("Error", "Home", new { exception = ex.Message });
             }
+        }
+
+        /// <summary>
+        /// Like room advert
+        /// </summary>
+        /// <param name="roomAdvertId"></param>
+        /// <returns>Count of likes</returns>
+        [Authorize]
+        [HttpGet]
+        public async Task<JsonResult> LikeRoomAdvert(int roomAdvertId)
+        {
+            string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var result = await _likeAdvertService.LikeRoomAdvert(roomAdvertId, currentUserId);
+            return Json(result);
         }
     }
 }

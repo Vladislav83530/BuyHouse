@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System.Security.Claims;
+using System.Text.Json;
 
 namespace BuyHouse.WEB.Controllers
 {
@@ -18,6 +19,7 @@ namespace BuyHouse.WEB.Controllers
         private readonly IUserProfileService _userProfileService;
         private readonly BuyHouseAPIClient _client;
         private readonly IPhotosService _photosService;
+        private readonly ILikeAdvertService _likeAdvertService;
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<FlatAdvertController> _localizer;
 
@@ -26,7 +28,8 @@ namespace BuyHouse.WEB.Controllers
             IMapper mapper,
             IStringLocalizer<FlatAdvertController> localizer, 
             BuyHouseAPIClient client,
-            IPhotosService photosService)
+            IPhotosService photosService,
+            ILikeAdvertService likeAdvertService)
         {
             _flatAdvertService = flatAdertService;
             _userProfileService = userProfileService;
@@ -34,6 +37,7 @@ namespace BuyHouse.WEB.Controllers
             _localizer = localizer;
             _client = client;
             _photosService = photosService;
+            _likeAdvertService = likeAdvertService;
         }
 
         /// <summary>
@@ -237,6 +241,20 @@ namespace BuyHouse.WEB.Controllers
             {
                 return RedirectToAction("Error", "Home", new { exception = ex.Message });
             }
+        }
+
+        /// <summary>
+        /// Like flat advert
+        /// </summary>
+        /// <param name="flatAdvertId"></param>
+        /// <returns>Count of likes</returns>
+        [Authorize]
+        [HttpGet]
+        public async Task<JsonResult> LikeFlatAdvert(int flatAdvertId)
+        {
+            string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var result = await _likeAdvertService.LikeFlatAdvert(flatAdvertId, currentUserId);
+            return Json(result);
         }
     }
 }

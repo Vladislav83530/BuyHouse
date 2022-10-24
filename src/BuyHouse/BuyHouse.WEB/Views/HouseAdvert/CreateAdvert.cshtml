@@ -109,7 +109,7 @@
 
 					<div class="row">
 						<div class="col-md-10">
-							@Html.LabelFor(m => m.TotalPrice, new{@class="input_lable"})
+							<lable class="input_lable">@Localizer["Price"]</lable>
 							@Html.TextBoxFor(m => m.TotalPrice, new { @class = "form-control", @type="number", required="true" })
 							@Html.ValidationMessageFor(m => m.TotalPrice,"", new{@class="validation_text"})<br />
 						</div>

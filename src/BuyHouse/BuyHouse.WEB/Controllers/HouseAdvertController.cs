@@ -20,13 +20,15 @@ namespace BuyHouse.WEB.Controllers
         private readonly IUserProfileService _userProfileService;
         private readonly IAdvertFilterService<HouseAdvert, HouseAdvertFilter> _houseAdvertFilterService;
         private readonly IPhotosService _photosService;
+        private readonly ILikeAdvertService _likeAdvertService;
 
         public HouseAdvertController(BuyHouseAPIClient client, 
             IStringLocalizer<HouseAdvertController> localizer,
             IMapper mapper,
             IUserProfileService userProfileService,
             IAdvertFilterService<HouseAdvert, HouseAdvertFilter> houseAdvertFilterService,
-            IPhotosService photosService)
+            IPhotosService photosService,
+            ILikeAdvertService likeAdvertService)
         {
             _client = client;
             _localizer = localizer;
@@ -34,6 +36,7 @@ namespace BuyHouse.WEB.Controllers
             _userProfileService = userProfileService;
             _houseAdvertFilterService = houseAdvertFilterService;
             _photosService = photosService;
+            _likeAdvertService = likeAdvertService;
         }
 
         /// <summary>
@@ -237,6 +240,20 @@ namespace BuyHouse.WEB.Controllers
             {
                 return RedirectToAction("Error", "Home", new { exception = ex.Message });
             }
+        }
+
+        /// <summary>
+        /// Like house advert
+        /// </summary>
+        /// <param name="houseAdvertId"></param>
+        /// <returns>Count of likes</returns>
+        [Authorize]
+        [HttpGet]
+        public async Task<JsonResult> LikeHouseAdvert(int houseAdvertId)
+        {
+            string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var result = await _likeAdvertService.LikeHouseAdvert(houseAdvertId, currentUserId);
+            return Json(result);
         }
     }
 }

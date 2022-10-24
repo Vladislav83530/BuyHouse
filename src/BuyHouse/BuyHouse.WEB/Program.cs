@@ -29,6 +29,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddScoped<IPhotosService, PhotosService>();
+builder.Services.AddScoped<ILikeAdvertService, LikeAdvertService>();
 
 builder.Services.AddScoped<IAdvertFilterService<FlatAdvert, FlatAdvertFilter>, FlatAdvertFilterService>();
 builder.Services.AddScoped<IAdvertFilterService<HouseAdvert, HouseAdvertFilter>, HouseAdvertFilterService>();
@@ -86,12 +87,6 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
 });
-
-//builder.Services.ConfigureApplicationCookie(config =>
-//{
-//    config.Cookie.Name = "Identity.Cookie";
-//    config.LoginPath = "/Account/Login/";
-//});
 
 var app = builder.Build();
 

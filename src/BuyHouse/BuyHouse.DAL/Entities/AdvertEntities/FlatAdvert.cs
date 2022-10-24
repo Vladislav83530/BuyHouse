@@ -30,7 +30,7 @@ namespace BuyHouse.DAL.Entities.AdvertEntities
         public DateTime CreationDate { get; set; }
 
         /*Info for statistic*/
-        public uint? LikeCount { get; set; }
+        public uint LikeCount { get; set; }
 
         public string? UserID { get; set; }
         public ApplicationUser? ApplicationUser { get; set; }

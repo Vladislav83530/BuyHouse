@@ -119,7 +119,15 @@
 					<p class="description">@Html.Raw(item.Description)</p>
 					</p>
 					<hr>
-					<p>@item.CreationDate.Value.ToString("yyyy-MM-dd")</p>
+					<div class="row">
+						<div class="col-md-11">
+							<p>@item.CreationDate.Value.ToString("yyyy-MM-dd")</p>
+						</div>
+						<div class="col-md-1 like_block">
+							<a class="btn-like-roomadvert" data-roomAdvertId="@item.Id"><img id="likeimg" src="~/images/icons/like.png" width="40" height="40"></a>
+							<div id="like_advert" class="like_count">@item.LikeCount</div>
+						</div>
+					</div>
 					<a class="btn btn-dark btn-md datails_btn" href="~/RoomAdvert/@item.Id">@Localizer["Details"]</a>
 				</div>
 			</div>
@@ -139,5 +147,6 @@
 		</page-link>
 	</div>
 	<script src="~/js/FilterScript.js"></script>
+	@section Scripts{<script src="~/js/LikeAdvertScript.js"></script>}
 </body>
 </html>

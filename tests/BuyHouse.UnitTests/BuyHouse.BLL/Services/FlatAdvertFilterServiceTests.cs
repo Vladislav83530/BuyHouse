@@ -30,7 +30,7 @@ namespace BuyHouse.UnitTests.BuyHouse.BLL.Services
             var service = new FlatAdvertFilterService(_dbContext, null);
 
             //Act
-            var result = await service.GetMostLikedFlatAdvertAsync();
+            var result = await service.GetMostLikedAdvertAsync();
 
             //Assert
             Assert.NotNull(result);
@@ -49,7 +49,7 @@ namespace BuyHouse.UnitTests.BuyHouse.BLL.Services
 
             if (!String.IsNullOrEmpty(currentUserId))
             {
-                var result = await service.GetSellersFlatAdvertsAsync(currentUserId);
+                var result = await service.GetSellersAdvertsAsync(currentUserId);
 
                 Assert.NotNull(result);
                 Assert.IsInstanceOf<IEnumerable<FlatAdvert>>(result);
@@ -58,7 +58,7 @@ namespace BuyHouse.UnitTests.BuyHouse.BLL.Services
             }
             if (String.IsNullOrEmpty(currentUserId))
             {
-                var ex = Assert.ThrowsAsync<Exception>(() => service.GetSellersFlatAdvertsAsync(currentUserId));
+                var ex = Assert.ThrowsAsync<Exception>(() => service.GetSellersAdvertsAsync(currentUserId));
                 Assert.AreSame(ex.Message, expectedErrorMessage);
             }
         }

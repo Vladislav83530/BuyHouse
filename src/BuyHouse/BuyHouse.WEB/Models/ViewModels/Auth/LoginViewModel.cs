@@ -5,10 +5,10 @@ namespace BuyHouse.WEB.Models.ViewModels.Auth
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "RequiredField")]
         public string? Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "RequiredField")]
         [DataType(DataType.Password)]
         public string? Password { get; set; }
 

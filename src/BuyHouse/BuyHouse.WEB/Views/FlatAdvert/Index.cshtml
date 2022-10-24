@@ -134,10 +134,17 @@
 						<b>@Localizer["total area"]:</b> @item.TotalArea м<sup>2</sup><br>
 						<b>@Localizer["number of rooms"]:</b> @item.Rooms<br>
 						<b>@Localizer["floor"]:</b> @item.Floor @Localizer["out of"] @item.TotalCountFloors
-					<p class="description">@Html.Raw(item.Description)</p>
-					</p>
+					<p class="description">@Html.Raw(item.Description)</p>				
 					<hr>
-					<p>@item.CreationDate.Value.ToString("yyyy-MM-dd")</p>
+					<div class="row">	
+						<div class="col-md-11">
+							<p>@item.CreationDate.Value.ToString("yyyy-MM-dd")</p>
+						</div>
+						<div class="col-md-1 like_block">
+							<a class="btn-like-flatadvert" data-flatAdvertId="@item.Id"><img id="likeimg" src="~/images/icons/like.png" width="40" height="40"></a>
+							<div id="like_advert" class="like_count">@item.LikeCount</div>
+						</div>
+					</div>
 					<a class="btn btn-dark btn-md datails_btn" href="~/FlatAdvert/@item.Id">@Localizer["Details"]</a>
 				</div>
 			</div>
@@ -158,5 +165,6 @@
 		</page-link>
 	</div>
 	<script src="~/js/FilterScript.js"></script>
+	@section Scripts{<script src="~/js/LikeAdvertScript.js"></script>}
 </body>
 </html>
