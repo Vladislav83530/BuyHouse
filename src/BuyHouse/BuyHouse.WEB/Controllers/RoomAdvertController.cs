@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BuyHouse.BLL.DTO;
 using BuyHouse.BLL.Services.Abstract;
+using BuyHouse.DAL.Entities;
 using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.WEB.Clients;
 using BuyHouse.WEB.Models.AdvertModel;
@@ -120,8 +121,12 @@ namespace BuyHouse.WEB.Controllers
         {
             try
             {
+                string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
                 ResponseAdvertDTO<RoomAdvert> responseRoomAdvertDTO = await _roomAdvertFilterService
                     .GetAdvertByParametersAsync(filter, pageSize, page);
+
+                var roomAdvertIds = await _likeAdvertService.GetLikedAdvertIdsAsync(currentUserId, TypeOfRealtyAdvert.RoomAdvert);
 
                 var roomAdvertShortModels = _mapper.Map<IEnumerable<RoomAdvert>, List<RoomAdvertShortModel>>(responseRoomAdvertDTO.Adverts);
 
@@ -129,7 +134,8 @@ namespace BuyHouse.WEB.Controllers
                 {
                     RealtyAdverts = roomAdvertShortModels,
                     RealtyAdvertFilter = filter,
-                    PageViewModel = new PageViewModel(responseRoomAdvertDTO.Count, page, responseRoomAdvertDTO.PageSize)
+                    PageViewModel = new PageViewModel(responseRoomAdvertDTO.Count, page, responseRoomAdvertDTO.PageSize),
+                    LikedAdvert = roomAdvertIds
                 };
                 return View(vm);
             }
@@ -252,8 +258,22 @@ namespace BuyHouse.WEB.Controllers
         public async Task<JsonResult> LikeRoomAdvert(int roomAdvertId)
         {
             string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var result = await _likeAdvertService.LikeRoomAdvert(roomAdvertId, currentUserId);
+            var result = await _likeAdvertService.LikeRoomAdvertAsync(roomAdvertId, currentUserId);
             return Json(result);
+        }
+
+        /// <summary>
+        /// Dislike room advert
+        /// </summary>
+        /// <param name="roomAdvertId"></param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> DislikeRoomAdvert(int roomAdvertId)
+        {
+            string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            await _likeAdvertService.DislikeRoomAdvertAsync(roomAdvertId, currentUserId);
+            return RedirectToAction("GetLikedAdverts", "UserProfile");
         }
     }
 }

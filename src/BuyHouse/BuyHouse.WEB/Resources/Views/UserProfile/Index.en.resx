@@ -152,6 +152,12 @@
   <data name="Full name" xml:space="preserve">
     <value>Full name</value>
   </data>
+  <data name="My adverts" xml:space="preserve">
+    <value>My adverts</value>
+  </data>
+  <data name="My liked adverts" xml:space="preserve">
+    <value>My liked adverts</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>

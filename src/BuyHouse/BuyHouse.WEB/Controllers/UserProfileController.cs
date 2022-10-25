@@ -147,7 +147,38 @@ namespace BuyHouse.WEB.Controllers
                 IEnumerable<RoomAdvert> roomAdverts = await _roomAdvertFilterService.GetSellersAdvertsAsync(currentUserId);
                 List<RoomAdvertShortModel> roomAdvertShortModels = _mapper.Map<IEnumerable<RoomAdvert>, List<RoomAdvertShortModel>>(roomAdverts);
 
-                return View(new SellersAdvertsViewModel { FlatAdverts = flatAdvertShortModels, HouseAdverts =houseAdvertShortModels, RoomAdverts = roomAdvertShortModels });
+                return View(new Sellers_LikeAdvertsViewModel { FlatAdverts = flatAdvertShortModels, HouseAdverts =houseAdvertShortModels, RoomAdverts = roomAdvertShortModels });
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Error", "Home", new { exception = ex.Message });
+            }
+        }
+
+
+        [HttpGet]
+        [Authorize]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [Route("[controller]/LikedAdverts")]
+        public async Task<IActionResult> GetLikedAdverts()
+        {
+            string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (String.IsNullOrEmpty(currentUserId))
+                return NotFound(_localizer["Not found user id error"]);
+
+            try
+            {
+                IEnumerable<FlatAdvert> flatAdverts = await _flatAdvertService.GetLikedAdvertsByUserAsync(currentUserId);
+                IEnumerable<FlatAdvertShortModel> flatAdvertShortModels = _mapper.Map<IEnumerable<FlatAdvert>, List<FlatAdvertShortModel>>(flatAdverts);
+
+                IEnumerable<HouseAdvert> houseAdverts = await _houseAdvertFilterService.GetLikedAdvertsByUserAsync(currentUserId);
+                IEnumerable<HouseAdvertShortModel> houseAdvertShortModels = _mapper.Map<IEnumerable<HouseAdvert>, List<HouseAdvertShortModel>>(houseAdverts);
+
+                IEnumerable<RoomAdvert> roomAdverts = await _roomAdvertFilterService.GetLikedAdvertsByUserAsync(currentUserId);
+                List<RoomAdvertShortModel> roomAdvertShortModels = _mapper.Map<IEnumerable<RoomAdvert>, List<RoomAdvertShortModel>>(roomAdverts);
+
+                return View(new Sellers_LikeAdvertsViewModel { FlatAdverts = flatAdvertShortModels, HouseAdverts = houseAdvertShortModels, RoomAdverts = roomAdvertShortModels });
             }
             catch (Exception ex)
             {

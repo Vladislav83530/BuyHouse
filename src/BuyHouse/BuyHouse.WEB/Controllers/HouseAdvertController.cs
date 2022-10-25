@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BuyHouse.BLL.DTO;
 using BuyHouse.BLL.Services.Abstract;
+using BuyHouse.DAL.Entities;
 using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.WEB.Clients;
 using BuyHouse.WEB.Models.AdvertModel;
@@ -120,8 +121,12 @@ namespace BuyHouse.WEB.Controllers
         {
             try
             {
+                string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
                 ResponseAdvertDTO<HouseAdvert> responseHouseAdvertDTO = await _houseAdvertFilterService
                     .GetAdvertByParametersAsync(filter, pageSize, page);
+
+                var houseAdvertIds = await _likeAdvertService.GetLikedAdvertIdsAsync(currentUserId, TypeOfRealtyAdvert.HouseAdvert);
 
                 var houseAdvertShortModels = _mapper.Map<IEnumerable<HouseAdvert>, List<HouseAdvertShortModel>>(responseHouseAdvertDTO.Adverts);
 
@@ -129,7 +134,8 @@ namespace BuyHouse.WEB.Controllers
                 {
                     RealtyAdverts = houseAdvertShortModels,
                     RealtyAdvertFilter = filter,
-                    PageViewModel = new PageViewModel(responseHouseAdvertDTO.Count, page, responseHouseAdvertDTO.PageSize)
+                    PageViewModel = new PageViewModel(responseHouseAdvertDTO.Count, page, responseHouseAdvertDTO.PageSize),
+                    LikedAdvert = houseAdvertIds
                 };
                 return View(vm);
             }
@@ -182,7 +188,7 @@ namespace BuyHouse.WEB.Controllers
 
             if (ModelState.IsValid)
             {
-                string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value; ;
+                string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 try
                 {
                     HouseAdvert houseAdvert_ = await _client.UpdateHouseAdvertAsync(houseAdvertId, houseAdvertModel, uploads, currentUserId);
@@ -252,8 +258,22 @@ namespace BuyHouse.WEB.Controllers
         public async Task<JsonResult> LikeHouseAdvert(int houseAdvertId)
         {
             string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var result = await _likeAdvertService.LikeHouseAdvert(houseAdvertId, currentUserId);
+            var result = await _likeAdvertService.LikeHouseAdvertAsync(houseAdvertId, currentUserId);
             return Json(result);
+        }
+
+        /// <summary>
+        /// Dislike house advert
+        /// </summary>
+        /// <param name="houseAdvertId"></param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> DislikeHouseAdvert(int houseAdvertId)
+        {
+            string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            await _likeAdvertService.DislikeHouseAdvertAsync(houseAdvertId, currentUserId);
+            return RedirectToAction("GetLikedAdverts", "UserProfile");
         }
     }
 }

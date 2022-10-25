@@ -2,7 +2,7 @@
 
 namespace BuyHouse.WEB.Models.ViewModels
 {
-    public class SellersAdvertsViewModel
+    public class Sellers_LikeAdvertsViewModel
     {
         public IEnumerable<FlatAdvertShortModel> FlatAdverts { get; set; }
         public IEnumerable<HouseAdvertShortModel> HouseAdverts { get; set; }

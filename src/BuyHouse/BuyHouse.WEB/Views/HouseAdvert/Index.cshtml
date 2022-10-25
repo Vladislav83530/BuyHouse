@@ -136,14 +136,22 @@
 						<b>@Localizer["number of rooms"]:</b> @item.Rooms<br>
 						<b>@Localizer["CountOfFloor"]:</b> @item.TotalCountFloors
 					<p class="description">@Html.Raw(item.Description)</p>
-					</p>
 					<hr>
 					<div class="row">
 						<div class="col-md-11">
 							<p>@item.CreationDate.Value.ToString("yyyy-MM-dd")</p>
 						</div>
 						<div class="col-md-1 like_block">
-							<a class="btn-like-houseadvert" data-houseAdvertId="@item.Id"><img id="likeimg" src="~/images/icons/like.png" width="40" height="40"></a>
+
+							@if (Model.LikedAdvert.Any(x => x == item.Id))
+							{
+								<a class="btn-like-advert" data-flatAdvertId="@item.Id"><img id="likeimg" src="https://cdn-icons-png.flaticon.com/512/2589/2589175.png" width="40" height="40"></a>
+							}
+							else
+							{
+								<a class="btn-like-advert" data-flatAdvertId="@item.Id"><img id="likeimg" src="https://cdn-icons-png.flaticon.com/512/2589/2589197.png" width="40" height="40"></a>
+							}
+
 							<div id="like_advert" class="like_count">@item.LikeCount</div>
 						</div>
 					</div>
@@ -167,6 +175,12 @@
 		</page-link>
 	</div>
 	<script src="~/js/FilterScript.js"></script>
-	@section Scripts{<script src="~/js/LikeAdvertScript.js"></script>}
+	@section Scripts{
+		<script src="~/js/LikeAdvertScript.js"></script>
+		<script>
+			const urlHouseAdvert = 'HouseAdvert/LikeHouseAdvert/?houseAdvertId='
+			LikeAdvert(urlHouseAdvert);
+		</script>
+	}
 </body>
 </html>

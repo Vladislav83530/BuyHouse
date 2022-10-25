@@ -89,7 +89,15 @@
 				<b>@Localizer["description"]:</b> @Html.Raw(Model.Advert.Description)
 			</p>
 			<hr />
-			<p>@Localizer["date of creating advert"]: @Model.Advert.CreationDate.ToString("yyyy-MM-dd")</p>
+			<div class="row">
+				<div class="col-lg-11 col-sm-9 col-xs-7">
+					<p>@Localizer["date of creating advert"]: @Model.Advert.CreationDate.ToString("yyyy-MM-dd")</p>
+				</div>
+				<div class="col-lg-1 col-sm-3 col-xs-5 like_block">
+					<img id="likeimg" src="https://cdn-icons-png.flaticon.com/512/535/535234.png" width="30" height="30" />
+					<div id="like_advert" class="like_count">@Model.Advert.LikeCount</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

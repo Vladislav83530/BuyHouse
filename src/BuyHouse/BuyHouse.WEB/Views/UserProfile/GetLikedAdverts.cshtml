@@ -21,7 +21,7 @@
 				<p class="intro_text">@Localizer["Information for user"]</p>
 			</div>
 			<div class="col-lg-7">
-				<img src="~/images/house_key.png" width="100%" />
+				<img src="~/images/house_key.png" width="80%" />
 			</div>
 		</div>
 		<div class="form-group row m-2">
@@ -80,13 +80,10 @@
 								<p>@item.CreationDate.Value.ToString("yyyy-MM-dd")</p>
 							</div>
 							<div class="col-lg-1 col-sm-3 col-xs-5 like_block">
-								<img id="likeimg" src="https://cdn-icons-png.flaticon.com/512/535/535234.png" width="40" height="40">
+								<a asp-action="DislikeFlatAdvert" asp-controller="FlatAdvert" asp-route-flatAdvertId="@item.Id"><img id="likeimg" src="https://cdn-icons-png.flaticon.com/512/2589/2589175.png" width="40" height="40"></a>
 								<div id="like_advert" class="like_count">@item.LikeCount</div>
 							</div>
 						</div>
-						<a class="btn btn-dark btn-md datails_btn mb-2" asp-action="GetFlatAdvert" asp-controller="FlatAdvert" asp-route-flatAdvertId="@item.Id">@Localizer["Details"]</a>
-						<a class="btn btn-dark btn-md datails_btn mb-2" asp-action="EditAdvert" asp-controller="FlatAdvert" asp-route-flatAdvertId="@item.Id">@Localizer["Edit info"]</a>
-						<a class="btn btn-dark btn-md datails_btn mb-2" asp-action="DeleteFlatAdvert" asp-controller="FlatAdvert" asp-route-flatAdvertId="@item.Id">@Localizer["Delete"]</a>
 					</div>
 				</div>
 			}
@@ -133,13 +130,10 @@
 								<p>@item.CreationDate.Value.ToString("yyyy-MM-dd")</p>
 							</div>
 							<div class="col-lg-1 col-sm-3 col-xs-5 like_block">
-								<img id="likeimg" src="https://cdn-icons-png.flaticon.com/512/535/535234.png" width="40" height="40">
+								<a asp-action="DislikeHouseAdvert" asp-controller="HouseAdvert" asp-route-houseAdvertId="@item.Id"><img id="likeimg"  src="https://cdn-icons-png.flaticon.com/512/2589/2589175.png" width="40" height="40"></a>
 								<div id="like_advert" class="like_count">@item.LikeCount</div>
 							</div>
 						</div>
-						<a class="btn btn-dark btn-md datails_btn mb-2" asp-action="GetHouseAdvert" asp-controller="HouseAdvert" asp-route-houseAdvertId="@item.Id">@Localizer["Details"]</a>
-						<a class="btn btn-dark btn-md datails_btn mb-2" asp-action="EditAdvert" asp-controller="HouseAdvert" asp-route-houseAdvertId="@item.Id">@Localizer["Edit info"]</a>
-						<a class="btn btn-dark btn-md datails_btn mb-2" asp-action="DeleteHouseAdvert" asp-controller="HouseAdvert" asp-route-houseAdvertId="@item.Id">@Localizer["Delete"]</a>
 					</div>
 				</div>
 			}
@@ -185,13 +179,10 @@
 								<p>@item.CreationDate.Value.ToString("yyyy-MM-dd")</p>
 							</div>
 							<div class="col-lg-1 col-sm-3 col-xs-5 like_block">
-								<img id="likeimg" src="https://cdn-icons-png.flaticon.com/512/535/535234.png" width="40" height="40">
+								<a asp-action="DislikeRoomAdvert" asp-controller="RoomAdvert" asp-route-roomAdvertId="@item.Id"><img id="likeimg" src="https://cdn-icons-png.flaticon.com/512/2589/2589175.png" width="40" height="40"></a>
 								<div id="like_advert" class="like_count">@item.LikeCount</div>
 							</div>
 						</div>
-						<a class="btn btn-dark btn-md datails_btn mb-2" asp-action="GetRoomAdvert" asp-controller="RoomAdvert" asp-route-roomAdvertId="@item.Id">@Localizer["Details"]</a>
-						<a class="btn btn-dark btn-md datails_btn mb-2" asp-action="EditAdvert" asp-controller="RoomAdvert" asp-route-roomAdvertId="@item.Id">@Localizer["Edit info"]</a>
-						<a class="btn btn-dark btn-md datails_btn mb-2" asp-action="DeleteRoomAdvert" asp-controller="RoomAdvert" asp-route-roomAdvertId="@item.Id">@Localizer["Delete"]</a>
 					</div>
 				</div>
 			}

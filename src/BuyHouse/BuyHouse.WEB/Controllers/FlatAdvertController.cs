@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BuyHouse.BLL.DTO;
 using BuyHouse.BLL.Services.Abstract;
+using BuyHouse.DAL.Entities;
 using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.WEB.Clients;
 using BuyHouse.WEB.Models.AdvertModel;
@@ -90,13 +91,18 @@ namespace BuyHouse.WEB.Controllers
                 ResponseAdvertDTO<FlatAdvert> responseFlatAdvertDTO = await _flatAdvertService
                     .GetAdvertByParametersAsync(filter, pageSize, page);
 
+                string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                var flatAdvertIds = await _likeAdvertService.GetLikedAdvertIdsAsync(currentUserId, TypeOfRealtyAdvert.FlatAdvert);
+
                 var flatAdvertShortModels = _mapper.Map<IEnumerable<FlatAdvert>, List<FlatAdvertShortModel>>(responseFlatAdvertDTO.Adverts);
 
                 IndexFilterViewModel<FlatAdvertShortModel, FlatAdvertFilter> vm = new IndexFilterViewModel<FlatAdvertShortModel, FlatAdvertFilter>()
                 {
                     RealtyAdverts = flatAdvertShortModels,
                     RealtyAdvertFilter = filter,
-                    PageViewModel = new PageViewModel(responseFlatAdvertDTO.Count, page, responseFlatAdvertDTO.PageSize)
+                    PageViewModel = new PageViewModel(responseFlatAdvertDTO.Count, page, responseFlatAdvertDTO.PageSize),
+                    LikedAdvert = flatAdvertIds
                 };
                 return View(vm);
             }
@@ -183,7 +189,7 @@ namespace BuyHouse.WEB.Controllers
 
             if (ModelState.IsValid)
             {
-                string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value; ;
+                string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 try
                 {
                     FlatAdvert flatAdvert_ = await _client.UpdateFlatAdvertAsync(flatAdvertId, flatAdvertModel, uploads, currentUserId);
@@ -253,8 +259,22 @@ namespace BuyHouse.WEB.Controllers
         public async Task<JsonResult> LikeFlatAdvert(int flatAdvertId)
         {
             string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var result = await _likeAdvertService.LikeFlatAdvert(flatAdvertId, currentUserId);
+            var result = await _likeAdvertService.LikeFlatAdvertAsync(flatAdvertId, currentUserId);
             return Json(result);
+        }
+
+        /// <summary>
+        /// Dislike flat advert
+        /// </summary>
+        /// <param name="flatAdvertId"></param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> DislikeFlatAdvert(int flatAdvertId)
+        {
+            string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            await _likeAdvertService.DislikeFlatAdvertAsync(flatAdvertId, currentUserId);
+            return RedirectToAction("GetLikedAdverts", "UserProfile");
         }
     }
 }

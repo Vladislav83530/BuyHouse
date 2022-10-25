@@ -2,6 +2,7 @@
 using BuyHouse.BLL.DTO;
 using BuyHouse.BLL.Services.Abstract;
 using BuyHouse.DAL.EF;
+using BuyHouse.DAL.Entities;
 using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.DAL.Entities.HelperEnum;
 using Microsoft.EntityFrameworkCore;
@@ -141,6 +142,32 @@ namespace BuyHouse.BLL.Services
             const int numberOfAdvert = 3;
             IEnumerable<RoomAdvert> roomAdverts = await _context.RoomAdverts.OrderByDescending(p => p.LikeCount).Take(numberOfAdvert).ToListAsync();
             return roomAdverts;
+        }
+
+        /// <summary>
+        /// Get Liked Advert by user
+        /// </summary>
+        /// <param name="currentUserId"></param>
+        /// <returns>Liked adverts</returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<IEnumerable<RoomAdvert>> GetLikedAdvertsByUserAsync(string? currentUserId)
+        {
+            if (String.IsNullOrEmpty(currentUserId))
+                throw new Exception("Current user Id can not be null or empty");
+
+            IEnumerable<int> LikedRoomAdvertsId = await _context.Likes
+                .Where(x => x.TypeOfRealty == TypeOfRealtyAdvert.RoomAdvert && x.UserId == currentUserId)
+                .Select(y => y.AdvertId).ToListAsync();
+
+            List<RoomAdvert> LikedRoomAdverts = new List<RoomAdvert>();
+            RoomAdvert roomAdvert;
+            foreach (var item in LikedRoomAdvertsId)
+            {
+                roomAdvert = _context.RoomAdverts.First(x => x.Id == item);
+                LikedRoomAdverts.Add(roomAdvert);
+            }
+
+            return LikedRoomAdverts;
         }
 
         /// <summary>

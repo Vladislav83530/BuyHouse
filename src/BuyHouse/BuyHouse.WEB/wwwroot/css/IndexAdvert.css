@@ -127,24 +127,13 @@ label {
     overflow: hidden;
 }
 
-.btn-like-flatadvert {
-    border: none;
-    padding: 0;
-    border: none;
-    font: inherit;
-    color: inherit;
-    background-color: transparent;
-    cursor: pointer;
-    width: 50px;
-}
-
 .like_block {
     text-align: center;
 }
 
 .like_count {
     font-family: 'MS Reference Sans Serif';
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     margin-top: -5px;
 }

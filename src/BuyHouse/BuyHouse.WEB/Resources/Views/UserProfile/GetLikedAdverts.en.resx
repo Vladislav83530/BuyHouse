@@ -117,66 +117,67 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="City" xml:space="preserve">
-    <value>Місто</value>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
   </data>
-  <data name="Close" xml:space="preserve">
-    <value>Закрити</value>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
   </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Редагувати</value>
+  <data name="Edit info" xml:space="preserve">
+    <value>Edit info</value>
   </data>
-  <data name="Email" xml:space="preserve">
-    <value>Електронна пошта</value>
+  <data name="Euro" xml:space="preserve">
+    <value>€</value>
   </data>
-  <data name="Enter your city" xml:space="preserve">
-    <value>Введіть місто</value>
-    <comment>placeholder</comment>
+  <data name="Flats" xml:space="preserve">
+    <value>Flats</value>
   </data>
-  <data name="Enter your name" xml:space="preserve">
-    <value>Введіть ім'я</value>
-    <comment>placeholder</comment>
+  <data name="floor" xml:space="preserve">
+    <value>Floor</value>
   </data>
-  <data name="Enter your phone number" xml:space="preserve">
-    <value>Введіть номер телефону</value>
-    <comment>placeholder</comment>
+  <data name="Houses" xml:space="preserve">
+    <value>Houses</value>
   </data>
-  <data name="Enter your region" xml:space="preserve">
-    <value>Введіть область</value>
-    <comment>placeholder</comment>
+  <data name="Information for user" xml:space="preserve">
+    <value>All your liked ads are posted here. </value>
   </data>
-  <data name="Enter your surname" xml:space="preserve">
-    <value>Введіть прізвище</value>
-    <comment>placeholder</comment>
+  <data name="land area" xml:space="preserve">
+    <value>Land area</value>
   </data>
-  <data name="Full name" xml:space="preserve">
-    <value>Повне ім'я</value>
+  <data name="number of rooms" xml:space="preserve">
+    <value>Number of rooms</value>
   </data>
-  <data name="My adverts" xml:space="preserve">
-    <value>Мої оголошення</value>
+  <data name="per" xml:space="preserve">
+    <value>per</value>
   </data>
-  <data name="My liked adverts" xml:space="preserve">
-    <value>Мої вподобані оголошення</value>
+  <data name="per object" xml:space="preserve">
+    <value>per object</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>Ім'я</value>
+  <data name="per square meter" xml:space="preserve">
+    <value>per square meter</value>
   </data>
-  <data name="Personal information" xml:space="preserve">
-    <value>Особиста інформація</value>
+  <data name="price" xml:space="preserve">
+    <value>Price</value>
   </data>
-  <data name="Phone number" xml:space="preserve">
-    <value>Номер телефону</value>
+  <data name="price per" xml:space="preserve">
+    <value>Price per</value>
   </data>
-  <data name="Region" xml:space="preserve">
-    <value>Область</value>
+  <data name="Rooms" xml:space="preserve">
+    <value>Rooms</value>
   </data>
-  <data name="Save" xml:space="preserve">
-    <value>Зберегти</value>
+  <data name="to" xml:space="preserve">
+    <value>To</value>
   </data>
-  <data name="Surname" xml:space="preserve">
-    <value>Прізвище</value>
+  <data name="total area" xml:space="preserve">
+    <value>Total area</value>
   </data>
-  <data name="Update profile picture" xml:space="preserve">
-    <value>Оновити фото профілю</value>
+  <data name="UAH" xml:space="preserve">
+    <value>₴</value>
+  </data>
+  <data name="USD" xml:space="preserve">
+    <value>$</value>
+  </data>
+  <data name="Your adverts" xml:space="preserve">
+    <value>Your adverts</value>
   </data>
 </root>
