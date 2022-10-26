@@ -13,13 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuyHouse.API", "BuyHouse.AP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuyHouse.WEB", "BuyHouse.WEB\BuyHouse.WEB.csproj", "{ADCEC77E-5932-4788-ACF8-BE677B865D03}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{A728097E-09F6-4E5F-8D02-20645949E2A2}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{C13ECE99-0C3D-4C91-AFDB-825EF610CD89}"
-	ProjectSection(SolutionItems) = preProject
-		ci-cd.yaml = ci-cd.yaml
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,9 +42,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{C13ECE99-0C3D-4C91-AFDB-825EF610CD89} = {A728097E-09F6-4E5F-8D02-20645949E2A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9D41700C-E7D8-442F-9E91-B96CD0C3D743}
