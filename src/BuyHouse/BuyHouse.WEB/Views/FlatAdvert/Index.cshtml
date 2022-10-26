@@ -141,16 +141,20 @@
 							<p>@item.CreationDate.Value.ToString("yyyy-MM-dd")</p>
 						</div>
 						<div class="col-md-1 like_block">
-							
-								@if(Model.LikedAdvert.Any(x=>x == item.Id)){
-								<a class="btn-like-advert" data-flatAdvertId="@item.Id"><img id="likeimg" src="https://cdn-icons-png.flaticon.com/512/2589/2589175.png" width="40" height="40"></a>
+								@if (User.Identity.IsAuthenticated)
+								{
+									@if (Model.LikedAdvert.Any(x => x == item.Id))
+									{
+										<a class="btn-like-advert" data-flatAdvertId="@item.Id"><img id="likeimg" src="https://cdn-icons-png.flaticon.com/512/2589/2589175.png" width="40" height="40"></a>
+									}
+									else
+									{
+										<a class="btn-like-advert" data-flatAdvertId="@item.Id"><img id="likeimg" src="https://cdn-icons-png.flaticon.com/512/2589/2589197.png" width="40" height="40"></a>
+									}
+
+									<div id="like_advert" class="like_count">@item.LikeCount</div>
 								}
-								else{
-								<a class="btn-like-advert" data-flatAdvertId="@item.Id"><img id="likeimg" src="https://cdn-icons-png.flaticon.com/512/2589/2589197.png" width="40" height="40"></a>
-								}
-							
-							<div id="like_advert" class="like_count">@item.LikeCount</div>
-						</div>
+							</div>
 					</div>
 					<a class="btn btn-dark btn-md datails_btn" href="~/FlatAdvert/@item.Id">@Localizer["Details"]</a>
 				</div>
