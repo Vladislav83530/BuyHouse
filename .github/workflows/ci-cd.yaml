@@ -9,16 +9,16 @@ jobs:
  build:
   runs-on: windows-latest
   steps: 
-   -name: Check out code
-    uses: actions/checkout@v3
+   - name: Check out code
+     uses: actions/checkout@v3
 
-   -name: Setup .NET 6
-    uses: actions/setup-dotnet@v2
-    with: 
-     dotnet-version: '6.0.x'
+   - name: Setup .NET 6
+     uses: actions/setup-dotnet@v2
+     with: 
+      dotnet-version: '6.0.x'
 
-   -name: Restore dependencies
-    run: dotnet restore
+   - name: Restore dependencies
+     run: dotnet restore
 
-   -name: Build app
-    run: dotnet build -c Release --no-restore
+   - name: Build app
+     run: dotnet build -c Release --no-restore
