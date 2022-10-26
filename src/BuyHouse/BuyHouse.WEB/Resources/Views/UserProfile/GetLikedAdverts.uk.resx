@@ -177,7 +177,7 @@
   <data name="USD" xml:space="preserve">
     <value>$</value>
   </data>
-  <data name="Your adverts" xml:space="preserve">
-    <value>Ваші оголошення</value>
+  <data name="Your liked adverts" xml:space="preserve">
+    <value>Ваші  вподобані оголошення</value>
   </data>
 </root>

@@ -81,8 +81,14 @@
 }
 
 .ForUser_block {
-    height: 400px;
     background-color: #DDF3FF;
+    text-align: center;
+    padding: 20px;
+}
+
+.info_img {
+    width: 280px;
+    height: 280px;
 }
 
 @media only screen and (max-width: 1399px) {
@@ -109,6 +115,11 @@
     .title_intro {
         font-size: 75px;
     }
+
+    .info_img {
+        width:240px;
+        height: 240px;
+    }
 }
 
 @media only screen and (max-width: 991px) {
@@ -131,6 +142,10 @@
 
     .param_block_advert {
         font-size: 14px;
+    }
+
+    .ForUser_block {
+        display: none;
     }
 }
 
