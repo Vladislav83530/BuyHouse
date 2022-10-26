@@ -1,0 +1,175 @@
+﻿@model BuyHouse.WEB.Models.AdvertModel.RoomAdvertModel
+@using BuyHouse.DAL.Entities.HelperEnum
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - Search</title>
+	<link rel="stylesheet" href="~/css/Create-EditAdvert.css" />
+</head>
+<body>
+	<div class="container pt-3 pb-3">
+		<div class="row">
+			<h1 class="main_title">@Localizer["Edit your advert"]: </h1><hr />
+			<div class="col-lg-7 col-12 col-xs-12 col-md-12 order-md-2 order-2 order-lg-1 form_block">
+				<form method="post" asp-action="EditRoomAdvert" asp-controller="RoomAdvert" asp-route-roomAdvertId="@Model.Id" enctype="multipart/form-data">
+					<h2 class="subtitle">@Localizer["MainInfo"]</h2>
+					@Html.TextBoxFor(m => m.Id, new { @class = "form-control input_id", required="true"})
+
+					@Html.LabelFor(m => m.MainInfo.Region, new{@class="input_lable"})
+					@Html.TextBoxFor(m => m.MainInfo.Region, new { @class = "form-control input_text", required="true"})
+					@Html.ValidationMessageFor(m => m.MainInfo.Region,"", new{@class="validation_text"})<br />
+
+					@Html.LabelFor(m => m.MainInfo.City, new{@class="input_lable"})
+					@Html.TextBoxFor(m => m.MainInfo.City, new { @class = "form-control", @required="true"  })
+					@Html.ValidationMessageFor(m => m.MainInfo.City,"", new{@class="validation_text"})<br />
+
+					@Html.LabelFor(m => m.MainInfo.Street, new{@class="input_lable"})
+					@Html.TextBoxFor(m => m.MainInfo.Street, new { @class = "form-control", @required="true"  })
+					@Html.ValidationMessageFor(m => m.MainInfo.Street,"", new{@class="validation_text"})<br />
+
+					@Html.LabelFor(m => m.MainInfo.HouseNumber, new{@class="input_lable"})
+					@Html.TextBoxFor(m => m.MainInfo.HouseNumber, new { @class = "form-control", @required="true"  })
+					@Html.ValidationMessageFor(m => m.MainInfo.HouseNumber,"", new{@class="validation_text"})<br />
+
+					@Html.LabelFor(m => m.MainInfo.FlatNumber, new{@class="input_lable"})
+					@Html.TextBoxFor(m => m.MainInfo.FlatNumber, new { @class = "form-control", @type="number", @required="true"  })
+					@Html.ValidationMessageFor(m => m.MainInfo.FlatNumber,"", new{@class="validation_text"})<br />
+
+					@Html.LabelFor(m => m.MainInfo.RegistrationDate, new{@class="input_lable"})
+					@Html.TextBoxFor(m => m.MainInfo.RegistrationDate, new { @class = "form-control", @type="date", @required="true"})
+					@Html.ValidationMessageFor(m => m.MainInfo.RegistrationDate,"", new{@class="validation_text"})<br />
+					<hr />
+
+					<h2 class="subtitle">@Localizer["Parameters"]</h2>
+					@Html.LabelFor(m => m.Description, new{@class="input_lable"})
+					<textarea name="Description" class="form-control" required>@Model.Description.Replace("<br/>", "")</textarea>
+					@Html.ValidationMessageFor(m => m.Description,"", new{@class="validation_text"})<br />
+
+					@Html.LabelFor(m => m.Type, new{@class="input_lable"})<br />
+					@Html.RadioButtonFor(m => m.Type, TypeOfRealty.Primary , new{ @required="true", @class="radio_input"})
+					<lable>@Localizer["Primary"]</lable><br />
+					@Html.RadioButtonFor(m => m.Type, TypeOfRealty.Secondary , new{ @required="true", @class="radio_input"})
+					<lable>@Localizer["Secondary"]</lable><br />
+					@Html.ValidationMessageFor(m => m.Type,"", new{@class="validation_text"})<br />
+
+					@Html.LabelFor(m => m.TotalArea, new{@class="input_lable"})
+					@Html.TextBoxFor(m => m.TotalArea, new { @class = "form-control", @required="true" })
+					@Html.ValidationMessageFor(m => m.TotalArea,"", new{@class="validation_text"})<br />
+
+					@Html.LabelFor(m => m.LivingArea, new{@class="input_lable"})
+					@Html.TextBoxFor(m => m.LivingArea, new { @class = "form-control", @required="true" })
+					@Html.ValidationMessageFor(m => m.LivingArea,"", new{@class="validation_text"})<br />
+
+					@Html.LabelFor(m => m.Floor, new{@class="input_lable"})
+					@Html.TextBoxFor(m => m.Floor, new { @class = "form-control", @type="number", @required="true"})
+					@Html.ValidationMessageFor(m => m.Floor,"", new{@class="validation_text"})<br />
+
+					@Html.LabelFor(m => m.TotalCountFloors, new{@class="input_lable"})
+					@Html.TextBoxFor(m => m.TotalCountFloors, new { @class = "form-control", @type="number", @required="true" })
+					@Html.ValidationMessageFor(m => m.TotalCountFloors,"", new{@class="validation_text"})<br />
+
+					@Html.LabelFor(m => m.Heating, new{@class="input_lable"})<br />
+					@Html.RadioButtonFor(m => m.Heating,@TypeOfHeating.Centralized, new{ @required="true", @class="radio_input"})
+					<lable>@Localizer["Centralized"]</lable><br />
+					@Html.RadioButtonFor(m => m.Heating,@TypeOfHeating.Individual, new{ @required="true", @class="radio_input"})
+					<lable>@Localizer["Individual"]</lable><br />
+					@Html.RadioButtonFor(m => m.Heating,@TypeOfHeating.Сombined, new{ @required="true", @class="radio_input"})
+					<lable>@Localizer["Сombined"]</lable><br />
+					@Html.RadioButtonFor(m => m.Heating,@TypeOfHeating.WithoutHeating, new{ @required="true", @class="radio_input"})
+					<lable>@Localizer["WithoutHeating"]</lable><br />
+					@Html.ValidationMessageFor(m => m.Heating,"", new{@class="validation_text"})<br />
+
+					@Html.LabelFor(m => m.RegistrationNumber, new{@class="input_lable"})
+					@Html.TextBoxFor(m => m.RegistrationNumber, new { @class = "form-control", @required="true"})
+					@Html.ValidationMessageFor(m => m.RegistrationNumber,"", new{@class="validation_text"})<br />
+
+					<div class="row">
+						<div class="col-md-10">
+							@Html.LabelFor(m => m.TotalPrice, new{@class="input_lable"})
+							@Html.TextBoxFor(m => m.TotalPrice, new { @class = "form-control", @type="number", required="true" })
+							@Html.ValidationMessageFor(m => m.TotalPrice,"", new{@class="validation_text"})<br />
+						</div>
+						<div class="col-md-2 mt-1">
+							<lable class="input_lable">Валюта</lable>
+							<select class="form-control" name="Currency" required>
+								<option value="@Currency.USD">USD</option>
+								<option value="@Currency.Euro">Euro</option>
+								<option value="@Currency.UAH">UAH</option>
+							</select>
+							@Html.ValidationMessageFor(m => m.Currency,"", new{@class="validation_text"})<br />
+						</div>
+					</div>
+
+					@Html.LabelFor(m => m.TypePrice, new{@class="input_lable"})<br />
+					@Html.RadioButtonFor(m => m.TypePrice, TypeOfPrice.PerSquareMeter , new{ @required="true", @class="radio_input"})
+					<lable>@Localizer["PricePerSquareMeter"]</lable><br />
+					@Html.RadioButtonFor(m => m.TypePrice, TypeOfPrice.TotalPrice , new{ @required="true", @class="radio_input"})
+					<lable>@Localizer["PricePerObject"]</lable><br />
+					@Html.ValidationMessageFor(m => m.TypePrice,"", new{@class="validation_text"})<br />
+
+					<hr />
+					<h2 class="subtitle">@Localizer["Photo"]</h2>
+					<p>@Localizer["Upload photos message"]</p>
+					<div class="row mt-3" id="image_test">
+						@foreach (var photo in Model.Photos)
+						{
+							<div class="photo-container" style="margin-right:8px; margin-bottom: 8px;">
+								<a type="button" class="btn btn-dark button_close btn-delete-advert" data-photoId="@photo.Id" data-roomAdvertId="@Model.Id">
+									<span aria-hidden="true">&times;</span>
+								</a>
+								<img src="@photo.Path" width="170" height="170" />
+							</div>
+						}
+					</div>
+
+					<input class="form-control" type="file" multiple name="uploads" accept="image/jpeg,image/png" /><br>
+					@Html.ValidationMessageFor(m => m.Photos,"", new{@class="validation_text"})<br />
+					<button type="submit" class="btn btn-lg btn-dark">@Localizer["Edit advert"]</button>
+				</form>
+			</div>
+			<div class="col-lg-4 img_block col-md-12 order-lg-2 order-md-1 order-1 ">
+			</div>
+		</div>
+	</div>
+	@section Scripts{
+		<script>
+			function DeleteAdvertPhoto() {
+				$(document).ready(function () {
+					$(".btn-delete-advert").on("click", function () {
+						var photoid = $(this).attr("data-photoId");
+						var advertid = $(this).attr("data-roomAdvertId");
+						var div_ = document.querySelector("#image_test");
+						var url = '@Url.Action("DeleteRoomAdvertPhoto", "RoomAdvert")' + '/' + '?photoId=' + photoid + '&roomAdvertId=' + advertid;
+						$.ajax({
+							type: 'GET',
+							url: url,
+							success: function (result) {
+								div_.innerHTML = null;
+								result.photos.forEach(element => {
+
+									div_.insertAdjacentHTML('afterbegin', `<div class="photo-container" style="margin-right:8px; margin-bottom: 8px;">
+																				<a type="button" class="btn btn-dark button_close btn-delete-advert"  data-photoId="${element.id}" data-roomAdvertId="${result.id}">
+																					<span aria-hidden="true">&times;</span>
+																				</a>
+																				<img  src="${element.path}" width="170" height="170" />
+																			</div>`);
+									DeleteAdvertPhoto();
+								});
+							},
+							error: function (req, status) {
+								console.log(status);
+							}
+						});
+					});
+				})
+			}
+			DeleteAdvertPhoto();
+		</script>
+	}
+</body>
+</html>

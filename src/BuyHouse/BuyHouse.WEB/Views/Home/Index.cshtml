@@ -15,8 +15,8 @@
 		<div class="intro_inner">
 			<h2 class="title_intro mb-5">@Localizer["Intro title"]</h2>
 			<a class="btn btn-lg btn-warning btn_intro" asp-action="Index" asp-controller="FlatAdvert">@Localizer["Apartments"]</a>
-			<a class="btn btn-lg btn-warning btn_intro" asp-action="#" asp-controller="#">@Localizer["Houses"]</a>
-			<a class="btn btn-lg btn-warning btn_intro" asp-action="#" asp-controller="#">@Localizer["Rooms"]</a>
+			<a class="btn btn-lg btn-warning btn_intro" asp-action="Index" asp-controller="HouseAdvert">@Localizer["Houses"]</a>
+			<a class="btn btn-lg btn-warning btn_intro" asp-action="Index" asp-controller="RoomAdvert">@Localizer["Rooms"]</a>
 		</div>
 	</div>
 
@@ -45,6 +45,84 @@
 							<p class="param_block_advert">
 								<b>@Localizer["Total area"]:</b> @item.TotalArea м<sup>2</sup><br>
 								<b>@Localizer["Rooms"]:</b> @item.Rooms
+							</p>
+						</div>
+					</a>
+				</div>
+			}
+		</div>
+	</div>
+
+	<div class="SaleBuy_block">
+		<h2 class="title_block_SaleBuy">@Localizer["SALE or BUY your real estate!"]</h2>
+	</div>
+
+	<div class="container">
+		<div class="row mb-4">
+			<h2 class="title_block_advert mt-3">@Localizer["House advert title"] <img src="~/images/icons/home.png" width="50" height="50" /></h2>
+			<hr />
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row row_block_advert">
+			@foreach (var item in Model.HouseAdverts)
+			{
+				<div class="col-md-4 col-sm-12 col-xs-12 grow">
+					<a class="link_block_advert" asp-action="GetHouseAdvert" asp-controller="HouseAdvert" asp-route-houseAdvertId="@item.Id">
+						<img class="img-responsive img_block_advert" src="@item.Photos.FirstOrDefault().Path">
+						<div class="mt-3 info_block_advert col-md-12">
+							<p class="param_block_advert">
+								<img src="~/images/icons/money.png" class="mb-2" width="20" height="20" />
+								<b>@item.TotalPrice @item.Currency</b>
+								@Localizer["Price per object"]
+								(@item.PricePerSquareMeter @item.Currency @Localizer["Per"] м<sup>2</sup>)
+							</p>
+							<h5>@item.MainInfo.City, @item.MainInfo.Street, @item.MainInfo.HouseNumber</h5>
+							<p class="param_block_advert">
+								<b>@Localizer["Total area"]:</b> @item.TotalArea м<sup>2</sup><br>
+								<b>@Localizer["land area"]:</b> @item.TotalArea м<sup>2</sup><br>
+								<b>@Localizer["Rooms"]:</b> @item.Rooms
+							</p>
+						</div>
+					</a>
+				</div>
+			}
+		</div>
+	</div>
+
+	<div class="ForUser_block row grow">
+		<div class="col-lg-4"><img src="https://cdn-icons-png.flaticon.com/512/1029/1029023.png" class="info_img"></div>
+		<div class="col-lg-4"><img src="https://cdn-icons-png.flaticon.com/512/2544/2544336.png" class="info_img"></div>
+		<div class="col-lg-4"><img src="https://cdn-icons-png.flaticon.com/512/3211/3211596.png" class="info_img"></div>
+	</div>
+
+
+	<div class="container">
+		<div class="row mb-4">
+			<h2 class="title_block_advert mt-3">@Localizer["Room advert title"] <img src="~/images/icons/room.png" width="50" height="50" /></h2>
+			<hr />
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row row_block_advert">
+			@foreach (var item in Model.RoomAdverts)
+			{
+				<div class="col-md-4 col-sm-12 col-xs-12 grow">
+					<a class="link_block_advert" asp-action="GetRoomAdvert" asp-controller="RoomAdvert" asp-route-roomAdvertId="@item.Id">
+						<img class="img-responsive img_block_advert" src="@item.Photos.FirstOrDefault().Path">
+						<div class="mt-3 info_block_advert col-md-12">
+							<p class="param_block_advert">
+								<img src="~/images/icons/money.png" class="mb-2" width="20" height="20" />
+								<b>@item.TotalPrice @item.Currency</b>
+								@Localizer["Price per object"]
+								(@item.PricePerSquareMeter @item.Currency @Localizer["Per"] м<sup>2</sup>)
+							</p>
+							<h5>@item.MainInfo.City, @item.MainInfo.Street, @item.MainInfo.HouseNumber</h5>
+							<p class="param_block_advert">
+								<b>@Localizer["Total area"]:</b> @item.TotalArea м<sup>2</sup><br>
+								<b>@Localizer["Rooms"]:</b> 1
 							</p>
 						</div>
 					</a>

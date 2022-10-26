@@ -123,11 +123,17 @@
   <data name="Apartments" xml:space="preserve">
     <value>Квартири</value>
   </data>
+  <data name="House advert title" xml:space="preserve">
+    <value>Найбільш вподобані будинки</value>
+  </data>
   <data name="Houses" xml:space="preserve">
     <value>Будинки</value>
   </data>
   <data name="Intro title" xml:space="preserve">
     <value>Знайди своє нове житло!</value>
+  </data>
+  <data name="land area" xml:space="preserve">
+    <value>Площа ділянки</value>
   </data>
   <data name="Per" xml:space="preserve">
     <value>за</value>
@@ -135,8 +141,14 @@
   <data name="Price per object" xml:space="preserve">
     <value>за об'єкт</value>
   </data>
+  <data name="Room advert title" xml:space="preserve">
+    <value>Найбільш вподобані кімнати</value>
+  </data>
   <data name="Rooms" xml:space="preserve">
     <value>Кімнати</value>
+  </data>
+  <data name="SALE or BUY your real estate!" xml:space="preserve">
+    <value>ПРОДАВАЙ і КУПУЙ нерухомість!</value>
   </data>
   <data name="Total area" xml:space="preserve">
     <value>Загальна площа</value>

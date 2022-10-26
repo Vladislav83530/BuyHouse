@@ -1,11 +1,10 @@
 ﻿using BuyHouse.BLL.DTO;
-using BuyHouse.WEB.Models.AdvertModel;
 
 namespace BuyHouse.WEB.Models.ViewModels
 {
-    public class GetFlatAdvertViewModel
+    public class GetAdvertViewModel<T>
     {
-        public FlatAdvertModel? FlatAdvert { get; set; }
+        public T? Advert { get; set; }
         public UserProfileDTO? UserProfile { get; set; }
     }
 }

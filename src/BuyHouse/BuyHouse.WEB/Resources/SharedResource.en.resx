@@ -117,6 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CadastralNumber" xml:space="preserve">
+    <value>Cadastral number</value>
+    <comment>Field name</comment>
+  </data>
+  <data name="CadastralNumberError" xml:space="preserve">
+    <value>The field cadastral number must be next format XXXXXXXXXX:XX:XXX:XXXX</value>
+    <comment>Error message</comment>
+  </data>
   <data name="City" xml:space="preserve">
     <value>City</value>
     <comment>Field name</comment>
@@ -149,9 +157,25 @@
     <value>House number</value>
     <comment>Field name</comment>
   </data>
+  <data name="IncorrectAddress" xml:space="preserve">
+    <value>Incorrect address</value>
+    <comment>Error message</comment>
+  </data>
+  <data name="IncorrectPhoneNumber" xml:space="preserve">
+    <value>Incorrect phone number. Enter format (+380XXXXXXXXX)</value>
+    <comment>Error message</comment>
+  </data>
+  <data name="LandArea" xml:space="preserve">
+    <value>Land area</value>
+    <comment>Field name</comment>
+  </data>
   <data name="LivingArea" xml:space="preserve">
     <value>Living area</value>
     <comment>Field name</comment>
+  </data>
+  <data name="PasswordError" xml:space="preserve">
+    <value>Passwords don't match</value>
+    <comment>Error message</comment>
   </data>
   <data name="PricePerSquareMeter" xml:space="preserve">
     <value>per square meter</value>

@@ -129,11 +129,20 @@
   <data name="Euro" xml:space="preserve">
     <value>€</value>
   </data>
+  <data name="Flats" xml:space="preserve">
+    <value>Квартири</value>
+  </data>
   <data name="floor" xml:space="preserve">
     <value>Поверх</value>
   </data>
+  <data name="Houses" xml:space="preserve">
+    <value>Будинки</value>
+  </data>
   <data name="Information for user" xml:space="preserve">
     <value>Тут розміщені всі ваші оголошення. Ви можете переглядати, редагувати або видаляти їх. Будь ласка, надавайте лише точну та правильну інформацію для своїх оголошень. Тільки в цьому випадку ваша реклама зможе привернути увагу клієнта. І пам’ятайте, чим більше фотографій, тим краще. Бажаємо гарних продажів і гарного настрою!</value>
+  </data>
+  <data name="land area" xml:space="preserve">
+    <value>Площа ділянки</value>
   </data>
   <data name="number of rooms" xml:space="preserve">
     <value>Кількість кімнат</value>
@@ -152,6 +161,9 @@
   </data>
   <data name="price per" xml:space="preserve">
     <value>Ціна за</value>
+  </data>
+  <data name="Rooms" xml:space="preserve">
+    <value>Кімнати</value>
   </data>
   <data name="to" xml:space="preserve">
     <value>До</value>

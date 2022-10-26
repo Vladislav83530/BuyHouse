@@ -16,6 +16,18 @@ namespace BuyHouse.WEB
             CreateMap<FlatAdvert, FlatAdvertModel>();
             CreateMap<FlatAdvertModel, FlatAdvert>();
 
+            CreateMap<HouseAdvert, HouseAdvertModel>();
+            CreateMap<HouseAdvertModel, HouseAdvert>();
+
+            CreateMap<HouseAdvert, HouseAdvertShortModel>();
+            CreateMap<HouseAdvertShortModel, HouseAdvert>();
+
+            CreateMap<RoomAdvert, RoomAdvertModel>();
+            CreateMap<RoomAdvertModel, RoomAdvert>();
+
+            CreateMap<RoomAdvert, RoomAdvertShortModel>();
+            CreateMap<RoomAdvertShortModel, RoomAdvert>();
+
             CreateMap<RealtyMainInfo, RealtyMainInfoModel>();
             CreateMap<RealtyMainInfoModel, RealtyMainInfo>();
 

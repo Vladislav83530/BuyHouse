@@ -9,7 +9,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>@ViewData["Title"] - Search</title>
-	<link rel="stylesheet" href="~/css/Create-EditFlatAdvert.css" />
+	<link rel="stylesheet" href="~/css/Create-EditAdvert.css" />
 </head>
 <body>
 	<div class="container pt-3 pb-3">
@@ -170,7 +170,6 @@
 							type: 'GET',
 							url: url,
 							success: function (result) {
-								console.log(result);
 								div_.innerHTML = null;
 								result.photos.forEach(element => {
 
@@ -192,7 +191,6 @@
 			}
 			DeleteAdvertPhoto();
 		</script>
-	}
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	}		
 </body>
 </html>

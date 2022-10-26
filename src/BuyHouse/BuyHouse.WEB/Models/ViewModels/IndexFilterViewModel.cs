@@ -1,12 +1,10 @@
-﻿using BuyHouse.BLL.DTO;
-using BuyHouse.WEB.Models.AdvertModel;
-
-namespace BuyHouse.WEB.Models.ViewModels
+﻿namespace BuyHouse.WEB.Models.ViewModels
 {
-    public class IndexFilterViewModel
+    public class IndexFilterViewModel<TAdvert, TFilter>
     {
-        public IEnumerable<FlatAdvertShortModel> FlatAdverts { get; set; }
-        public FlatAdvertFilter FlatAdvertFilter { get; set; }
+        public IEnumerable<TAdvert> RealtyAdverts { get; set; }
+        public TFilter RealtyAdvertFilter { get; set; }
         public PageViewModel PageViewModel { get; set; }
+        public IEnumerable<int> LikedAdvert { get; set;}
     }
 }

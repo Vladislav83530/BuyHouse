@@ -1,0 +1,167 @@
+﻿@model BuyHouse.WEB.Models.ViewModels.IndexFilterViewModel<RoomAdvertShortModel, RoomAdvertFilter>
+@using BuyHouse.BLL.DTO
+@using BuyHouse.DAL.Entities.HelperEnum
+@using BuyHouse.WEB.Models.AdvertModel
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@addTagHelper *, BuyHouse.WEB
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - Search</title>
+	<link rel="stylesheet" href="~/css/IndexAdvert.css" />
+</head>
+<body>
+	<div class="container">
+		<form name="filterForm" method="post" asp-action="Index" asp-controller="RoomAdvert">
+			<div class="row mt-3 blue_block">
+				<div class="col-lg-5 col-md-12 order-1 oreder-md-2">
+					<label>@Localizer["label pageSize"]: </label><br />
+					<div class="radio-toolbar">
+						<input class="pageSize" type="radio" id="size10" name="pageSize" value="10">
+						<label for="size10">10</label>
+						<input class="pageSize" type="radio" id="size20" name="pageSize" value="20">
+						<label for="size20">20</label>
+						<input class="pageSize" type="radio" id="size50" name="pageSize" value="50">
+						<label for="size50">50</label>
+					</div>
+
+					<label>@Localizer["total area"]: </label><br />
+					<div class="flex_div">
+						<label class="m-2">@Localizer["from"]: </label>
+						<input name="filter.MinTotalArea" id="inputMinMaxValue" value="@Model.RealtyAdvertFilter.MinTotalArea" class="form-control from-to-input">
+						<label class="m-2">@Localizer["to"]: </label>
+						<input name="filter.MaxTotalArea" id="inputMinMaxValue" value="@Model.RealtyAdvertFilter.MaxTotalArea" class="form-control from-to-input">
+					</div>
+					<label>@Localizer["floor"]: </label><br />
+					<div class="flex_div">
+						<label class="m-2">@Localizer["from"]: </label>
+						<input name="filter.MinFloor" id="inputMinMaxValue" value="@Model.RealtyAdvertFilter.MinFloor" class="form-control from-to-input" />
+						<label class="m-2">@Localizer["to"]: </label>
+						<input name="filter.MaxFloor" id="inputMinMaxValue" value="@Model.RealtyAdvertFilter.MaxFloor" class="form-control from-to-input" />
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-12 order-md-1 oreder-2 col2_filter">
+					<label>@Localizer["city"]: </label>
+					<input name="filter.CityName" value="@Model.RealtyAdvertFilter.CityName" class="form-control" />
+
+					<div class="row mt-2">
+						<label>@Localizer["price"]: </label><br />
+						<div class="col-lg-4 col-md-12 col_price">
+							<label class="price_lable">@Localizer["from"]: </label>
+							<input id="inputMinMaxValue" name="filter.MinPrice" class="form-control from-to-input" value="@Model.RealtyAdvertFilter.MinPrice" />
+							<label class="price_lable">@Localizer["to"]: </label>
+							<input id="inputMinMaxValue" name="filter.MaxPrice" class="form-control from-to-input" value="@Model.RealtyAdvertFilter.MaxPrice" />
+						</div>
+						<div class="col-lg-4 col-md-12">
+							<label class="control-label">@Localizer["currency"]: </label><br />
+							<div class="radio-toolbar">
+								<input class="currency" type="radio" id="Any" name="filter.Currency" value="@Currency.Any">
+								<label for="Any" class="currency_lable mt-2">@Localizer["any"]</label>
+								<input class="currency" type="radio" id="USD" name="filter.Currency" value="@Currency.USD">
+								<label for="USD" class="currency_lable mt-2">@Localizer["USD full name"]</label>
+								<input class="currency" type="radio" id="Euro" name="filter.Currency" value="@Currency.Euro">
+								<label for="Euro" class="currency_lable mt-2">@Localizer["Euro full name"]</label>
+								<input class="currency" type="radio" id="UAH" name="filter.Currency" value="@Currency.UAH">
+								<label for="UAH" class="currency_lable mt-2">@Localizer["UAH full name"]</label>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-12">
+							<label class="control-label">@Localizer["price per"]: </label><br />
+							<div class="radio-toolbar">
+								<input class="typeOfPrice" type="radio" id="TotalPrice" name="filter.TypeOfPrice" value="@TypeOfPrice.TotalPrice">
+								<label for="TotalPrice" class="mt-2 typePrice_lable">@Localizer["per object"]</label>
+								<input class="typeOfPrice" type="radio" id="PerSquareMeter" name="filter.TypeOfPrice" value="@TypeOfPrice.PerSquareMeter">
+								<label for="PerSquareMeter" class="mt-2 typePrice_lable">@Localizer["per square meter"]</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<input type="submit" value="@Localizer["filter"]" class="btn btn_submitform btn-lg mt-2 mb-2 order-3" />
+			</div>
+		</form>
+
+		@foreach (var item in Model.RealtyAdverts)
+		{
+			<div class="row mt-5 grow">
+				<div class="col-lg-3 photos_block col-md-12">
+					<img src="@item.Photos.FirstOrDefault().Path" class="big_flatimg">
+					<div class="small_photos">
+						@{
+							int ind = 1;
+						}
+						@foreach (var photo in item.Photos)
+						{
+							ind++;
+							if (@item.Photos.FirstOrDefault().Path == photo.Path)
+								continue;
+							<img src="@photo.Path" class="small_flatimg">
+							if (ind >= 5)
+								break;
+						}
+					</div>
+				</div>
+				<div class="col-lg-8 col-md-12">
+					<p class="param_block_advert">
+						<img src="~/images/icons/money.png" class="mb-2" width="20" height="20" />
+						<span id="totalPrice">@item.TotalPrice</span> @Localizer[item.Currency.ToString()]
+						@Localizer["price"] @Localizer["per object"]
+						(<span id="pricePerSquareMeter">@item.PricePerSquareMeter</span> @Localizer[item.Currency.ToString()] @Localizer["per"] м<sup>2</sup>)
+					</p>
+					<h3>@item.MainInfo.City, @item.MainInfo.Street, @item.MainInfo.HouseNumber</h3>
+					<p class="info_block">
+						<b>@Localizer["total area"]:</b> @item.TotalArea м<sup>2</sup><br>
+						<b>@Localizer["floor"]:</b> @item.Floor @Localizer["out of"] @item.TotalCountFloors
+					<p class="description">@Html.Raw(item.Description)</p>
+					<hr>
+					<div class="row">
+						<div class="col-md-11">
+							<p>@item.CreationDate.Value.ToString("yyyy-MM-dd")</p>
+						</div>
+						<div class="col-md-1 like_block">
+							@if (User.Identity.IsAuthenticated)
+								{
+									@if (Model.LikedAdvert.Any(x => x == item.Id))
+									{
+										<a class="btn-like-advert" data-flatAdvertId="@item.Id"><img id="likeimg" src="https://cdn-icons-png.flaticon.com/512/2589/2589175.png" width="40" height="40"></a>
+									}
+									else
+									{
+										<a class="btn-like-advert" data-flatAdvertId="@item.Id"><img id="likeimg" src="https://cdn-icons-png.flaticon.com/512/2589/2589197.png" width="40" height="40"></a>
+									}
+								
+								<div id="like_advert" class="like_count">@item.LikeCount</div>
+								}
+						</div>
+					</div>
+					<a class="btn btn-dark btn-md datails_btn" href="~/RoomAdvert/@item.Id">@Localizer["Details"]</a>
+				</div>
+			</div>
+		}
+
+		<page-link class="mt-2" page-model="Model.PageViewModel" page-action="Index"
+				   page-url-filter.CityName="@Model.RealtyAdvertFilter.CityName"
+				   page-url-filter.MinPrice="@Model.RealtyAdvertFilter.MinPrice"
+				   page-url-filter.MaxPrice="@Model.RealtyAdvertFilter.MaxPrice"
+				   page-url-filter.TypeOfPrice="@Model.RealtyAdvertFilter.TypeOfPrice"
+				   page-url-filter.Currency="@Model.RealtyAdvertFilter.Currency"
+				   page-url-filter.MinTotalArea="@Model.RealtyAdvertFilter.MinTotalArea"
+				   page-url-filter.MaxTotalArea="@Model.RealtyAdvertFilter.MaxTotalArea"
+				   page-url-filter.MinFloor="@Model.RealtyAdvertFilter.MinFloor"
+				   page-url-filter.MaxFloor="@Model.RealtyAdvertFilter.MaxFloor"
+				   page-url-pageSize="@Model.PageViewModel.PageSize">
+		</page-link>
+	</div>
+	<script src="~/js/FilterScript.js"></script>
+	@section Scripts{<script src="~/js/LikeAdvertScript.js"></script>
+		<script>
+			const urlRoomAdvert = 'RoomAdvert/LikeRoomAdvert/?roomAdvertId='
+			LikeAdvert(urlRoomAdvert);
+		</script>
+	}
+</body>
+</html>

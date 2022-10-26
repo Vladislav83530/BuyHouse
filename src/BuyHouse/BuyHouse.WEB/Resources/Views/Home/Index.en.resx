@@ -123,11 +123,17 @@
   <data name="Apartments" xml:space="preserve">
     <value>Apartments</value>
   </data>
+  <data name="House advert title" xml:space="preserve">
+    <value>Most liked houses</value>
+  </data>
   <data name="Houses" xml:space="preserve">
     <value>Houses</value>
   </data>
   <data name="Intro title" xml:space="preserve">
     <value>Find your new home!</value>
+  </data>
+  <data name="land area" xml:space="preserve">
+    <value>Land area</value>
   </data>
   <data name="Per" xml:space="preserve">
     <value>per</value>
@@ -135,8 +141,14 @@
   <data name="Price per object" xml:space="preserve">
     <value>per object</value>
   </data>
+  <data name="Room advert title" xml:space="preserve">
+    <value>Most liked rooms</value>
+  </data>
   <data name="Rooms" xml:space="preserve">
     <value>Rooms</value>
+  </data>
+  <data name="SALE or BUY your real estate!" xml:space="preserve">
+    <value>SALE and BUY your real estate!</value>
   </data>
   <data name="Total area" xml:space="preserve">
     <value>Total area</value>
