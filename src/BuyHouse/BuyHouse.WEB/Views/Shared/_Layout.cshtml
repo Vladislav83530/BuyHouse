@@ -30,7 +30,7 @@
 							<div class="dropdown-menu menu">
 								<a class="dropdown-item link dropdown_link" asp-action="Index" asp-controller="FlatAdvert">@Localizer["Apartments"]</a>
 								<a class="dropdown-item link dropdown_link" asp-action="Index" asp-controller="HouseAdvert">@Localizer["Houses"]</a>
-								<a class="dropdown-item link dropdown_link" href="#">@Localizer["Rooms"]</a>
+								<a class="dropdown-item link dropdown_link" asp-action="Index" asp-controller="RoomAdvert">@Localizer["Rooms"]</a>
 							</div>
 						</li>
 						<li class="nav-item dropdown">
@@ -38,7 +38,7 @@
 							<div class="dropdown-menu menu">
 								<a class="dropdown-item link dropdown_link" asp-action="CreateAdvert" asp-controller="FlatAdvert">@Localizer["Apartments"]</a>
 								<a class="dropdown-item link dropdown_link" asp-action="CreateAdvert" asp-controller="HouseAdvert">@Localizer["Houses"]</a>
-								<a class="dropdown-item link dropdown_link" href="#">@Localizer["Rooms"]</a>
+								<a class="dropdown-item link dropdown_link" asp-action="CreateAdvert" asp-controller="RoomAdvert">@Localizer["Rooms"]</a>
 							</div>
 						</li>
 					</ul>
@@ -74,10 +74,12 @@
 		</nav>
 	</header>
 
+
 	<main role="main">
 		@RenderBody()
 	</main>
-	<footer class="border-top footer text-muted"style="background-color: black; ">
+
+	<footer class="footer text-muted p-5" id="footer" style="background-color: black; margin-bottom: -30px;">
 		<div class="container">
 			&copy; 2022 - BuyHouse.WEB - Vladislav Petrov
 		</div>
@@ -87,6 +89,6 @@
 	<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>  
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
-	@await RenderSectionAsync("Scripts", required: false);
+	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -1,33 +1,36 @@
 ﻿using AutoMapper;
 using BuyHouse.BLL.DTO;
 using BuyHouse.BLL.Services.Abstract;
+using BuyHouse.DAL.Entities;
 using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.WEB.Clients;
 using BuyHouse.WEB.Models.AdvertModel;
-using BuyHouse.WEB.Models.HttpClientModel;
 using BuyHouse.WEB.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System.Security.Claims;
+using System.Text.Json;
 
 namespace BuyHouse.WEB.Controllers
 {
     public class FlatAdvertController : Controller
     {
-        private readonly IFlatAdvertFilterService _flatAdvertService;
+        private readonly IAdvertFilterService<FlatAdvert, FlatAdvertFilter> _flatAdvertService;
         private readonly IUserProfileService _userProfileService;
         private readonly BuyHouseAPIClient _client;
         private readonly IPhotosService _photosService;
+        private readonly ILikeAdvertService _likeAdvertService;
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<FlatAdvertController> _localizer;
 
-        public FlatAdvertController(IFlatAdvertFilterService flatAdertService, 
+        public FlatAdvertController(IAdvertFilterService<FlatAdvert, FlatAdvertFilter> flatAdertService, 
             IUserProfileService userProfileService,
             IMapper mapper,
             IStringLocalizer<FlatAdvertController> localizer, 
             BuyHouseAPIClient client,
-            IPhotosService photosService)
+            IPhotosService photosService,
+            ILikeAdvertService likeAdvertService)
         {
             _flatAdvertService = flatAdertService;
             _userProfileService = userProfileService;
@@ -35,6 +38,7 @@ namespace BuyHouse.WEB.Controllers
             _localizer = localizer;
             _client = client;
             _photosService = photosService;
+            _likeAdvertService = likeAdvertService;
         }
 
         /// <summary>
@@ -53,14 +57,14 @@ namespace BuyHouse.WEB.Controllers
         /// <returns>Created advert</returns>
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CreateAdvertPost( FlatAdvertModel flatAdvertModel, IFormFileCollection uploads)
+        public async Task<IActionResult> CreateAdvertPost(FlatAdvertModel flatAdvertModel, IFormFileCollection uploads)
         {
             if (ModelState.IsValid)
             {
                 string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 try
                 {
-                    FlatAdvert flatAdvert_ = await _client.CreateFlatAdvertAsync(new CreateRequestModel { FlatAdvert = flatAdvertModel}, uploads, currentUserId);
+                    FlatAdvert flatAdvert_ = await _client.CreateFlatAdvertAsync(flatAdvertModel, uploads, currentUserId);
                     return RedirectToAction("GetFlatAdvert", new { flatAdvertId = flatAdvert_.Id });
                 }
                 catch (Exception ex)
@@ -84,16 +88,21 @@ namespace BuyHouse.WEB.Controllers
         {
             try
             {
-                ResponseFlatAdvertDTO responseFlatAdvertDTO = await _flatAdvertService
-                    .GetFlatAdvertByParametersAsync(filter, pageSize, page);
+                ResponseAdvertDTO<FlatAdvert> responseFlatAdvertDTO = await _flatAdvertService
+                    .GetAdvertByParametersAsync(filter, pageSize, page);
 
-                var flatAdvertShortModels = _mapper.Map<IEnumerable<FlatAdvert>, List<FlatAdvertShortModel>>(responseFlatAdvertDTO.FlatAdverts);
+                string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-                IndexFilterViewModel vm = new IndexFilterViewModel()
+                var flatAdvertIds = await _likeAdvertService.GetLikedAdvertIdsAsync(currentUserId, TypeOfRealtyAdvert.FlatAdvert);
+
+                var flatAdvertShortModels = _mapper.Map<IEnumerable<FlatAdvert>, List<FlatAdvertShortModel>>(responseFlatAdvertDTO.Adverts);
+
+                IndexFilterViewModel<FlatAdvertShortModel, FlatAdvertFilter> vm = new IndexFilterViewModel<FlatAdvertShortModel, FlatAdvertFilter>()
                 {
-                    FlatAdverts = flatAdvertShortModels,
-                    FlatAdvertFilter = filter,
-                    PageViewModel = new PageViewModel(responseFlatAdvertDTO.Count, page, responseFlatAdvertDTO.PageSize)
+                    RealtyAdverts = flatAdvertShortModels,
+                    RealtyAdvertFilter = filter,
+                    PageViewModel = new PageViewModel(responseFlatAdvertDTO.Count, page, responseFlatAdvertDTO.PageSize),
+                    LikedAdvert = flatAdvertIds
                 };
                 return View(vm);
             }
@@ -124,9 +133,9 @@ namespace BuyHouse.WEB.Controllers
                 var userProfile = await _userProfileService.GetUserProfileInfoAsync(flatAdvert.UserID);
 
                 flatAdvertModel =  _mapper.Map<FlatAdvert, FlatAdvertModel>(flatAdvert);
-                GetFlatAdvertViewModel vm = new GetFlatAdvertViewModel
+                GetAdvertViewModel<FlatAdvertModel> vm = new GetAdvertViewModel<FlatAdvertModel>
                 {
-                    FlatAdvert = flatAdvertModel,
+                    Advert = flatAdvertModel,
                     UserProfile = userProfile
                 };
                 return View(vm);
@@ -180,10 +189,10 @@ namespace BuyHouse.WEB.Controllers
 
             if (ModelState.IsValid)
             {
-                string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value; ;
+                string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 try
                 {
-                    FlatAdvert flatAdvert_ = await _client.UpdateFlatAdvertAsync(flatAdvertId, new CreateRequestModel { FlatAdvert = flatAdvertModel }, uploads, currentUserId);
+                    FlatAdvert flatAdvert_ = await _client.UpdateFlatAdvertAsync(flatAdvertId, flatAdvertModel, uploads, currentUserId);
                     return RedirectToAction("GetFlatAdvert", new { flatAdvertId = flatAdvert_.Id });
                 }
                 catch (Exception ex)
@@ -207,10 +216,13 @@ namespace BuyHouse.WEB.Controllers
             string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var advert = await _client.GetFlatAdvertByIDAsync(flatAdvertId);
             var flatAdvertModel = _mapper.Map<FlatAdvert, FlatAdvertModel>(advert);
-            if (flatAdvertModel.Photos.Count != 1)         
-                await _photosService.DeletePhotoFromAdvertAsync(currentUserId, flatAdvertId, photoId);
-            
-            return Json(flatAdvertModel);
+            if (flatAdvertModel.Photos.Count != 1)
+            {
+                FlatAdvert flatAdvert = await _photosService.DeletePhotoFromFlatAdvertAsync(currentUserId, flatAdvertId, photoId);
+                return Json(flatAdvert);
+            }
+            else
+               return Json(advert);
         }
 
         /// <summary>
@@ -235,6 +247,34 @@ namespace BuyHouse.WEB.Controllers
             {
                 return RedirectToAction("Error", "Home", new { exception = ex.Message });
             }
+        }
+
+        /// <summary>
+        /// Like flat advert
+        /// </summary>
+        /// <param name="flatAdvertId"></param>
+        /// <returns>Count of likes</returns>
+        [Authorize]
+        [HttpGet]
+        public async Task<JsonResult> LikeFlatAdvert(int flatAdvertId)
+        {
+            string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var result = await _likeAdvertService.LikeFlatAdvertAsync(flatAdvertId, currentUserId);
+            return Json(result);
+        }
+
+        /// <summary>
+        /// Dislike flat advert
+        /// </summary>
+        /// <param name="flatAdvertId"></param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> DislikeFlatAdvert(int flatAdvertId)
+        {
+            string? currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            await _likeAdvertService.DislikeFlatAdvertAsync(flatAdvertId, currentUserId);
+            return RedirectToAction("GetLikedAdverts", "UserProfile");
         }
     }
 }

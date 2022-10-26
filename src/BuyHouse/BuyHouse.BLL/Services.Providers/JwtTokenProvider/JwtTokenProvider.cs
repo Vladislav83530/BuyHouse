@@ -15,7 +15,7 @@ namespace BuyHouse.BLL.Services.Providers.JwtTokenProvider
             _context = context;
         }
        
-        private static string SECRET_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBsaWNhdGlvblNlY3JldEtleSI6Ik15QXBwbGljYXRpb25TZWNyZXRLZXkifQ.HkGrLPt2lTMpywpbFf1mqAq8Hl5qgenFxA337xEUno4";
+        private static readonly string SECRET_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBsaWNhdGlvblNlY3JldEtleSI6Ik15QXBwbGljYXRpb25TZWNyZXRLZXkifQ.HkGrLPt2lTMpywpbFf1mqAq8Hl5qgenFxA337xEUno4";
         public static readonly SymmetricSecurityKey SIGNING_KEY = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SECRET_KEY));
 
         public async Task<string> ProvideJwtTokenAsync(string? currentUserId)

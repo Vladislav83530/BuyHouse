@@ -13,6 +13,12 @@ namespace BuyHouse.WEB.Controllers
             CreateMap<FlatAdvert, FlatAdvertModel>();
             CreateMap<FlatAdvertModel, FlatAdvert>();
 
+            CreateMap<HouseAdvert, HouseAdvertModel>();
+            CreateMap<HouseAdvertModel, HouseAdvert>();
+
+            CreateMap<RoomAdvert, RoomAdvertModel>();
+            CreateMap<RoomAdvertModel, RoomAdvert>();
+
             CreateMap<RealtyMainInfo, RealtyMainInfoModel>();
             CreateMap<RealtyMainInfoModel, RealtyMainInfo>();
 

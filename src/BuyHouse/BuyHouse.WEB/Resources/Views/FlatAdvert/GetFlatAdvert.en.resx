@@ -129,12 +129,6 @@
   <data name="Centralized" xml:space="preserve">
     <value>Centralized</value>
   </data>
-  <data name="Create advert" xml:space="preserve">
-    <value>Create advert</value>
-  </data>
-  <data name="Create your advert" xml:space="preserve">
-    <value>Create your advert</value>
-  </data>
   <data name="date of creating advert" xml:space="preserve">
     <value>Date the advert was created</value>
   </data>

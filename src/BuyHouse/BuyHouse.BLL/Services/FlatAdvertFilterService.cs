@@ -2,13 +2,15 @@
 using BuyHouse.BLL.DTO;
 using BuyHouse.BLL.Services.Abstract;
 using BuyHouse.DAL.EF;
+using BuyHouse.DAL.Entities;
 using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.DAL.Entities.HelperEnum;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace BuyHouse.BLL.Services
 {
-    public class FlatAdvertFilterService : IFlatAdvertFilterService
+    public class FlatAdvertFilterService : IAdvertFilterService<FlatAdvert, FlatAdvertFilter>
     {
         private readonly ApplicationDbContext _context;
         private readonly CurrencyConverterClient _clientCurrencyConverter;
@@ -25,7 +27,7 @@ namespace BuyHouse.BLL.Services
         /// <param name="pageSize"></param>
         /// <param name="page"></param>
         /// <returns>filtered flat adverts</returns>
-        public async Task<ResponseFlatAdvertDTO> GetFlatAdvertByParametersAsync(FlatAdvertFilter filter, int pageSize, int page = 1)
+        public async Task<ResponseAdvertDTO<FlatAdvert>> GetAdvertByParametersAsync(FlatAdvertFilter filter, int pageSize, int page = 1)
         {
             if (pageSize == 0)
                 pageSize = 10;
@@ -55,8 +57,8 @@ namespace BuyHouse.BLL.Services
                 }
             }
 
-            ulong minPriceFormUSDToUAH, minPriceFormUSDToEUR, minPriceFormEURToUSD, minPriceFormEURToUAH, minPriceFormUAHToUSD, minPriceFormUAHToEUR;
-            ulong maxPriceFormUSDToUAH, maxPriceFormUSDToEUR, maxPriceFormEURToUSD, maxPriceFormEURToUAH, maxPriceFormUAHToUSD, maxPriceFormUAHToEUR;
+            Task<ulong> minPriceFormUSDToUAH, minPriceFormUSDToEUR, minPriceFormEURToUSD, minPriceFormEURToUAH, minPriceFormUAHToUSD, minPriceFormUAHToEUR;
+            Task<ulong> maxPriceFormUSDToUAH, maxPriceFormUSDToEUR, maxPriceFormEURToUSD, maxPriceFormEURToUAH, maxPriceFormUAHToUSD, maxPriceFormUAHToEUR;
 
             if (filter.Currency != null)
             {
@@ -71,38 +73,41 @@ namespace BuyHouse.BLL.Services
                         flatAdverts = await FilterByPriceAsync(flatAdverts, filter.TypeOfPrice, filter.MinPrice, filter.MaxPrice);
                         break;
                     case "USD":
-                        minPriceFormUSDToEUR = await _clientCurrencyConverter.ConvertCurrecyAsync("USD", "EUR", filter.MinPrice);
-                        minPriceFormUSDToUAH = await _clientCurrencyConverter.ConvertCurrecyAsync("USD", "UAH", filter.MinPrice);
-                        maxPriceFormUSDToEUR = await _clientCurrencyConverter.ConvertCurrecyAsync("USD", "EUR", filter.MaxPrice);
-                        maxPriceFormUSDToUAH = await _clientCurrencyConverter.ConvertCurrecyAsync("USD", "UAH", filter.MaxPrice);
+                        minPriceFormUSDToEUR =  _clientCurrencyConverter.ConvertCurrecyAsync("USD", "EUR", filter.MinPrice);
+                        minPriceFormUSDToUAH =  _clientCurrencyConverter.ConvertCurrecyAsync("USD", "UAH", filter.MinPrice);
+                        maxPriceFormUSDToEUR =  _clientCurrencyConverter.ConvertCurrecyAsync("USD", "EUR", filter.MaxPrice);
+                        maxPriceFormUSDToUAH =  _clientCurrencyConverter.ConvertCurrecyAsync("USD", "UAH", filter.MaxPrice);
+                        await Task.WhenAll(minPriceFormUSDToEUR, minPriceFormUSDToUAH, maxPriceFormUSDToEUR, maxPriceFormUSDToUAH);
 
-                        flatAdvertEUR = await FilterByPriceAsync(flatAdvertEUR, filter.TypeOfPrice, minPriceFormUSDToEUR, maxPriceFormUSDToEUR);
-                        flatAdvertUAH = await FilterByPriceAsync(flatAdvertUAH, filter.TypeOfPrice, minPriceFormUSDToUAH, maxPriceFormUSDToUAH);
+                        flatAdvertEUR = await FilterByPriceAsync(flatAdvertEUR, filter.TypeOfPrice, minPriceFormUSDToEUR.Result, maxPriceFormUSDToEUR.Result);
+                        flatAdvertUAH = await FilterByPriceAsync(flatAdvertUAH, filter.TypeOfPrice, minPriceFormUSDToUAH.Result, maxPriceFormUSDToUAH.Result);
                         flatAdvertUSD = await FilterByPriceAsync(flatAdvertUSD, filter.TypeOfPrice, filter.MinPrice, filter.MaxPrice);
 
                         flatAdverts = flatAdvertEUR.Union(flatAdvertUAH).Union(flatAdvertUSD);
                         break;
                     case "Euro":
-                        minPriceFormEURToUSD = await _clientCurrencyConverter.ConvertCurrecyAsync("EUR", "USD", filter.MinPrice);
-                        minPriceFormEURToUAH = await _clientCurrencyConverter.ConvertCurrecyAsync("EUR", "UAH", filter.MinPrice);
-                        maxPriceFormEURToUSD = await _clientCurrencyConverter.ConvertCurrecyAsync("EUR", "USD", filter.MaxPrice);
-                        maxPriceFormEURToUAH = await _clientCurrencyConverter.ConvertCurrecyAsync("EUR", "UAH", filter.MaxPrice);
+                        minPriceFormEURToUSD =  _clientCurrencyConverter.ConvertCurrecyAsync("EUR", "USD", filter.MinPrice);
+                        minPriceFormEURToUAH =  _clientCurrencyConverter.ConvertCurrecyAsync("EUR", "UAH", filter.MinPrice);
+                        maxPriceFormEURToUSD = _clientCurrencyConverter.ConvertCurrecyAsync("EUR", "USD", filter.MaxPrice);
+                        maxPriceFormEURToUAH =  _clientCurrencyConverter.ConvertCurrecyAsync("EUR", "UAH", filter.MaxPrice);
+                        await Task.WhenAll(minPriceFormEURToUSD, minPriceFormEURToUAH, maxPriceFormEURToUSD, maxPriceFormEURToUAH);
 
-                        flatAdvertUSD = await FilterByPriceAsync(flatAdvertUSD, filter.TypeOfPrice, minPriceFormEURToUSD, maxPriceFormEURToUSD);
-                        flatAdvertUAH = await FilterByPriceAsync(flatAdvertUAH, filter.TypeOfPrice, minPriceFormEURToUAH, maxPriceFormEURToUAH);
+                        flatAdvertUSD = await FilterByPriceAsync(flatAdvertUSD, filter.TypeOfPrice, minPriceFormEURToUSD.Result, maxPriceFormEURToUSD.Result);
+                        flatAdvertUAH = await FilterByPriceAsync(flatAdvertUAH, filter.TypeOfPrice, minPriceFormEURToUAH.Result, maxPriceFormEURToUAH.Result);
                         flatAdvertEUR = await FilterByPriceAsync(flatAdvertEUR, filter.TypeOfPrice, filter.MinPrice, filter.MaxPrice);
 
                         flatAdverts = flatAdvertEUR.Union(flatAdvertUAH).Union(flatAdvertUSD);
                         break;
                     case "UAH":
 
-                        minPriceFormUAHToUSD = await _clientCurrencyConverter.ConvertCurrecyAsync("UAH", "USD", filter.MinPrice);
-                        minPriceFormUAHToEUR = await _clientCurrencyConverter.ConvertCurrecyAsync("UAH", "EUR", filter.MinPrice);
-                        maxPriceFormUAHToUSD = await _clientCurrencyConverter.ConvertCurrecyAsync("UAH", "USD", filter.MaxPrice);
-                        maxPriceFormUAHToEUR = await _clientCurrencyConverter.ConvertCurrecyAsync("UAH", "EUR", filter.MaxPrice);
+                        minPriceFormUAHToUSD =  _clientCurrencyConverter.ConvertCurrecyAsync("UAH", "USD", filter.MinPrice);
+                        minPriceFormUAHToEUR =  _clientCurrencyConverter.ConvertCurrecyAsync("UAH", "EUR", filter.MinPrice);
+                        maxPriceFormUAHToUSD =  _clientCurrencyConverter.ConvertCurrecyAsync("UAH", "USD", filter.MaxPrice);
+                        maxPriceFormUAHToEUR =  _clientCurrencyConverter.ConvertCurrecyAsync("UAH", "EUR", filter.MaxPrice);
+                        await Task.WhenAll(minPriceFormUAHToUSD, minPriceFormUAHToEUR, maxPriceFormUAHToUSD, maxPriceFormUAHToEUR);
 
-                        flatAdvertUSD = await FilterByPriceAsync(flatAdvertUSD, filter.TypeOfPrice, minPriceFormUAHToUSD, maxPriceFormUAHToUSD);
-                        flatAdvertEUR = await FilterByPriceAsync(flatAdvertEUR, filter.TypeOfPrice, minPriceFormUAHToEUR, maxPriceFormUAHToEUR);
+                        flatAdvertUSD = await FilterByPriceAsync(flatAdvertUSD, filter.TypeOfPrice, minPriceFormUAHToUSD.Result, maxPriceFormUAHToUSD.Result);
+                        flatAdvertEUR = await FilterByPriceAsync(flatAdvertEUR, filter.TypeOfPrice, minPriceFormUAHToEUR.Result, maxPriceFormUAHToEUR.Result);
                         flatAdvertUAH = await FilterByPriceAsync(flatAdvertUAH, filter.TypeOfPrice, filter.MinPrice, filter.MaxPrice);
 
                         flatAdverts = flatAdvertEUR.Union(flatAdvertUAH).Union(flatAdvertUSD);
@@ -137,10 +142,10 @@ namespace BuyHouse.BLL.Services
             var count = await flatAdverts.CountAsync();
             var flatAdverts_ = await flatAdverts.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
-            ResponseFlatAdvertDTO output = new ResponseFlatAdvertDTO()
+            ResponseAdvertDTO<FlatAdvert> output = new ResponseAdvertDTO<FlatAdvert>()
             {
                 Count = count,
-                FlatAdverts = flatAdverts_,
+                Adverts = flatAdverts_,
                 PageSize = pageSize
             };
 
@@ -151,9 +156,10 @@ namespace BuyHouse.BLL.Services
         /// Get most liked flat advert
         /// </summary>
         /// <returns>list of most liked flat advert</returns>
-        public async Task<IEnumerable<FlatAdvert>> GetMostLikedFlatAdvertAsync()
+        public async Task<IEnumerable<FlatAdvert>> GetMostLikedAdvertAsync()
         {
-            IEnumerable<FlatAdvert> flatAdverts = await _context.FlatAdverts.OrderBy(p => p.LikeCount).Take(3).ToListAsync();
+            const int numberOfAdvert = 3;
+            IEnumerable<FlatAdvert> flatAdverts = await _context.FlatAdverts.OrderByDescending(p => p.LikeCount).Take(numberOfAdvert).ToListAsync();
             return flatAdverts;
         }
 
@@ -163,13 +169,39 @@ namespace BuyHouse.BLL.Services
         /// <param name="currentUserId"></param>
         /// <returns>List of flat adverts</returns>
         /// <exception cref="Exception"></exception>
-        public async Task<IEnumerable<FlatAdvert>> GetSellersFlatAdvertsAsync(string? currentUserId)
+        public async Task<IEnumerable<FlatAdvert>> GetSellersAdvertsAsync(string? currentUserId)
         {
             if (String.IsNullOrEmpty(currentUserId))
                 throw new Exception("Current user Id can not be null or empty");
 
             IEnumerable<FlatAdvert> flatAdverts = await _context.FlatAdverts.Where(x => x.UserID == currentUserId).ToListAsync();
             return flatAdverts;
+        }
+
+        /// <summary>
+        /// Get Liked Advert by user
+        /// </summary>
+        /// <param name="currentUserId"></param>
+        /// <returns>Liked adverts</returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<IEnumerable<FlatAdvert>> GetLikedAdvertsByUserAsync(string? currentUserId)
+        {
+            if (String.IsNullOrEmpty(currentUserId))
+                throw new Exception("Current user Id can not be null or empty");
+
+            IEnumerable<int> LikedFlatAdvertsId = await _context.Likes
+                .Where(x =>  x.TypeOfRealty == TypeOfRealtyAdvert.FlatAdvert && x.UserId == currentUserId)
+                .Select(y=>y.AdvertId).ToListAsync();
+
+            List<FlatAdvert> LikedFlatAdverts = new List<FlatAdvert>(); 
+            FlatAdvert flatAdvert;
+            foreach(var item in LikedFlatAdvertsId)
+            {
+                flatAdvert = _context.FlatAdverts.First(x => x.Id == item);
+                LikedFlatAdverts.Add(flatAdvert);
+            }
+
+            return LikedFlatAdverts;
         }
 
 

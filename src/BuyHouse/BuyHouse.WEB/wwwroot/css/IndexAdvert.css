@@ -127,6 +127,17 @@ label {
     overflow: hidden;
 }
 
+.like_block {
+    text-align: center;
+}
+
+.like_count {
+    font-family: 'MS Reference Sans Serif';
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: -5px;
+}
+
 @media only screen and (max-width: 1400px) {
     .grow {
         -moz-transform: scale(0.8, 0.8);

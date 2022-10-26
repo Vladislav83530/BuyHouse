@@ -1,4 +1,5 @@
-﻿using BuyHouse.DAL.Entities.AdvertEntities;
+﻿using BuyHouse.DAL.Entities;
+using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.DAL.Entities.ApplicationUserEntities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ namespace BuyHouse.DAL.EF
         public DbSet<RoomAdvert> RoomAdverts { get; set; }
         public DbSet<HouseAdvert> HouseAdverts { get; set; }
         public DbSet<UserAvatar> UserAvatars { get; set; }
+        public DbSet<Like> Likes { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
             Database.EnsureCreated();
@@ -71,6 +73,11 @@ namespace BuyHouse.DAL.EF
                 .HasOne<UserAvatar>(u => u.UserAvatar)
                 .WithOne(c => c.ApplicationUser)
                 .HasForeignKey<UserAvatar>(c => c.ApplicationUserId);
+
+            builder.Entity<ApplicationUser>()
+                .HasMany<Like>(c => c.Likes)
+                .WithOne(e => e.ApplicationUser)
+                .HasForeignKey(c => c.UserId);
         }
     }
 }

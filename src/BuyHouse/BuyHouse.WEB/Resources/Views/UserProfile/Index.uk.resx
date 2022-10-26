@@ -152,6 +152,12 @@
   <data name="Full name" xml:space="preserve">
     <value>Повне ім'я</value>
   </data>
+  <data name="My adverts" xml:space="preserve">
+    <value>Мої оголошення</value>
+  </data>
+  <data name="My liked adverts" xml:space="preserve">
+    <value>Мої вподобані оголошення</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Ім'я</value>
   </data>

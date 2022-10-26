@@ -66,10 +66,43 @@
     color: black;
 }
 
+.title_block_SaleBuy {
+    font-size: 70px;
+    font-weight: 800;
+    font-family: 'Kaushan Script', cursive;
+}
+
+.SaleBuy_block {
+    background-color: #DDF3FF;
+    text-align: center;
+    height: 200px;
+    padding-top: 40px;
+    margin-top: 15px;
+}
+
+.ForUser_block {
+    background-color: #DDF3FF;
+    text-align: center;
+    padding: 20px;
+}
+
+.info_img {
+    width: 280px;
+    height: 280px;
+}
+
 @media only screen and (max-width: 1399px) {
     .img_block_advert {
         width: 360px;
         height: 360px;
+    }
+
+    .title_block_SaleBuy {
+        font-size: 65px;
+    }
+
+    .SaleBuy_block {
+        padding-top: 45px;
     }
 }
 
@@ -81,6 +114,11 @@
 
     .title_intro {
         font-size: 75px;
+    }
+
+    .info_img {
+        width:240px;
+        height: 240px;
     }
 }
 
@@ -104,6 +142,10 @@
 
     .param_block_advert {
         font-size: 14px;
+    }
+
+    .ForUser_block {
+        display: none;
     }
 }
 
@@ -144,6 +186,10 @@
     .btn_intro {
         width: 160px;
         font-size: 25px;
+    }
+
+    .title_block_SaleBuy {
+        font-size: 45px;
     }
 }
 
@@ -188,6 +234,10 @@
 
     .btn_intro {
         width: 200px;
+    }
+
+    .SaleBuy_block {
+        padding-top: 25px;
     }
 }
 

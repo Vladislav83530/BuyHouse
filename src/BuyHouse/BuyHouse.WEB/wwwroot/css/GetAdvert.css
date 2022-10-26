@@ -36,6 +36,17 @@
     height: 600px;
 }
 
+.like_block {
+    text-align: center;
+}
+
+.like_count {
+    font-family: 'MS Reference Sans Serif';
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: -5px;
+}
+
 @media only screen and (max-width: 1399px) {
     .avatar_img {
         width: 120px;

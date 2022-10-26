@@ -2,6 +2,6 @@
 {    
     public class CurrencyConvertDTO
     {
-        public double result { get; set; }
+        public double Result { get; set; }
     }
 }

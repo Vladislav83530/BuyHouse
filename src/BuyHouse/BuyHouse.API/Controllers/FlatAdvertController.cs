@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
 using BuyHouse.BLL.Services.Providers.DateTimeProvider;
 using BuyHouse.DAL.EF;
-using BuyHouse.DAL.Entities;
 using BuyHouse.DAL.Entities.AdvertEntities;
 using BuyHouse.DAL.Entities.HelperEnum;
-using BuyHouse.WEB.Models;
 using BuyHouse.WEB.Models.AdvertModel;
-using BuyHouse.WEB.Models.HttpClientModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -51,26 +48,25 @@ namespace BuyHouse.API.Controllers
         /// <summary>
         /// Create flat advert
         /// </summary>
-        /// <param name="requestModel"></param>
+        /// <param name="flatAdvert"></param>
         /// <param name="currentUserId"></param>
         /// <returns>created flat advert</returns>
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CreateFlatAdvert(CreateRequestModel requestModel, string? currentUserId)
+        public async Task<IActionResult> CreateFlatAdvert(FlatAdvertModel flatAdvert, string? currentUserId)
         {
             try
             {
                 if (string.IsNullOrEmpty(currentUserId))
                     return NotFound("Not found current user");
 
-                if (requestModel.FlatAdvert != null)
+                if (flatAdvert != null)
                 {
                     FlatAdvert advert = new();
-                    advert = _mapper.Map<FlatAdvertModel, FlatAdvert>(requestModel.FlatAdvert);
+                    advert = _mapper.Map<FlatAdvertModel, FlatAdvert>(flatAdvert);
 
                     advert.UserID = currentUserId;
                     advert.CreationDate = _dateTimeProvider.Now();
-                    advert.Photos = (ICollection<RealtyPhoto>)requestModel.RealtyPhotos;
 
                     if (advert.TypePrice == TypeOfPrice.TotalPrice)
                         advert.PricePerSquareMeter = (ulong)(advert.TotalPrice / advert.TotalArea);
@@ -98,30 +94,30 @@ namespace BuyHouse.API.Controllers
         /// Update flat advert
         /// </summary>
         /// <param name="Id"></param>
-        /// <param name="requestModel"></param>
+        /// <param name="flatAdvert"></param>
         /// <returns>updated flat advert</returns>
         [HttpPut("{Id:int}")]
-        //[Authorize]
-        public async Task<IActionResult> UpdateFlatAdvert(int Id, CreateRequestModel requestModel, string currentUserId)
+        [Authorize]
+        public async Task<IActionResult> UpdateFlatAdvert(int Id, FlatAdvertModel flatAdvert, string currentUserId)
         {
             try
             {
-                if (Id != requestModel.FlatAdvert.Id)
+                if (Id != flatAdvert.Id)
                     return BadRequest("Flat advert ID is mismatch");
 
                 if (string.IsNullOrEmpty(currentUserId))
                     return NotFound("Not found current user");
 
                 FlatAdvert flatAdvert_ = new();
-                flatAdvert_ = _mapper.Map<FlatAdvertModel, FlatAdvert>(requestModel.FlatAdvert);
+                flatAdvert_ = _mapper.Map<FlatAdvertModel, FlatAdvert>(flatAdvert);
 
                 var flatAdvertToUpdate = await _context.FlatAdverts.FindAsync(Id);
 
-                if (flatAdvertToUpdate.UserID != currentUserId)
-                    return BadRequest("This advert isn't belong current user");
-
                 if (flatAdvertToUpdate == null)
                     return NotFound($"Flat advert with Id = {Id} not found");
+
+                if (flatAdvertToUpdate.UserID != currentUserId)
+                    return BadRequest("This advert isn't belong current user");
 
                 flatAdvertToUpdate.MainInfo.Region = flatAdvert_.MainInfo.Region;
                 flatAdvertToUpdate.MainInfo.City = flatAdvert_.MainInfo.City;
@@ -130,7 +126,7 @@ namespace BuyHouse.API.Controllers
                 flatAdvertToUpdate.MainInfo.FlatNumber = flatAdvert_.MainInfo.FlatNumber;
                 flatAdvertToUpdate.MainInfo.RegistrationDate = flatAdvert_.MainInfo.RegistrationDate;
 
-                foreach (var photo in requestModel.RealtyPhotos)
+                foreach (var photo in flatAdvert_.Photos)
                         flatAdvertToUpdate.Photos.Add(photo);               
 
                 flatAdvertToUpdate.Description = flatAdvert_.Description.Replace("\n", "<br/>");
@@ -183,9 +179,6 @@ namespace BuyHouse.API.Controllers
 
                 if (flatAdvertToDelete.UserID != currentUserId)
                     return BadRequest("This advert isn't belong current user");
-
-                if (flatAdvertToDelete == null)
-                    return NotFound($"Flat advert with Id = {Id} not found");
 
                  _context.FlatAdverts.Remove(flatAdvertToDelete);
                 await _context.SaveChangesAsync();

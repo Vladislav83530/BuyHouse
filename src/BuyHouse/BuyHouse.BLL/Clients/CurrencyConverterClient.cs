@@ -8,10 +8,12 @@ namespace BuyHouse.BLL.Clients
     {
         private readonly string _apiKey;
         private readonly string _apiAdress;
+        private readonly string _apiHost;
         public CurrencyConverterClient(IConfiguration config)
         {
             _apiAdress = config["CurrencyConverterApiAdress"];
             _apiKey = config["CurrencyConverterApiKey"];
+            _apiHost = config["CurrencyConverterApiHost"];
         }
 
         /// <summary>
@@ -38,7 +40,7 @@ namespace BuyHouse.BLL.Clients
                 Headers =
                 {
                     { "X-RapidAPI-Key", _apiKey },
-                    { "X-RapidAPI-Host", "currency-converter-pro1.p.rapidapi.com" },
+                    { "X-RapidAPI-Host", _apiHost},
                 },
             };
             using (var response = await client.SendAsync(request))
@@ -46,7 +48,7 @@ namespace BuyHouse.BLL.Clients
                 response.EnsureSuccessStatusCode();
                 var body = await response.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<CurrencyConvertDTO>(body);
-                return (ulong)result.result;
+                return (ulong)result.Result;
             }
         }
     }
