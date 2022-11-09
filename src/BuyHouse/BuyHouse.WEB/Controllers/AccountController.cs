@@ -17,7 +17,7 @@ namespace BuyHouse.WEB.Controllers
 
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
             IStringLocalizer<AccountController> localizer, ApplicationDbContext context)
-        {
+        { 
             _userManager = userManager;
             _signInManager = signInManager;
             _localizer = localizer;

@@ -52,6 +52,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
+//For start application need to create secrets
 builder.Services.AddAuthentication()
  .AddFacebook(config =>
 {
